@@ -3449,3 +3449,66 @@ summary {
     font-size: 32px;
   }
 }
+
+/* === Slotfolio refinement pass 04: stronger game dossiers === */
+/* Give the dossier body a little more reading width without losing the editorial rail. */
+.slot-body {
+  grid-template-columns: 230px minmax(0, 800px);
+  gap: 64px;
+}
+.slot-body .prose {
+  max-width: 800px;
+}
+.slot-body .prose p,
+.slot-body .prose li {
+  max-width: 760px;
+}
+
+/* Editorial notes should feel like marginalia, not system alerts. */
+.slot-body .margin-note {
+  background: transparent;
+  border-left: 2px solid var(--red);
+  padding: 3px 0 3px 21px;
+  margin: 31px 0 29px;
+}
+.slot-body .margin-note strong {
+  display: block;
+  font-size: 12px;
+  letter-spacing: 0.1px;
+}
+.slot-body .margin-note p {
+  max-width: 680px;
+  font-size: 13px;
+  line-height: 1.75;
+  margin-top: 7px;
+}
+
+/* Keep the operator bridge quiet until a real partner placement is connected. */
+.slot-body .affiliate {
+  border-top-width: 1px;
+  padding-top: 28px;
+}
+.slot-body .affiliate h3 {
+  margin-top: 14px;
+}
+
+@media (max-width: 1100px) {
+  .slot-body {
+    grid-template-columns: 205px minmax(0, 1fr);
+    gap: 48px;
+  }
+  .slot-body .prose,
+  .slot-body .prose p,
+  .slot-body .prose li {
+    max-width: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .slot-body {
+    display: block;
+  }
+  .slot-body .margin-note {
+    padding-left: 17px;
+  }
+}

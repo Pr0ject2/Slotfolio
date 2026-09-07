@@ -123,11 +123,7 @@ export function Affiliate({ context = "game" }: { context?: string }) {
           Проверить страну и условия ↗
         </Link>
       )}
-      <small>
-        {url
-          ? operators["1win"].disclosure
-          : "Партнёрское размещение пока не подключено."}
-      </small>
+      {url && <small>{operators["1win"].disclosure}</small>}
     </aside>
   );
 }

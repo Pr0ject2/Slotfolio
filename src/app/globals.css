@@ -3193,3 +3193,259 @@ summary {
     font-size: 18px;
   }
 }
+
+
+/* === Slotfolio refinement pass 03: tighter utility pages + calmer editorial accents === */
+/* Catalogue search should read as a tool, not as another hero block. */
+.catalog-search {
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 34px;
+  padding: 13px 0 14px;
+  margin-bottom: 16px;
+}
+.catalog-search > label {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 500;
+}
+.catalog-search input {
+  font-size: 18px;
+  line-height: 1.35;
+  padding: 6px 0;
+}
+.catalog-search input::placeholder {
+  color: #777970;
+  opacity: 0.9;
+}
+.catalog-search > div > span {
+  font-size: 23px;
+  margin-left: 18px;
+}
+
+/* Give the filter rail a clearer hierarchy without turning it into a card. */
+.filter-panel {
+  padding-right: 26px;
+}
+.filter-heading {
+  margin-bottom: 23px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.filters > label,
+.filters legend {
+  color: var(--muted);
+  font-weight: 500;
+}
+.filters select {
+  background: #f0eee7;
+  border-color: #bfc0b6;
+  padding: 11px 9px;
+}
+.filters select:hover,
+.filters select:focus-visible {
+  border-color: var(--ink);
+}
+.filters fieldset label {
+  padding: 2px 0;
+}
+.filters fieldset label:hover {
+  color: var(--red);
+}
+.filter-note {
+  margin-top: 28px;
+  padding-top: 18px;
+}
+.results-toolbar {
+  min-height: 45px;
+  padding: 8px 0;
+}
+.results-toolbar select {
+  min-width: 165px;
+}
+.catalog-game {
+  padding: 17px 0;
+}
+
+/* Mechanics: less weight on the opening question, more room for the explanation. */
+.hub-lead {
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.35fr);
+  gap: 78px;
+  padding-top: 28px;
+  margin-bottom: 39px;
+}
+.hub-lead .big-serif {
+  max-width: 480px;
+  font-size: 39px;
+  line-height: 1.22;
+  letter-spacing: -0.7px;
+  color: var(--ink);
+}
+.hub-lead .big-serif em {
+  color: var(--muted);
+}
+.hub-lead-copy {
+  max-width: 650px;
+  padding-top: 2px;
+}
+.hub-lead-copy p {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.hub-list > a {
+  grid-template-columns: 52px minmax(180px, 0.9fr) minmax(0, 1.25fr) 24px;
+  padding: 27px 0;
+}
+.hub-list h2 {
+  font-size: 28px;
+}
+
+/* The cascade feature remains recognisable, but no longer dominates the page. */
+.feature-band {
+  background: #ecece5;
+  border-top: 1px solid #cfd0c6;
+  border-bottom: 1px solid #cfd0c6;
+  margin: 61px 0;
+  padding: 36px 42px;
+}
+.feature-band h2 {
+  font-size: 38px;
+  margin: 16px 0 17px;
+}
+.feature-band p {
+  max-width: 460px;
+}
+.cascade-art {
+  gap: 9px;
+}
+.cascade-column {
+  gap: 8px;
+  transform: rotate(-5deg);
+}
+.cascade-column:nth-child(2) {
+  transform: rotate(-5deg) translateY(-13px);
+}
+.cascade-column:nth-child(3) {
+  transform: rotate(-5deg) translateY(4px);
+}
+.cascade-column span {
+  width: 59px;
+  height: 59px;
+  font-size: 38px;
+  border-color: #c8c9bf;
+}
+.cascade-art small {
+  color: #73766b;
+}
+
+/* Bring neighbouring editorial blocks closer to the same visual temperature. */
+.collection-teaser {
+  background: #eeeae2;
+  border-top: 1px solid #d0cbc1;
+}
+.editorial-signoff {
+  margin-top: 4px;
+}
+
+@media (max-width: 1100px) {
+  .catalog-search {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 26px;
+  }
+  .hub-lead {
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
+    gap: 50px;
+  }
+  .hub-lead .big-serif {
+    font-size: 36px;
+  }
+  .hub-list > a {
+    grid-template-columns: 42px minmax(165px, 0.9fr) minmax(0, 1.2fr) 22px;
+  }
+}
+
+@media (max-width: 800px) {
+  .catalog-search {
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .hub-lead {
+    gap: 34px;
+  }
+  .hub-lead .big-serif {
+    font-size: 33px;
+  }
+  .hub-lead-copy p {
+    font-size: 13px;
+  }
+  .hub-list > a {
+    grid-template-columns: 30px minmax(145px, 0.9fr) minmax(0, 1fr) 20px;
+    gap: 14px;
+  }
+  .hub-list h2 {
+    font-size: 25px;
+  }
+  .feature-band {
+    padding: 28px 30px;
+  }
+}
+
+@media (max-width: 600px) {
+  .catalog-search {
+    display: block;
+    padding: 13px 0;
+  }
+  .catalog-search input {
+    font-size: 16px;
+  }
+  .filter-heading {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .filters select {
+    background: transparent;
+  }
+  .hub-lead {
+    display: block;
+    padding-top: 21px;
+    margin-bottom: 27px;
+  }
+  .hub-lead .big-serif {
+    max-width: 420px;
+    font-size: 32px;
+    line-height: 1.2;
+    margin-bottom: 21px;
+  }
+  .hub-lead-copy {
+    padding-top: 0;
+  }
+  .hub-lead-copy p {
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  .hub-list > a {
+    grid-template-columns: 24px minmax(0, 1fr) 20px;
+    gap: 12px;
+    padding: 23px 0;
+  }
+  .hub-list h2 {
+    font-size: 27px;
+  }
+  .feature-band {
+    margin: 36px -20px;
+    padding: 28px 20px;
+    border-left: 0;
+    border-right: 0;
+  }
+  .feature-band h2 {
+    font-size: 35px;
+  }
+  .cascade-column span {
+    width: 51px;
+    height: 51px;
+    font-size: 32px;
+  }
+}

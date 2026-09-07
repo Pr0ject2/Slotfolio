@@ -24,7 +24,7 @@ export function Header() {
         <span className="header-edition">
           КАТАЛОГ · РАЗБОРЫ · СРАВНЕНИЕ <span>18+</span>
         </span>
-        <Link className="header-search" href="/search">
+        <Link className="header-search" href="/search" aria-label="Найти игру">
           <svg
             width="19"
             height="19"

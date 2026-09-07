@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { formatRtp } from "@/lib/catalog-stats";
 import { notFound } from "next/navigation";
 import {
   slots,
@@ -15,7 +16,7 @@ import {
   SectionTitle,
   Affiliate,
 } from "@/components/editorial";
-import { CompareButton } from "@/components/catalog";
+import { CompareButton } from "@/components/compare-button";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteMediaUrl, absoluteUrl, pageMetadata } from "@/lib/seo";
 import {
@@ -322,7 +323,7 @@ export default async function Page({
               <div>
                 <span>RTP относительно базы</span>
                 <strong>{rtpContext.label}</strong>
-                <small>Медиана {slots.length} игр: {rtpContext.median.toFixed(2).replace(".", ",")}%</small>
+                <small>Медиана по {rtpContext.count} играм: {formatRtp(rtpContext.median)}</small>
               </div>
               <div>
                 <span>Волатильность</span>

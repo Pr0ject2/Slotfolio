@@ -160,58 +160,10 @@ async function processImage(buffer, output) {
   await rename(tmp, output);
 }
 
-function escapeXml(value = "") {
-  return String(value)
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&apos;");
-}
-
-function wrapTitle(title, max = 19) {
-  const words = title.split(/\s+/).filter(Boolean);
-  const lines = [];
-  let line = "";
-  for (const word of words) {
-    if (!line || `${line} ${word}`.length <= max) line = line ? `${line} ${word}` : word;
-    else {
-      lines.push(line);
-      line = word;
-    }
-  }
-  if (line) lines.push(line);
-  return lines.slice(0, 3);
-}
-
-async function createFallback(entry, output) {
-  const title = wrapTitle(entry.title || entry.slug.replaceAll("-", " "));
-  const titleSvg = title
-    .map(
-      (line, index) =>
-        `<text x="76" y="${260 + index * 74}" font-size="62" font-weight="700" font-family="Georgia,serif" fill="#171614">${escapeXml(line)}</text>`,
-    )
-    .join("");
-  const svg = `
-    <svg width="1200" height="675" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg">
-      <rect width="1200" height="675" fill="#eeeae2"/>
-      <rect x="42" y="42" width="1116" height="591" rx="6" fill="none" stroke="#c7c0b5" stroke-width="2"/>
-      <path d="M76 112 H1124" stroke="#b33a32" stroke-width="5"/>
-      <text x="76" y="166" font-size="24" letter-spacing="5" font-family="Arial,sans-serif" fill="#8b8176">SLOTFOLIO / ИГРОВОЕ ДОСЬЕ</text>
-      ${titleSvg}
-      <text x="76" y="560" font-size="27" font-family="Arial,sans-serif" fill="#665f57">${escapeXml(entry.provider || "Редакционная обложка")}</text>
-      <circle cx="1080" cy="540" r="42" fill="#b33a32"/>
-      <text x="1080" y="552" text-anchor="middle" font-size="34" font-family="Georgia,serif" fill="#fff">s.</text>
-    </svg>`;
-  await sharp(Buffer.from(svg))
-    .webp({ quality: 86, effort: 4 })
-    .toFile(output);
-}
-
 await mkdir(outputDir, { recursive: true });
 await mkdir(cacheDir, { recursive: true });
 const manifest = JSON.parse(await readFile(sourceFile, "utf8"));
-const remote = manifest.filter((entry) => entry.localize === "build");
+const remote = manifest;
 const warnings = [];
 
 for (const entry of remote) {
@@ -237,8 +189,7 @@ for (const entry of remote) {
       );
     } catch (error) {
       warnings.push(`${entry.slug}: ${error?.message || error}`);
-      console.warn(`! ${entry.slug}: source unavailable; creating editorial fallback`);
-      await createFallback(entry, output);
+      console.warn(`! ${entry.slug}: real artwork could not be downloaded`);
       continue;
     }
   }
@@ -249,10 +200,9 @@ for (const entry of remote) {
     console.log(`  → public/images/slots/${entry.slug}.webp (${bytes(size)})`);
   } catch (error) {
     warnings.push(`${entry.slug}: image conversion failed: ${error?.message || error}`);
-    console.warn(`! ${entry.slug}: conversion failed; creating editorial fallback`);
+    console.warn(`! ${entry.slug}: image conversion failed`);
     await unlink(cache).catch(() => {});
     await unlink(output).catch(() => {});
-    await createFallback(entry, output);
   }
 }
 
@@ -266,10 +216,10 @@ if (missing.length) {
   console.error(`\nSlot image localization incomplete: ${missing.join(", ")}`);
   if (!soft) process.exit(1);
 } else {
-  console.log(`\nSlot images ready: ${remote.length} build-localized asset(s).`);
+  console.log(`\nSlot images ready: ${remote.length} local asset(s).`);
 }
 
 if (warnings.length) {
-  console.warn(`Fallback covers used for ${warnings.length} asset(s) in this run:`);
+  console.warn(`Artwork failures for ${warnings.length} asset(s) in this run:`);
   for (const warning of warnings) console.warn(`- ${warning}`);
 }

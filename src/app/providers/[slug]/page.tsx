@@ -1,166 +1,38 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  providerProfiles,
-  providerSlug,
-  ruPlural,
-  slots,
-  slotMechanics,
-  slotRtpValue,
-} from "@/lib/data";
+import { providerProfiles, providerSlug, ruPlural, slots } from "@/lib/data";
 import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
+import { EntityJsonLd, EntityStats, FeaturedGames, MechanicLinks } from "@/components/entity-profile";
+import { catalogStats, representativeGames } from "@/lib/catalog-stats";
+import { providerReadingNotes } from "@/lib/profile-content";
 import { pageMetadata } from "@/lib/seo";
-
 export const dynamicParams = false;
-
-export function generateStaticParams() {
-  return providerProfiles.map((provider) => ({ slug: provider.slug }));
+export function generateStaticParams() { return providerProfiles.map(({slug}) => ({slug})); }
+export async function generateMetadata({params}: {params: Promise<{slug: string}>}) {
+  const {slug} = await params;
+  const profile = providerProfiles.find((p) => p.slug === slug);
+  return pageMetadata({title: profile ? profile.name + ": профиль студии, игры и механики" : "Провайдер не найден", description: profile?.catalogSummary || "Профили провайдеров в Slotfolio.", path: "/providers/" + slug, noIndex: !profile});
 }
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const provider = providerProfiles.find((item) => item.slug === slug);
-  if (!provider) {
-    return pageMetadata({
-      title: "Провайдер не найден",
-      description: "Такого профиля студии нет в текущем каталоге Slotfolio.",
-      path: "/providers",
-      noIndex: true,
-    });
-  }
-
-  return pageMetadata({
-    title: `${provider.name}: игры и механики`,
-    description: provider.catalogSummary,
-    path: `/providers/${provider.slug}`,
-  });
-}
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const profile = providerProfiles.find((item) => item.slug === slug);
+export default async function Page({params}: {params: Promise<{slug: string}>}) {
+  const {slug} = await params;
+  const profile = providerProfiles.find((p) => p.slug === slug);
   if (!profile) notFound();
-
-  const games = slots.filter((slot) => providerSlug(slot.provider) === slug);
-  if (!games.length) notFound();
-
-  const mechanicGroups = Array.from(
-    games.reduce((map, game) => {
-      for (const mechanic of slotMechanics(game)) {
-        const group = map.get(mechanic) || [];
-        group.push(game.name);
-        map.set(mechanic, group);
-      }
-      return map;
-    }, new Map<string, string[]>()),
-  );
-  const averageRtp =
-    games.reduce((sum, game) => sum + slotRtpValue(game), 0) / games.length;
-
-  return (
-    <>
-      <Breadcrumbs
-        items={[
-          { label: "Провайдеры", href: "/providers" },
-          { label: profile.name },
-        ]}
-      />
-
-      <div className="page-heading provider-profile-heading">
-        <div>
-          <span className="eyebrow accent">Профиль студии</span>
-          <h1>{profile.name}</h1>
-        </div>
-        <p>
-          {games.length} {ruPlural(games.length, "игра", "игры", "игр")} в каталоге · {mechanicGroups.length} {ruPlural(mechanicGroups.length, "механика", "механики", "механик")}
-          <br />
-          Смотрим на студию через конкретные игры.
-        </p>
-      </div>
-
-      <section className="provider-profile-hero">
-        <div className="provider-mark provider-mark-refined" aria-hidden="true">
-          <span>{profile.name}</span>
-          <small>{profile.mark}</small>
-        </div>
-        <div className="provider-profile-copy">
-          <span className="eyebrow">В каталоге Slotfolio</span>
-          <p className="provider-profile-intro">{profile.profileIntro}</p>
-          <p>{profile.profileBody}</p>
-          <div className="provider-profile-actions">
-            <Link href={`/slots?provider=${slug}`} className="text-link">
-              Показать все игры в каталоге ↗
-            </Link>
-            <Link href="/compare" className="text-link muted-link">
-              Открыть сравнение ↗
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <div className="provider-facts" aria-label="Сводка по играм провайдера">
-        <div>
-          <span className="eyebrow">Игр в указателе</span>
-          <strong>{games.length}</strong>
-          <small>Только уже разобранные игры</small>
-        </div>
-        <div>
-          <span className="eyebrow">Механик</span>
-          <strong>{mechanicGroups.length}</strong>
-          <small>{mechanicGroups.map(([name]) => name).join(" · ")}</small>
-        </div>
-        <div>
-          <span className="eyebrow">Средний RTP*</span>
-          <strong>{averageRtp.toFixed(2).replace(".", ",")}%</strong>
-          <small>По справочным версиям в каталоге</small>
-        </div>
-      </div>
-
-      <SectionTitle title="Что видно по каталогу" />
-      <div className="provider-mechanics">
-        {mechanicGroups.map(([mechanic, names], index) => (
-          <Link
-            href={`/slots?provider=${slug}&mechanic=${encodeURIComponent(mechanic)}`}
-            key={mechanic}
-            className="provider-mechanic-row"
-          >
-            <span className="number">{String(index + 1).padStart(2, "0")}</span>
-            <div>
-              <h3>{mechanic}</h3>
-              <p>{names.join(" · ")}</p>
-            </div>
-            <span className="provider-mechanic-count">
-              {names.length} {names.length === 1 ? "игра" : "игры"}
-            </span>
-            <b aria-hidden="true">↗</b>
-          </Link>
-        ))}
-      </div>
-
-      <SectionTitle title="Игры студии" />
-      <div className="provider-games-list">
-        {games.map((slot, index) => (
-          <GameRow key={slot.slug} slot={slot} index={index} />
-        ))}
-      </div>
-
-      <p className="data-note">
-        * Это не оценка провайдера и не обещание результата. RTP указан для
-        справочных версий игр и может отличаться у конкретного оператора.
-      </p>
-
-      <div className="editorial-signoff provider-signoff">
-        <p>{profile.signoff}</p>
-        <Link href="/compare">Поставить игры рядом ↗</Link>
-      </div>
-    </>
-  );
+  const games = slots.filter((s) => providerSlug(s.provider) === slug);
+  const stats = catalogStats(games);
+  const reading = providerReadingNotes[slug];
+  return <div className="entity-profile provider-dossier">
+    <EntityJsonLd name={profile.name} description={profile.catalogSummary} path={"/providers/" + slug} parent="providers" games={games} />
+    <Breadcrumbs items={[{label: "Провайдеры", href: "/providers"}, {label: profile.name}]} />
+    <div className="page-heading provider-profile-heading"><div><span className="eyebrow accent">Профиль студии</span><h1>{profile.name}</h1></div><p>{stats.count} {ruPlural(stats.count, "игра", "игры", "игр")} в Slotfolio<br/>{profile.mark}</p></div>
+    <nav className="entity-jump" aria-label="Разделы профиля"><a href="#approach">Подход к играм</a><a href="#catalog-profile">Портрет выборки</a><a href="#games">Все игры · {stats.count}</a><Link href={"/slots?provider=" + slug}>Открыть в каталоге ↗</Link></nav>
+    <section id="approach" className="entity-intro"><p className="big-serif">{profile.profileIntro}</p><div><p>{profile.profileBody}</p><p className="entity-editorial-note">{profile.signoff}</p></div></section>
+    <SectionTitle title="Два входа в каталог студии" />
+    <p className="entity-section-note">Первый ориентир и игра с другим набором функций. Это примеры устройства, а не рейтинг.</p>
+    <FeaturedGames games={representativeGames(games)} />
+    {reading && <section className="entity-reading"><span className="eyebrow accent">Редакционный маршрут</span><div><h2>{reading.title}</h2><p>{reading.text}</p><div className="entity-reading-links">{reading.compare.map((gameSlug) => { const game = games.find((s) => s.slug === gameSlug); return game && <Link key={game.slug} href={"/slots/" + game.slug}>{game.name} ↗</Link>; })}<Link href="/compare">Открыть сравнение ↗</Link></div></div></section>}
+    <EntityStats games={games} filter={{provider: slug}} />
+    <SectionTitle title="Связанные механики" /><MechanicLinks names={stats.mechanics.map((m) => m.name)} />
+    <section id="games"><SectionTitle title="Все игры студии" href={"/slots?provider=" + slug} label="Уточнить фильтры" /><div className="entity-games">{games.map((slot, index) => <GameRow key={slot.slug} slot={slot} index={index} compare />)}</div></section>
+    <div className="editorial-signoff provider-signoff"><p>Характеристики и ссылки на первичные источники приведены в каждом досье. Сравнивайте конкретные версии и правила игры.</p><Link href="/compare">Поставить игры рядом ↗</Link></div>
+  </div>;
 }

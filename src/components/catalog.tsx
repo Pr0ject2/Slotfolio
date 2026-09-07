@@ -14,69 +14,27 @@ import {
 } from "@/lib/data";
 import { GameImage } from "./editorial-client";
 import { getVerifiedSlotMetrics } from "@/lib/dossier";
+import { CompareButton, readSelection, saveSelection, useSelection } from "./compare-button";
+export { CompareButton } from "./compare-button";
+import { catalogStats, rtpRange } from "@/lib/catalog-stats";
+import { ruPlural } from "@/lib/data";
 const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map(
   (name) => ({
     name,
     slug: providerSlug(name),
   }),
 );
-function readSelection(): string[] {
-  try {
-    const value = JSON.parse(localStorage.getItem("slotfolio-compare") || "[]");
-    return Array.isArray(value)
-      ? value
-          .filter(
-            (s: unknown) =>
-              typeof s === "string" && slots.some((g) => g.slug === s),
-          )
-          .slice(0, 3)
-      : [];
-  } catch {
-    return [];
+function useUrlFilter(name: string, initial: string) {
+  const [value, setValue] = useState(initial);
+  useEffect(() => setValue(initial), [initial]);
+  function update(next: string) {
+    setValue(next);
+    const url = new URL(window.location.href);
+    if (next && !(name === "sort" && next === "editorial")) url.searchParams.set(name, next);
+    else url.searchParams.delete(name);
+    window.history.replaceState(null, "", url.pathname + url.search + url.hash);
   }
-}
-export function CompareButton({ slug }: { slug: string }) {
-  const [selected, setSelected] = useState<string[]>([]);
-  const [message, setMessage] = useState("");
-  useEffect(() => {
-    const sync = () => setSelected(readSelection());
-    sync();
-    window.addEventListener("comparison-change", sync);
-    return () => window.removeEventListener("comparison-change", sync);
-  }, []);
-  function toggle() {
-    const previous = readSelection();
-    if (previous.includes(slug)) {
-      save(previous.filter((x) => x !== slug));
-      setMessage("");
-    } else if (previous.length < 3) {
-      save([...previous, slug]);
-      setMessage("");
-    } else setMessage("В сравнении уже 3 игры. Удалите одну.");
-  }
-  function save(value: string[]) {
-    localStorage.setItem("slotfolio-compare", JSON.stringify(value));
-    setSelected(value);
-    window.dispatchEvent(new Event("comparison-change"));
-  }
-  return (
-    <div className="compare-control">
-      <button
-        className={
-          "compare-button " + (selected.includes(slug) ? "selected" : "")
-        }
-        aria-pressed={selected.includes(slug)}
-        onClick={toggle}
-      >
-        {selected.includes(slug) ? "✓ В сравнении" : "+ Сравнить"}
-      </button>
-      {message && (
-        <small role="status">
-          {message} <Link href="/compare">Открыть</Link>
-        </small>
-      )}
-    </div>
-  );
+  return [value, update] as const;
 }
 export function CatalogFromUrl() {
   const params = useSearchParams();
@@ -111,50 +69,16 @@ export function Catalog({
   initialSort?: string;
 }) {
   const PAGE_SIZE = 18;
-  const [q, setQ] = useState(initialQ);
-  const [provider, setProvider] = useState(initialProvider);
-  const [mechanic, setMechanic] = useState(initialMechanic);
-  const [volatility, setVolatility] = useState(initialVolatility);
-  const [rtp, setRtp] = useState(initialRtp);
-  const [feature, setFeature] = useState(initialFeature);
-  const [sort, setSort] = useState(initialSort);
+  const [q, setQ] = useUrlFilter("q", initialQ);
+  const [provider, setProvider] = useUrlFilter("provider", initialProvider);
+  const [mechanic, setMechanic] = useUrlFilter("mechanic", initialMechanic);
+  const [volatility, setVolatility] = useUrlFilter("volatility", initialVolatility);
+  const [rtp, setRtp] = useUrlFilter("rtp", initialRtp);
+  const [feature, setFeature] = useUrlFilter("feature", initialFeature);
+  const [sort, setSort] = useUrlFilter("sort", initialSort);
   const [view, setView] = useState("list");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-
-  useEffect(() => {
-    setQ(initialQ);
-    setProvider(initialProvider);
-    setMechanic(initialMechanic);
-    setVolatility(initialVolatility);
-    setRtp(initialRtp);
-    setFeature(initialFeature);
-    setSort(initialSort);
-  }, [
-    initialQ,
-    initialProvider,
-    initialMechanic,
-    initialVolatility,
-    initialRtp,
-    initialFeature,
-    initialSort,
-  ]);
-
-  useEffect(() => {
-    const p = new URLSearchParams();
-    if (q.trim()) p.set("q", q.trim());
-    if (provider) p.set("provider", provider);
-    if (mechanic) p.set("mechanic", mechanic);
-    if (volatility) p.set("volatility", volatility);
-    if (rtp) p.set("rtp", rtp);
-    if (feature) p.set("feature", feature);
-    if (sort !== "editorial") p.set("sort", sort);
-    window.history.replaceState(
-      null,
-      "",
-      window.location.pathname + (p.size ? "?" + p : ""),
-    );
-  }, [q, provider, mechanic, volatility, rtp, feature, sort]);
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
@@ -176,7 +100,7 @@ export function Catalog({
   if (sort === "rtp")
     results = [...results].sort(
       (a, b) =>
-        slotRtpValue(b) - slotRtpValue(a),
+        (Number.isFinite(slotRtpValue(b)) ? slotRtpValue(b) : -1) - (Number.isFinite(slotRtpValue(a)) ? slotRtpValue(a) : -1),
     );
 
   const visibleResults = results.slice(0, visibleCount);
@@ -504,26 +428,21 @@ export function Catalog({
   );
 }
 export function Comparison() {
-  const [selected, setSelected] = useState<string[]>([]);
+  const selected = useSelection();
+  const [seedMessage, setSeedMessage] = useState("");
   const [picker, setPicker] = useState("");
   const seed = useSearchParams().get("seed");
 
   useEffect(() => {
-    const sync = () => setSelected(readSelection());
-    sync();
-    window.addEventListener("comparison-change", sync);
-    return () => window.removeEventListener("comparison-change", sync);
-  }, []);
-
-  useEffect(() => {
     if (!seed || !slots.some((game) => game.slug === seed)) return;
     const stored = readSelection();
-    if (stored.includes(seed) || stored.length >= 3) return;
-    const next = [...stored, seed];
-    localStorage.setItem("slotfolio-compare", JSON.stringify(next));
-    setSelected(next);
-    window.dispatchEvent(new Event("comparison-change"));
-  }, [seed]);
+    if (!stored.includes(seed) && stored.length >= 3) { setSeedMessage("Чтобы добавить эту игру, освободите место в сравнении."); return; }
+    if (!stored.includes(seed)) saveSelection([...stored, seed]);
+    setSeedMessage("");
+    const url = new URL(window.location.href);
+    url.searchParams.delete("seed");
+    window.history.replaceState(null, "", url.pathname + url.search);
+  }, [seed, selected.length]);
 
   const games = selected
     .map((slug) => slots.find((game) => game.slug === slug))
@@ -573,14 +492,7 @@ export function Comparison() {
     },
   ];
 
-  function save(next: string[]) {
-    const normalized = next
-      .filter((slug) => slots.some((game) => game.slug === slug))
-      .slice(0, 3);
-    setSelected(normalized);
-    localStorage.setItem("slotfolio-compare", JSON.stringify(normalized));
-    window.dispatchEvent(new Event("comparison-change"));
-  }
+  function save(next: string[]) { saveSelection(next); }
 
   function remove(slug: string) {
     save(selected.filter((item) => item !== slug));
@@ -599,12 +511,10 @@ export function Comparison() {
 
   const selectedMechanics = new Set(games.flatMap((game) => slotMechanics(game)));
   const fields = new Set(games.map((game) => game.field));
-  const rtps = games.map(slotRtpValue);
-  const minRtp = rtps.length ? Math.min(...rtps) : 0;
-  const maxRtp = rtps.length ? Math.max(...rtps) : 0;
 
   return (
     <div className="comparison">
+      {seedMessage && <p className="data-note" role="status">{seedMessage}</p>}
       <section className="comparison-builder" aria-label="Выбор игр для сравнения">
         <div className="comparison-builder-copy">
           <span className="eyebrow">Ваш набор</span>
@@ -702,7 +612,7 @@ export function Comparison() {
             <strong>
               {selectedMechanics.size === 1
                 ? "Одинаковая"
-                : `${selectedMechanics.size} разные`}
+                : `${selectedMechanics.size} ${ruPlural(selectedMechanics.size, "механика", "механики", "механик")}`}
             </strong>
             <small>{Array.from(selectedMechanics).join(" · ")}</small>
           </div>
@@ -716,11 +626,7 @@ export function Comparison() {
           <div>
             <span className="eyebrow">RTP*</span>
             <strong>
-              {minRtp === maxRtp
-                ? `${minRtp.toFixed(2).replace(".", ",")}%`
-                : `${minRtp.toFixed(2).replace(".", ",")}–${maxRtp
-                    .toFixed(2)
-                    .replace(".", ",")}%`}
+              {rtpRange(catalogStats(games).rtp)}
             </strong>
             <small>Справочные версии игр</small>
           </div>
@@ -729,7 +635,7 @@ export function Comparison() {
 
       {games.length ? (
         <>
-          <div className="comparison-scroll">
+          <div className="comparison-scroll" tabIndex={0} role="region" aria-label="Таблица сравнения, прокручивается по горизонтали">
             <table className="comparison-table">
               <caption className="sr-only">Сравнение выбранных игр</caption>
               <thead>

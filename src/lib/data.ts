@@ -501,7 +501,7 @@ export const slots: Slot[] = [
     provider: "NetEnt",
     year: 2010,
     mechanic: "Каскады",
-    mechanics: ["Каскады"],
+    mechanics: ["Каскады", "Линии"],
     tags: ["Каскады", "Множители", "Свободные вращения"],
     field: "5 × 3",
     rtp: "95,97%",
@@ -602,18 +602,21 @@ export const article = {
 
 export const getSlot = (slug: string) => slots.find((s) => s.slug === slug);
 
-export const slotMechanics = (slot: Slot) => slot.mechanics;
+export const slotMechanics = (slot: Slot) => [...new Set(slot.mechanics)];
 
-export const slotRtpValue = (slot: Slot) =>
-  Number.parseFloat(slot.rtp.replace(",", ".").replace("%", ""));
+export const slotRtpValue = (slot: Slot) => {
+  const raw = slot.rtp?.trim().replace(",", ".").replace(/%$/, "").trim();
+  if (!raw || !/^\d+(\.\d+)?$/.test(raw)) return Number.NaN;
+  const value = Number(raw);
+  return value >= 0 && value <= 100 ? value : Number.NaN;
+};
 
 export const slotFeatureOptions = Array.from(
   slots.reduce((counts, slot) => {
-    for (const tag of slot.tags) counts.set(tag, (counts.get(tag) || 0) + 1);
+    for (const tag of new Set(slot.tags)) counts.set(tag, (counts.get(tag) || 0) + 1);
     return counts;
   }, new Map<string, number>()),
 )
-  .filter(([, count]) => count >= 2)
   .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ru"))
   .map(([name, count]) => ({ name, count }));
 
@@ -628,8 +631,10 @@ const searchAliasGroups = [
 
 function normalizeSearch(value: string) {
   return value
-    .normalize("NFKD")
+    .normalize("NFKC")
     .toLowerCase()
+    .replace(/ё/g, "е")
+    .replace(/(\d),(?=\d)/g, "$1.")
     .replace(/[’']/g, "")
     .replace(/[^a-zа-яё0-9.%×]+/gi, " ")
     .replace(/\s+/g, " ")
@@ -658,7 +663,7 @@ export function slotMatchesSearch(slot: Slot, query: string) {
   return tokens.every((token) => {
     if (searchable.includes(token)) return true;
     const aliases = searchAliasGroups.find((group) =>
-      group.some((alias) => normalizeSearch(alias).includes(token) || token.includes(normalizeSearch(alias))),
+      group.some((alias) => normalizeSearch(alias).split(" ").includes(token)),
     );
     return aliases ? aliases.some((alias) => searchable.includes(normalizeSearch(alias))) : false;
   });
@@ -683,7 +688,7 @@ export function relatedSlots(slot: Slot, limit = 2) {
           sharedTags * 2 +
           sameProvider * 3 +
           sameVolatility -
-          Math.min(rtpDistance, 2) * 0.25,
+          (Number.isFinite(rtpDistance) ? Math.min(rtpDistance, 2) * 0.25 : 0),
       };
     })
     .sort((a, b) => b.score - a.score || a.index - b.index)
@@ -718,7 +723,7 @@ export const mechanics = [
   {
     name: "Сбор символов",
     slug: "collect",
-    text: "Отдельный символ собирает значения других символов на поле.",
+    text: "Символы собирают значения на поле или заполняют шкалу, которая запускает функцию.",
   },
   {
     name: "Способы",
@@ -753,9 +758,9 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Pragmatic Play",
     mark: "Каскады · кластеры · линии · сбор",
     catalogSummary:
-      "Семь игр показывают каскады, кластерные поля, классические линии и бонусы со сбором символов.",
+      "Каскады, кластерные поля, классические линии и бонусы со сбором символов — разные стороны каталога Pragmatic Play.",
     profileIntro:
-      "В расширенном каталоге одна студия уже охватывает несколько разных способов читать поле: от Pay Anywhere и кластеров до традиционных линий.",
+      "В каталоге одна студия охватывает несколько разных способов читать поле: от Pay Anywhere и кластеров до традиционных линий.",
     profileBody:
       "Gates of Olympus, Sweet Bonanza и Starlight Princess показывают разные варианты каскадного ритма, Sugar Rush и Fruit Party переходят к кластерным полям, The Dog House остаётся ближе к линиям, а Big Bass Bonanza переносит внимание на сбор значений. Провайдер удобен как вход в каталог, но не описывает механику сам по себе.",
     signoff:
@@ -766,7 +771,7 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Play’n GO",
     mark: "Линии · кластеры",
     catalogSummary:
-      "Пять игр охватывают классические линии, компактную 3 × 3 сетку и более насыщенные grid-сценарии.",
+      "Классические линии, компактная сетка 3 × 3 и кластерные поля: разбираем разные подходы Play’n GO к игровому раунду.",
     profileIntro:
       "Book of Dead, Legacy of Dead и Fire Joker держатся ближе к традиционной геометрии, тогда как Reactoonz и Rise of Olympus требуют читать всё поле.",
     profileBody:
@@ -779,7 +784,7 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Push Gaming",
     mark: "Кластеры · линии",
     catalogSummary:
-      "Четыре игры дают два разных масштаба кластерных полей и две линейные основы с функциями поверх них.",
+      "Большие кластерные поля и линейные игры с накоплением функций: устройство слотов Push Gaming на конкретных примерах.",
     profileIntro:
       "Jammin’ Jars и Retro Tapes расширяют идею кластеров, а Razor Shark и Fat Rabbit показывают, как много функций можно наложить на обычные линии.",
     profileBody:
@@ -792,7 +797,7 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Hacksaw Gaming",
     mark: "Линии · кластеры",
     catalogSummary:
-      "Четыре игры соединяют узнаваемую стилистику студии с двумя принципиально разными способами выплаты.",
+      "Линии, multiplier-wild и кластерные каскады: чем различаются Wanted, Chaos Crew и Le Bandit от Hacksaw Gaming.",
     profileIntro:
       "Wanted Dead or a Wild и две Chaos Crew опираются на линии, тогда как Le Bandit уходит в кластеры и состояние клеток.",
     profileBody:
@@ -805,7 +810,7 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Nolimit City",
     mark: "Способы · xWays · расширяемые поля",
     catalogSummary:
-      "Четыре игры меняют геометрию позиций и число доступных способов прямо внутри вращения.",
+      "Динамические сетки Nolimit City: как xWays, xNudge и раскрытие рядов меняют структуру раунда в играх каталога.",
     profileIntro:
       "San Quentin xWays, Fire in the Hole, Deadwood и Mental полезны как набор примеров, где статичного описания сетки уже недостаточно.",
     profileBody:
@@ -818,7 +823,7 @@ export const providerProfiles: ProviderProfile[] = [
     name: "NetEnt",
     mark: "Линии · Avalanche",
     catalogSummary:
-      "Три игры дают исторический срез: минималистичные линии Starburst, каскады Gonzo’s Quest и высоковолатильный Dead or Alive 2.",
+      "Линии Starburst, каскады Gonzo’s Quest и бонусные сценарии Dead or Alive 2: профиль игр NetEnt в Slotfolio.",
     profileIntro:
       "NetEnt удобно читать как эволюцию привычных онлайн-слотов: от простой функции одного wild до каскадной цепочки и нескольких режимов free spins.",
     profileBody:
@@ -831,7 +836,7 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Relax Gaming",
     mark: "Линии · stateful-бонусы",
     catalogSummary:
-      "Три линейных игры отличаются тем, насколько далеко бонусный режим уходит от обычного чтения барабанов.",
+      "Money Train 2, Snake Arena и Book of 99: линейная основа и разные системы бонусов в играх Relax Gaming.",
     profileIntro:
       "Money Train 2, Snake Arena и Book of 99 используют знакомую линейную основу, но превращают бонус в отдельную систему со своим состоянием.",
     profileBody:

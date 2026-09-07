@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { catalogStats } from "@/lib/catalog-stats";
 import { Breadcrumbs } from "@/components/editorial";
 import {
   providerProfiles,
   providerSlug,
   ruPlural,
   slots,
-  slotMechanics,
 } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 
@@ -17,8 +17,8 @@ export const metadata = pageMetadata({
 
 function providerStats(name: string) {
   const games = slots.filter((slot) => slot.provider === name);
-  const mechanics = new Set(games.flatMap((slot) => slotMechanics(slot)));
-  return { games: games.length, mechanics: mechanics.size };
+  const stats = catalogStats(games);
+  return { games: stats.count, mechanics: stats.mechanics.length };
 }
 
 export default function Page() {

@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { type Slot, providerSlug, slotMechanics } from "@/lib/data";
-import { affiliateUrl, operators } from "@/lib/affiliate";
+import { affiliateUrl, affiliateHref, operators } from "@/lib/affiliate";
 import { withBasePath } from "@/lib/base-path";
+import { CompareButton } from "./compare-button";
+import { SlotArtwork } from "./slot-artwork";
 export function Breadcrumbs({
   items,
 }: {
@@ -53,7 +55,7 @@ export function GameImage({
   priority?: boolean;
 }) {
   return (
-    <img
+    <SlotArtwork
       className={"game-image " + className}
       src={withBasePath(
         priority && slot.featureImage ? slot.featureImage : slot.image,
@@ -67,9 +69,9 @@ export function GameImage({
     />
   );
 }
-export function GameRow({ slot, index }: { slot: Slot; index?: number }) {
+export function GameRow({ slot, index, compare = false }: { slot: Slot; index?: number; compare?: boolean }) {
   return (
-    <article className="game-row">
+    <article className={`game-row${compare ? " game-row-comparable" : ""}`}>
       {index !== undefined && (
         <span className="row-index">{String(index + 1).padStart(2, "0")}</span>
       )}
@@ -94,6 +96,7 @@ export function GameRow({ slot, index }: { slot: Slot; index?: number }) {
         <small>RTP*</small>
         {slot.rtp}
       </span>
+      {compare && <CompareButton slug={slot.slug} />}
       <Link
         className="row-arrow"
         href={"/slots/" + slot.slug}
@@ -117,7 +120,7 @@ export function Affiliate({ context = "game" }: { context?: string }) {
       {url ? (
         <a
           className="button"
-          href={"/go/1win?context=" + encodeURIComponent(context)}
+          href={affiliateHref(context)}
           rel="sponsored nofollow"
         >
           Перейти в {operators["1win"].name} ↗

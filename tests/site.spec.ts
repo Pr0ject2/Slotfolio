@@ -220,25 +220,25 @@ test("comparison selection, maximum, persistence and removal", async ({
     await page
       .locator(".catalog-game")
       .nth(i)
-      .getByRole("button", { name: "+ Сравнить", exact: true })
+      .getByRole("button", { name: /^Добавить .+ в сравнение$/ })
       .click();
   await page
     .locator(".catalog-game")
     .nth(3)
-    .getByRole("button", { name: "+ Сравнить", exact: true })
+    .getByRole("button", { name: /^Добавить .+ в сравнение$/ })
     .click();
   await expect(
     page.getByText("В сравнении уже 3 игры. Удалите одну."),
   ).toBeVisible();
   await page.goto("/compare");
-  await expect(page.locator("thead img")).toHaveCount(3);
+  await expect(page.locator(".comparison-selection article img")).toHaveCount(3);
   await page.reload();
-  await expect(page.locator("thead img")).toHaveCount(3);
+  await expect(page.locator(".comparison-selection article img")).toHaveCount(3);
   await page.getByRole("button", { name: "Удалить Gates of Olympus" }).click();
-  await expect(page.locator("thead img")).toHaveCount(2);
+  await expect(page.locator(".comparison-selection article img")).toHaveCount(2);
   await page.goto("/slots/gates-of-olympus");
   await expect(
-    page.getByRole("button", { name: "+ Сравнить", exact: true }),
+    page.getByRole("button", { name: /^Добавить .+ в сравнение$/ }),
   ).toBeVisible();
   await page.goto("/compare?seed=gates-of-olympus");
   await expect(page.getByRole("link", { name: "Gates of Olympus", exact: true }).first()).toBeVisible();
@@ -306,7 +306,7 @@ test("no viewport overflow across mobile, tablet and desktop", async ({
   page,
 }) => {
   test.setTimeout(120000);
-  for (const width of [320, 390, 768, 1024, 1440]) {
+  for (const width of [320, 360, 390, 430, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const path of [
       "/",
@@ -315,6 +315,11 @@ test("no viewport overflow across mobile, tablet and desktop", async ({
       "/journal/how-cascades-work",
       "/collections/beyond-lines",
       "/regions/great-britain",
+      "/providers/pragmatic-play",
+      "/providers/hacksaw-gaming",
+      "/mechanics/cascades",
+      "/mechanics/ways",
+      "/slots/chaos-crew-2",
     ]) {
       await page.goto(path);
       expect(

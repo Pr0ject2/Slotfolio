@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { withBasePath } from "@/lib/base-path";
 import { slots, article, mechanics } from "@/lib/data";
 import { GameImage, GameRow, SectionTitle } from "@/components/editorial";
 import { pageMetadata } from "@/lib/seo";
@@ -88,7 +89,7 @@ export default function Home() {
               Игры разных студий и разные способы собрать выигрыш. Факты,
               особенности и короткий редакционный комментарий.
             </p>
-            <form action="/slots" className="mini-search">
+            <form action={withBasePath("/slots")} className="mini-search">
               <label className="sr-only" htmlFor="home-search">
                 Название игры
               </label>

@@ -1,4 +1,5 @@
 import { slots, slotRtpValue, type Slot } from "@/lib/data";
+import { catalogStats } from "./catalog-stats";
 
 export type SlotFeatureCard = {
   title: string;
@@ -192,22 +193,20 @@ export function slotFeatureCards(slot: Slot) {
   return cards;
 }
 
-const rtpValues = slots.map(slotRtpValue).sort((a, b) => a - b);
-const catalogMedianRtp =
-  rtpValues.length % 2
-    ? rtpValues[(rtpValues.length - 1) / 2]
-    : (rtpValues[rtpValues.length / 2 - 1] + rtpValues[rtpValues.length / 2]) / 2;
+const rtpStats = catalogStats(slots).rtp;
+const catalogMedianRtp = rtpStats.median;
 
 export function catalogRtpContext(slot: Slot) {
   const value = slotRtpValue(slot);
-  const delta = value - catalogMedianRtp;
+  const delta = Number.isFinite(value) && catalogMedianRtp !== null ? value - catalogMedianRtp : Number.NaN;
   const direction = Math.abs(delta) < 0.005 ? "на уровне" : delta > 0 ? "выше" : "ниже";
   return {
     value,
     median: catalogMedianRtp,
+    count: rtpStats.count,
     delta,
     label:
-      direction === "на уровне"
+      !Number.isFinite(delta) ? "Недостаточно данных для сопоставления" : direction === "на уровне"
         ? "На уровне медианы каталога"
         : `${Math.abs(delta).toFixed(2).replace(".", ",")} п.п. ${direction} медианы каталога`,
   };
@@ -222,9 +221,9 @@ const volatilityRank: Record<string, number> = {
 
 export function volatilityContext(slot: Slot) {
   const rank = volatilityRank[slot.volatility] || 0;
-  if (rank >= 4) return "Верхняя ступень шкалы в текущем каталоге";
-  if (rank === 3) return "Выше средней по текущему каталогу";
-  if (rank === 2) return "Средняя ступень по текущему каталогу";
-  if (rank === 1) return "Ниже средней по текущему каталогу";
+  if (rank >= 4) return "Экстремальная справочная категория";
+  if (rank === 3) return "Высокая справочная категория";
+  if (rank === 2) return "Средняя справочная категория";
+  if (rank === 1) return "Низкая справочная категория";
   return "Справочная категория провайдера";
 }

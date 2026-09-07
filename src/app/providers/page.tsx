@@ -1,39 +1,85 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
+import {
+  providerProfiles,
+  providerSlug,
+  slots,
+} from "@/lib/data";
+
 export const metadata = { title: "Провайдеры слотов" };
+
+function providerStats(name: string) {
+  const games = slots.filter((slot) => slot.provider === name);
+  const mechanics = new Set(games.map((slot) => slot.mechanic));
+  return { games: games.length, mechanics: mechanics.size };
+}
+
 export default function Page() {
   return (
     <>
       <Breadcrumbs
         items={[{ label: "Каталог", href: "/slots" }, { label: "Провайдеры" }]}
       />
-      <div className="page-heading utility-heading">
+
+      <div className="page-heading utility-heading provider-heading">
         <div>
           <span className="eyebrow accent">Студии и их игры</span>
           <h1>Кто делает слоты</h1>
         </div>
         <p>
-          За узнаваемой графикой —<br />
-          свой подход к механике и ритму игры.
+          Провайдер помогает ориентироваться в каталоге,
+          <br />
+          но правила всё равно живут на уровне конкретной игры.
         </p>
       </div>
-      <div className="hub-list">
-        <Link href="/providers/pragmatic-play">
-          <span className="number">P</span>
-          <h2>Pragmatic Play</h2>
+
+      <div className="provider-index-lead">
+        <p className="big-serif">
+          Одна студия может выпускать игры с совершенно разной логикой.
+        </p>
+        <div>
           <p>
-            Каскады, линии и механики сбора. Четыре игры уже связаны
-            с профилем провайдера.
+            Здесь провайдеры нужны не как рейтинг брендов, а как ещё один путь
+            по каталогу. Смотрите, какие механики уже представлены у студии,
+            затем переходите к конкретным досье.
           </p>
-          <b>↗</b>
-        </Link>
-        <Link href="/providers/play-n-go">
-          <span className="number">P</span>
-          <h2>Play’n GO</h2>
-          <p>От лаконичного Book of Dead до цепных реакций Reactoonz.</p>
-          <b>↗</b>
-        </Link>
+          <Link href="/compare" className="text-link">
+            Сравнить игры разных студий ↗
+          </Link>
+        </div>
       </div>
+
+      <div className="provider-index" aria-label="Провайдеры в каталоге">
+        {providerProfiles.map((profile, index) => {
+          const stats = providerStats(profile.name);
+          return (
+            <Link
+              key={profile.slug}
+              href={`/providers/${providerSlug(profile.name)}`}
+              className="provider-index-row"
+            >
+              <span className="provider-index-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div className="provider-index-name">
+                <span className="eyebrow">Профиль студии</span>
+                <h2>{profile.name}</h2>
+              </div>
+              <p>{profile.catalogSummary}</p>
+              <div className="provider-index-stats">
+                <span>{stats.games} игры</span>
+                <span>{stats.mechanics} механики</span>
+              </div>
+              <b aria-hidden="true">↗</b>
+            </Link>
+          );
+        })}
+      </div>
+
+      <p className="data-note provider-data-note">
+        Сейчас в указателе представлены только студии, для которых уже есть
+        игровые досье. Список будет расти вместе с каталогом.
+      </p>
     </>
   );
 }

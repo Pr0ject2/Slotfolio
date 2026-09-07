@@ -1,76 +1,150 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { slots, providerSlug } from "@/lib/data";
+import {
+  providerProfiles,
+  providerSlug,
+  slots,
+} from "@/lib/data";
 import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
+
 export const dynamicParams = false;
+
 export function generateStaticParams() {
-  return Array.from(new Set(slots.map((s) => providerSlug(s.provider)))).map(
-    (slug) => ({ slug }),
-  );
+  return providerProfiles.map((provider) => ({ slug: provider.slug }));
 }
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const provider = slots.find((s) => providerSlug(s.provider) === slug)?.provider;
-  return { title: provider || "Провайдер" };
+  const provider = providerProfiles.find((item) => item.slug === slug);
+  return { title: provider?.name || "Провайдер" };
 }
+
+function parseRtp(value: string) {
+  return Number.parseFloat(value.replace(",", ".").replace("%", ""));
+}
+
 export default async function Page({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const games = slots.filter((s) => providerSlug(s.provider) === slug);
+  const profile = providerProfiles.find((item) => item.slug === slug);
+  if (!profile) notFound();
+
+  const games = slots.filter((slot) => providerSlug(slot.provider) === slug);
   if (!games.length) notFound();
-  const name = games[0].provider;
+
+  const mechanicGroups = Array.from(
+    games.reduce((map, game) => {
+      const group = map.get(game.mechanic) || [];
+      group.push(game.name);
+      map.set(game.mechanic, group);
+      return map;
+    }, new Map<string, string[]>()),
+  );
+  const averageRtp =
+    games.reduce((sum, game) => sum + parseRtp(game.rtp), 0) / games.length;
+
   return (
     <>
       <Breadcrumbs
-        items={[{ label: "Провайдеры", href: "/providers" }, { label: name }]}
+        items={[
+          { label: "Провайдеры", href: "/providers" },
+          { label: profile.name },
+        ]}
       />
-      <div className="page-heading">
+
+      <div className="page-heading provider-profile-heading">
         <div>
           <span className="eyebrow accent">Профиль студии</span>
-          <h1>{name}</h1>
+          <h1>{profile.name}</h1>
         </div>
         <p>
-          Разработчик игр · {games.length} в каталоге
+          {games.length} игры в каталоге · {mechanicGroups.length} механики
           <br />
-          Редакционное знакомство
+          Смотрим на студию через конкретные игры.
         </p>
       </div>
-      <div className="hub-lead">
-        <div className="provider-mark">
-          {name}
-          <span className="eyebrow" style={{ marginTop: 20, letterSpacing: 2 }}>
-            РАЗРАБОТЧИК ИГР
-          </span>
+
+      <section className="provider-profile-hero">
+        <div className="provider-mark provider-mark-refined" aria-hidden="true">
+          <span>{profile.name}</span>
+          <small>{profile.mark}</small>
+        </div>
+        <div className="provider-profile-copy">
+          <span className="eyebrow">В каталоге Slotfolio</span>
+          <p className="provider-profile-intro">{profile.profileIntro}</p>
+          <p>{profile.profileBody}</p>
+          <div className="provider-profile-actions">
+            <Link href={`/slots?provider=${slug}`} className="text-link">
+              Показать все игры в каталоге ↗
+            </Link>
+            <Link href="/compare" className="text-link muted-link">
+              Открыть сравнение ↗
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <div className="provider-facts" aria-label="Сводка по играм провайдера">
+        <div>
+          <span className="eyebrow">Игр в указателе</span>
+          <strong>{games.length}</strong>
+          <small>Только уже разобранные игры</small>
         </div>
         <div>
-          <p>
-            {slug === "pragmatic-play"
-              ? "В нашем каталоге Pragmatic Play представлен сразу несколькими подходами: выплатами по линиям в The Dog House, каскадами в Gates of Olympus и сбором денежных символов в Big Bass Bonanza."
-              : "Book of Dead и Reactoonz хорошо показывают, насколько разными могут быть игры одной студии. У первой — традиционные барабаны, у второй — большое кластерное поле и шкала энергии."}
-          </p>
-          <p>
-            Имя провайдера помогает найти другие игры знакомого разработчика. Но
-            правила, RTP и набор функций стоит изучать отдельно у каждой игры.
-          </p>
-          <Link href={"/slots?provider=" + slug} className="text-link">
-            Показать в каталоге ↗
-          </Link>
+          <span className="eyebrow">Механик</span>
+          <strong>{mechanicGroups.length}</strong>
+          <small>{mechanicGroups.map(([name]) => name).join(" · ")}</small>
+        </div>
+        <div>
+          <span className="eyebrow">Средний RTP*</span>
+          <strong>{averageRtp.toFixed(2).replace(".", ",")}%</strong>
+          <small>По справочным версиям в каталоге</small>
         </div>
       </div>
+
+      <SectionTitle title="Что видно по каталогу" />
+      <div className="provider-mechanics">
+        {mechanicGroups.map(([mechanic, names], index) => (
+          <Link
+            href={`/slots?provider=${slug}&mechanic=${encodeURIComponent(mechanic)}`}
+            key={mechanic}
+            className="provider-mechanic-row"
+          >
+            <span className="number">{String(index + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{mechanic}</h3>
+              <p>{names.join(" · ")}</p>
+            </div>
+            <span className="provider-mechanic-count">
+              {names.length} {names.length === 1 ? "игра" : "игры"}
+            </span>
+            <b aria-hidden="true">↗</b>
+          </Link>
+        ))}
+      </div>
+
       <SectionTitle title="Игры студии" />
-      {games.map((s) => (
-        <GameRow key={s.slug} slot={s} />
-      ))}
-      <div className="editorial-signoff">
-        <p>Сравните не названия студий, а конкретные правила игры.</p>
-        <Link href="/compare">К сравнению ↗</Link>
+      <div className="provider-games-list">
+        {games.map((slot, index) => (
+          <GameRow key={slot.slug} slot={slot} index={index} />
+        ))}
+      </div>
+
+      <p className="data-note">
+        * Это не оценка провайдера и не обещание результата. RTP указан для
+        справочных версий игр и может отличаться у конкретного оператора.
+      </p>
+
+      <div className="editorial-signoff provider-signoff">
+        <p>{profile.signoff}</p>
+        <Link href="/compare">Поставить игры рядом ↗</Link>
       </div>
     </>
   );

@@ -400,20 +400,194 @@ export function Catalog({
 }
 export function Comparison() {
   const [selected, setSelected] = useState<string[]>([]);
+  const [picker, setPicker] = useState("");
+
   useEffect(() => {
-    setSelected(readSelection());
+    const sync = () => setSelected(readSelection());
+    sync();
+    window.addEventListener("comparison-change", sync);
+    return () => window.removeEventListener("comparison-change", sync);
   }, []);
+
   const games = selected
-    .map((s) => slots.find((g) => g.slug === s))
-    .filter((x): x is Slot => !!x);
-  function remove(slug: string) {
-    const next = selected.filter((x) => x !== slug);
-    setSelected(next);
-    localStorage.setItem("slotfolio-compare", JSON.stringify(next));
+    .map((slug) => slots.find((game) => game.slug === slug))
+    .filter((game): game is Slot => !!game);
+
+  const availableGames = slots.filter((game) => !selected.includes(game.slug));
+  const presets = [
+    {
+      label: "Два каскадных подхода",
+      caption: "Gates of Olympus + Sweet Bonanza",
+      slugs: ["gates-of-olympus", "sweet-bonanza"],
+    },
+    {
+      label: "Линии против кластеров",
+      caption: "Book of Dead + Reactoonz",
+      slugs: ["book-of-dead", "reactoonz"],
+    },
+    {
+      label: "Три разные логики",
+      caption: "Каскады + линии + сбор символов",
+      slugs: ["gates-of-olympus", "book-of-dead", "big-bass-bonanza"],
+    },
+  ];
+
+  function save(next: string[]) {
+    const normalized = next
+      .filter((slug) => slots.some((game) => game.slug === slug))
+      .slice(0, 3);
+    setSelected(normalized);
+    localStorage.setItem("slotfolio-compare", JSON.stringify(normalized));
     window.dispatchEvent(new Event("comparison-change"));
   }
+
+  function remove(slug: string) {
+    save(selected.filter((item) => item !== slug));
+  }
+
+  function add() {
+    if (!picker || selected.length >= 3 || selected.includes(picker)) return;
+    save([...selected, picker]);
+    setPicker("");
+  }
+
+  function setPreset(slugs: string[]) {
+    save(slugs);
+    setPicker("");
+  }
+
+  const selectedMechanics = new Set(games.map((game) => game.mechanic));
+  const fields = new Set(games.map((game) => game.field));
+  const rtps = games.map((game) =>
+    Number.parseFloat(game.rtp.replace(",", ".").replace("%", "")),
+  );
+  const minRtp = rtps.length ? Math.min(...rtps) : 0;
+  const maxRtp = rtps.length ? Math.max(...rtps) : 0;
+
   return (
-    <>
+    <div className="comparison">
+      <section className="comparison-builder" aria-label="Выбор игр для сравнения">
+        <div className="comparison-builder-copy">
+          <span className="eyebrow">Ваш набор</span>
+          <h2>
+            {games.length
+              ? `${games.length} из 3 мест занято`
+              : "Выберите игры для таблицы"}
+          </h2>
+          <p>
+            Добавляйте игры прямо здесь или начните с готовой пары. Сравнение
+            не пытается выбрать победителя: оно показывает различия в правилах
+            и характеристиках.
+          </p>
+        </div>
+
+        <div className="comparison-picker">
+          <label htmlFor="comparison-game">Добавить игру</label>
+          <div>
+            <select
+              id="comparison-game"
+              value={picker}
+              onChange={(event) => setPicker(event.target.value)}
+              disabled={selected.length >= 3 || !availableGames.length}
+            >
+              <option value="">
+                {selected.length >= 3 ? "Лимит — три игры" : "Выберите из каталога"}
+              </option>
+              {availableGames.map((game) => (
+                <option key={game.slug} value={game.slug}>
+                  {game.name} · {game.provider}
+                </option>
+              ))}
+            </select>
+            <button
+              type="button"
+              onClick={add}
+              disabled={!picker || selected.length >= 3}
+            >
+              Добавить
+            </button>
+          </div>
+          {games.length > 0 && (
+            <button
+              type="button"
+              className="comparison-clear"
+              onClick={() => save([])}
+            >
+              Очистить сравнение
+            </button>
+          )}
+        </div>
+      </section>
+
+      {games.length > 0 && (
+        <div className="comparison-selection" aria-label="Выбранные игры">
+          {games.map((game, index) => (
+            <article key={game.slug}>
+              <span className="comparison-selection-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <Link href={`/slots/${game.slug}`}>
+                <GameImage slot={game} />
+              </Link>
+              <div>
+                <span className="eyebrow">{game.provider}</span>
+                <h3>
+                  <Link href={`/slots/${game.slug}`}>{game.name}</Link>
+                </h3>
+                <p>
+                  {game.mechanic} · {game.rtp}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => remove(game.slug)}
+                aria-label={`Удалить ${game.name} из сравнения`}
+              >
+                ×
+              </button>
+            </article>
+          ))}
+          {Array.from({ length: 3 - games.length }).map((_, index) => (
+            <div className="comparison-selection-empty" key={index}>
+              <span>+</span>
+              <small>Свободное место</small>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {games.length >= 2 && (
+        <section className="comparison-summary" aria-label="Короткая сводка">
+          <div>
+            <span className="eyebrow">Механика</span>
+            <strong>
+              {selectedMechanics.size === 1
+                ? "Одинаковая"
+                : `${selectedMechanics.size} разные`}
+            </strong>
+            <small>{Array.from(selectedMechanics).join(" · ")}</small>
+          </div>
+          <div>
+            <span className="eyebrow">Игровое поле</span>
+            <strong>
+              {fields.size === 1 ? "Одинаковое" : `${fields.size} варианта`}
+            </strong>
+            <small>{Array.from(fields).join(" · ")}</small>
+          </div>
+          <div>
+            <span className="eyebrow">RTP*</span>
+            <strong>
+              {minRtp === maxRtp
+                ? `${minRtp.toFixed(2).replace(".", ",")}%`
+                : `${minRtp.toFixed(2).replace(".", ",")}–${maxRtp
+                    .toFixed(2)
+                    .replace(".", ",")}%`}
+            </strong>
+            <small>Справочные версии игр</small>
+          </div>
+        </section>
+      )}
+
       {games.length ? (
         <>
           <div className="comparison-scroll">
@@ -421,27 +595,51 @@ export function Comparison() {
               <caption className="sr-only">Сравнение выбранных игр</caption>
               <thead>
                 <tr>
-                  <th>Игра</th>
-                  {games.map((s) => (
-                    <th key={s.slug}>
-                      <Link href={"/slots/" + s.slug}>
-                        <GameImage slot={s} />
-                        {s.name}
-                      </Link>
-                      <button
-                        onClick={() => remove(s.slug)}
-                        aria-label={`Удалить ${s.name}`}
-                      >
-                        Убрать ×
-                      </button>
+                  <th>Параметр</th>
+                  {games.map((game) => (
+                    <th key={game.slug}>
+                      <Link href={`/slots/${game.slug}`}>{game.name}</Link>
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
+                <tr>
+                  <th scope="row">Провайдер</th>
+                  {games.map((game) => (
+                    <td key={game.slug}>
+                      <Link
+                        className="comparison-cell-link"
+                        href={`/providers/${providerSlug(game.provider)}`}
+                      >
+                        {game.provider} ↗
+                      </Link>
+                    </td>
+                  ))}
+                </tr>
+                <tr>
+                  <th scope="row">Механика</th>
+                  {games.map((game) => {
+                    const mechanic = mechanics.find(
+                      (item) => item.name === game.mechanic,
+                    );
+                    return (
+                      <td key={game.slug}>
+                        {mechanic ? (
+                          <Link
+                            className="comparison-cell-link"
+                            href={`/mechanics/${mechanic.slug}`}
+                          >
+                            {game.mechanic} ↗
+                          </Link>
+                        ) : (
+                          game.mechanic
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
                 {[
-                  ["Провайдер", "provider"],
-                  ["Механика", "mechanic"],
                   ["Поле", "field"],
                   ["RTP*", "rtp"],
                   ["Волатильность", "volatility"],
@@ -451,34 +649,53 @@ export function Comparison() {
                 ].map(([label, key]) => (
                   <tr key={key}>
                     <th scope="row">{label}</th>
-                    {games.map((s) => (
-                      <td key={s.slug}>{s[key as keyof Slot]}</td>
+                    {games.map((game) => (
+                      <td key={game.slug}>{game[key as keyof Slot]}</td>
                     ))}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="data-note">
+          <p className="data-note comparison-note">
             * Справочные значения могут отличаться от конфигурации оператора.
             Высокий RTP не гарантирует выигрыш.
           </p>
         </>
       ) : (
-        <div className="empty-state">
-          <h2>Что поставим рядом?</h2>
+        <div className="comparison-empty">
+          <span className="eyebrow accent">Быстрый старт</span>
+          <h2>Не обязательно начинать с пустой таблицы.</h2>
           <p>
-            Добавьте до трёх игр из каталога — сравним правила, поле и
-            особенности без рейтинга «лучше / хуже».
+            Выберите готовую пару, чтобы сразу увидеть, как работает сравнение.
           </p>
-          <Link className="button" href="/slots">
-            Выбрать игры ↗
-          </Link>
         </div>
       )}
-      <Link className="text-link" href="/slots">
-        {games.length ? "Добавить игру из каталога ↗" : ""}
-      </Link>
-    </>
+
+      <section className="comparison-presets" aria-label="Готовые сравнения">
+        {presets.map((preset, index) => (
+          <button
+            key={preset.label}
+            type="button"
+            onClick={() => setPreset(preset.slugs)}
+          >
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <strong>{preset.label}</strong>
+            <small>{preset.caption}</small>
+            <b aria-hidden="true">↗</b>
+          </button>
+        ))}
+      </section>
+
+      <div className="comparison-end">
+        <p>
+          Нужной игры ещё нет в указателе? Каталог пока небольшой и будет
+          расширяться постепенно.
+        </p>
+        <Link className="text-link" href="/slots">
+          Открыть каталог ↗
+        </Link>
+      </div>
+    </div>
   );
 }

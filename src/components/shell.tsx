@@ -8,7 +8,7 @@ export function Header() {
   const links = [
     ["/slots", "Слоты"],
     ["/mechanics", "Механики"],
-    ["/journal", "Журнал"],
+    ["/journal", "Разборы"],
     ["/collections", "Подборки"],
   ];
   return (
@@ -19,8 +19,7 @@ export function Header() {
         </Link>
         <span className="tagline">
           Каталог, разборы
-          <br />
-          и механики игр
+          <br />и механики игр
         </span>
         <span className="header-edition">
           КАТАЛОГ · РАЗБОРЫ · СРАВНЕНИЕ <span>18+</span>
@@ -96,7 +95,7 @@ export function Footer() {
           <Link href="/slots">Каталог слотов</Link>
           <Link href="/mechanics">Игровые механики</Link>
           <Link href="/providers">Провайдеры</Link>
-          <Link href="/journal">Журнал и гайды</Link>
+          <Link href="/journal">Разборы и гайды</Link>
         </div>
         <div>
           <span className="eyebrow">Ориентироваться</span>

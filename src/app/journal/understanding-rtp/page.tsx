@@ -6,7 +6,7 @@ export default function Page() {
     <>
       <Breadcrumbs
         items={[
-          { label: "Журнал", href: "/journal" },
+          { label: "Разборы", href: "/journal" },
           { label: "Что означает RTP" },
         ]}
       />

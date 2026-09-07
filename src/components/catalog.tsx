@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { slots, mechanics, providerSlug, type Slot } from "@/lib/data";
 import { GameImage } from "./editorial-client";
-const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map((name) => ({
-  name,
-  slug: providerSlug(name),
-}));
+const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map(
+  (name) => ({
+    name,
+    slug: providerSlug(name),
+  }),
+);
 function readSelection(): string[] {
   try {
     const value = JSON.parse(localStorage.getItem("slotfolio-compare") || "[]");
@@ -89,21 +91,25 @@ export function Catalog({
   initialMechanic?: string;
   initialSort?: string;
 }) {
+  const PAGE_SIZE = 18;
   const [q, setQ] = useState(initialQ);
   const [provider, setProvider] = useState(initialProvider);
   const [mechanic, setMechanic] = useState(initialMechanic);
   const [sort, setSort] = useState(initialSort);
   const [view, setView] = useState("list");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
   useEffect(() => {
     setQ(initialQ);
     setProvider(initialProvider);
     setMechanic(initialMechanic);
     setSort(initialSort);
   }, [initialQ, initialProvider, initialMechanic, initialSort]);
+
   useEffect(() => {
     const p = new URLSearchParams();
-    if (q) p.set("q", q);
+    if (q.trim()) p.set("q", q.trim());
     if (provider) p.set("provider", provider);
     if (mechanic) p.set("mechanic", mechanic);
     if (sort !== "editorial") p.set("sort", sort);
@@ -113,23 +119,46 @@ export function Catalog({
       window.location.pathname + (p.size ? "?" + p : ""),
     );
   }, [q, provider, mechanic, sort]);
-  let results = slots.filter(
-    (s) =>
-      (s.name + " " + s.provider)
-        .toLowerCase()
-        .includes(q.toLowerCase().trim()) &&
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [q, provider, mechanic, sort]);
+
+  const normalizedQuery = q.toLowerCase().trim();
+  let results = slots.filter((s) => {
+    const haystack =
+      `${s.name} ${s.provider} ${s.mechanic} ${s.year}`.toLowerCase();
+    return (
+      haystack.includes(normalizedQuery) &&
       (!provider || providerSlug(s.provider) === provider) &&
-      (!mechanic || s.mechanic === mechanic),
-  );
+      (!mechanic || s.mechanic === mechanic)
+    );
+  });
+
   if (sort === "name")
-    results = [...results].sort((a, b) => a.name.localeCompare(b.name));
+    results = [...results].sort((a, b) => a.name.localeCompare(b.name, "ru"));
   if (sort === "new") results = [...results].sort((a, b) => b.year - a.year);
+  if (sort === "rtp")
+    results = [...results].sort(
+      (a, b) =>
+        Number.parseFloat(b.rtp.replace(",", ".")) -
+        Number.parseFloat(a.rtp.replace(",", ".")),
+    );
+
+  const visibleResults = results.slice(0, visibleCount);
+  const remaining = Math.max(0, results.length - visibleResults.length);
+  const selectedProvider = providerOptions.find(
+    (item) => item.slug === provider,
+  );
+  const hasFilters = Boolean(q.trim() || provider || mechanic);
+
   function reset() {
     setQ("");
     setProvider("");
     setMechanic("");
     setSort("editorial");
   }
+
   return (
     <div className="catalog">
       <form
@@ -144,11 +173,12 @@ export function Catalog({
             id="catalog-q"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Название игры или провайдера"
+            placeholder="Название, провайдер или механика"
           />
           <span aria-hidden="true">↗</span>
         </div>
       </form>
+
       <div className="catalog-layout">
         <aside className="filter-panel">
           <button
@@ -157,7 +187,7 @@ export function Catalog({
             aria-controls="catalog-filters"
             onClick={() => setFiltersOpen(!filtersOpen)}
           >
-            Фильтры {provider || mechanic ? "· активны" : ""}
+            Фильтры {hasFilters ? "· активны" : ""}
             <span>{filtersOpen ? "−" : "+"}</span>
           </button>
           <div
@@ -171,10 +201,11 @@ export function Catalog({
               value={provider}
               onChange={(e) => setProvider(e.target.value)}
             >
-              <option value="">Все провайдеры</option>
+              <option value="">Все провайдеры · {slots.length}</option>
               {providerOptions.map((item) => (
                 <option key={item.slug} value={item.slug}>
-                  {item.name}
+                  {item.name} ·{" "}
+                  {slots.filter((s) => s.provider === item.name).length}
                 </option>
               ))}
             </select>
@@ -188,6 +219,7 @@ export function Catalog({
                   onChange={() => setMechanic("")}
                 />
                 Все механики
+                <span>{slots.length}</span>
               </label>
               {mechanics.map((m) => (
                 <label key={m.slug}>
@@ -204,7 +236,11 @@ export function Catalog({
                 </label>
               ))}
             </fieldset>
-            <button className="reset-link" onClick={reset}>
+            <button
+              className="reset-link"
+              onClick={reset}
+              disabled={!hasFilters && sort === "editorial"}
+            >
               Сбросить фильтры ↺
             </button>
             <p className="filter-note">
@@ -216,10 +252,13 @@ export function Catalog({
             </p>
           </div>
         </aside>
+
         <div className="results">
           <div className="results-toolbar">
             <span role="status" aria-live="polite">
-              {results.length} из {slots.length} игр
+              {results.length === slots.length
+                ? `${slots.length} игр`
+                : `Найдено ${results.length} из ${slots.length}`}
             </span>
             <label>
               <span className="sr-only">Сортировка</span>
@@ -231,6 +270,7 @@ export function Catalog({
                 <option value="editorial">Выбор редакции</option>
                 <option value="name">По названию</option>
                 <option value="new">Сначала новые</option>
+                <option value="rtp">RTP: выше сначала</option>
               </select>
             </label>
             <div className="view-controls">
@@ -250,6 +290,31 @@ export function Catalog({
               </button>
             </div>
           </div>
+
+          {hasFilters && (
+            <div className="active-filters" aria-label="Активные фильтры">
+              <span>Отбор:</span>
+              {q.trim() && (
+                <button onClick={() => setQ("")}>
+                  «{q.trim()}» <b>×</b>
+                </button>
+              )}
+              {selectedProvider && (
+                <button onClick={() => setProvider("")}>
+                  {selectedProvider.name} <b>×</b>
+                </button>
+              )}
+              {mechanic && (
+                <button onClick={() => setMechanic("")}>
+                  {mechanic} <b>×</b>
+                </button>
+              )}
+              <button className="clear-all" onClick={reset}>
+                Сбросить всё
+              </button>
+            </div>
+          )}
+
           {!results.length ? (
             <div className="empty-state">
               <span className="eyebrow">Ничего не найдено</span>
@@ -263,44 +328,69 @@ export function Catalog({
               </button>
             </div>
           ) : (
-            <div className={"catalog-results " + view}>
-              {results.map((s) => (
-                <article key={s.slug} className="catalog-game">
-                  <Link className="catalog-game-art" href={"/slots/" + s.slug}>
-                    <GameImage slot={s} />
-                  </Link>
-                  <div className="catalog-game-copy">
-                    <span className="eyebrow">
-                      {s.provider} / {s.year}
-                    </span>
-                    <h2>
-                      <Link href={"/slots/" + s.slug}>{s.name}</Link>
-                    </h2>
-                    <p>{s.description}</p>
-                    <div className="catalog-game-data">
-                      <span>{s.mechanic}</span>
-                      <span>RTP* {s.rtp}</span>
-                      <CompareButton slug={s.slug} />
+            <>
+              <div className={"catalog-results " + view}>
+                {visibleResults.map((s) => (
+                  <article key={s.slug} className="catalog-game">
+                    <Link
+                      className="catalog-game-art"
+                      href={"/slots/" + s.slug}
+                    >
+                      <GameImage slot={s} />
+                    </Link>
+                    <div className="catalog-game-copy">
+                      <span className="eyebrow">
+                        {s.provider} / {s.year}
+                      </span>
+                      <h2>
+                        <Link href={"/slots/" + s.slug}>{s.name}</Link>
+                      </h2>
+                      <p>{s.description}</p>
+                      <div className="catalog-game-data">
+                        <span>{s.mechanic}</span>
+                        <span>RTP* {s.rtp}</span>
+                        <CompareButton slug={s.slug} />
+                      </div>
                     </div>
-                  </div>
-                  <Link
-                    className="catalog-open"
-                    href={"/slots/" + s.slug}
-                    aria-label={`Открыть ${s.name}`}
+                    <Link
+                      className="catalog-open"
+                      href={"/slots/" + s.slug}
+                      aria-label={`Открыть ${s.name}`}
+                    >
+                      ↗
+                    </Link>
+                  </article>
+                ))}
+              </div>
+
+              {remaining > 0 && (
+                <div className="catalog-more">
+                  <span>
+                    Показано {visibleResults.length} из {results.length}
+                  </span>
+                  <button
+                    onClick={() =>
+                      setVisibleCount((count) => count + PAGE_SIZE)
+                    }
                   >
-                    ↗
-                  </Link>
-                </article>
-              ))}
-            </div>
+                    Показать ещё {Math.min(PAGE_SIZE, remaining)} ↓
+                  </button>
+                </div>
+              )}
+            </>
           )}
+
           <p className="data-note">
             * Указана справочная версия RTP. Значение в конкретной игре у
             оператора может отличаться.{" "}
             <Link href="/journal/understanding-rtp">Как читать RTP ↗</Link>
           </p>
           <div className="catalog-end">
-            Показаны все игры, подходящие под текущие фильтры.{" "}
+            <span>
+              {remaining
+                ? `На странице ${visibleResults.length} из ${results.length} подходящих игр.`
+                : "Показаны все игры, подходящие под текущие фильтры."}
+            </span>
             <Link href="/compare">Перейти к сравнению ↗</Link>
           </div>
         </div>

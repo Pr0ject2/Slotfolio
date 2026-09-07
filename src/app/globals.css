@@ -2633,7 +2633,6 @@ summary {
   }
 }
 
-
 /* === Slotfolio refinement pass 01: readability + catalogue utility === */
 .tagline {
   font-size: 12px;
@@ -2862,5 +2861,335 @@ summary {
     font-size: 39px;
     letter-spacing: -1.45px;
     line-height: 1.08;
+  }
+}
+
+/* === Slotfolio refinement pass 02: less magazine, denser catalogue, readable microcopy === */
+.header-edition,
+.edition-line,
+.eyebrow,
+.image-caption,
+.row-main .eyebrow,
+.catalog-game .eyebrow,
+.footer .eyebrow {
+  font-feature-settings: "tnum" 1;
+}
+
+/* Keep the editorial character, but make utility copy feel like product information. */
+.cover-copy h1 {
+  font-size: clamp(46px, 4.6vw, 64px);
+  letter-spacing: -2.15px;
+}
+.cover-copy p {
+  max-width: 620px;
+}
+.feature-band h2 {
+  font-size: 40px;
+}
+.feature-band p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.page-heading > p {
+  font-size: 14px;
+}
+
+/* Microcopy should remain secondary, not microscopic. */
+.image-caption,
+.slot-figure figcaption,
+.prose .source-note {
+  font-size: 11px;
+}
+.row-main .eyebrow,
+.catalog-game .eyebrow,
+.footer .eyebrow {
+  font-size: 10px;
+}
+.row-main p,
+.catalog-game-data,
+.data-note,
+.breadcrumbs,
+.footer-bottom {
+  font-size: 12px;
+}
+.article-toc > a,
+.footer-main > div:not(:first-child) > a,
+.filter-note,
+.reset-link,
+.results-toolbar,
+.results-toolbar select,
+.filters > label,
+.filters legend,
+.filters select {
+  font-size: 12px;
+}
+.compare-button,
+.compare-control small {
+  font-size: 11px;
+}
+
+/* Catalogue: designed to remain usable when the dataset grows to 50–100+ games. */
+.catalog-search {
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 34px;
+  padding: 16px 0;
+  margin-bottom: 20px;
+}
+.catalog-search input {
+  font-size: 20px;
+}
+.catalog-layout {
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 34px;
+}
+.filter-panel {
+  padding-right: 24px;
+}
+.filters {
+  position: sticky;
+  top: 18px;
+}
+.results-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  min-height: 48px;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  padding: 10px 0;
+}
+.results-toolbar select {
+  min-width: 170px;
+}
+.active-filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  min-height: 44px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+}
+.active-filters > span {
+  color: var(--muted);
+}
+.active-filters button {
+  border-bottom: 1px solid var(--line);
+  padding: 2px 0 4px;
+  text-align: left;
+}
+.active-filters button:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+.active-filters b {
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.active-filters .clear-all {
+  margin-left: auto;
+  color: var(--muted);
+  border-bottom-style: dotted;
+}
+.reset-link:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.catalog-game {
+  grid-template-columns: 185px minmax(0, 1fr) 22px;
+  gap: 24px;
+  padding: 18px 0;
+}
+.catalog-game-art img {
+  aspect-ratio: 1.68;
+}
+.catalog-game h2 {
+  font-size: 22px;
+  margin: 6px 0 8px;
+}
+.catalog-game-copy > p {
+  max-width: 650px;
+  line-height: 1.6;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.catalog-game-data {
+  margin-top: 11px;
+}
+.catalog-open {
+  font-size: 23px;
+}
+.catalog-more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-bottom: 1px solid var(--line);
+  padding: 22px 0;
+  font-size: 12px;
+  color: var(--muted);
+}
+.catalog-more button {
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 4px;
+  font-weight: 600;
+}
+.catalog-more button:hover {
+  color: var(--red);
+  border-color: var(--red);
+}
+.catalog-end {
+  font-size: 12px;
+}
+
+@media (min-width: 1180px) {
+  .covers {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 24px;
+  }
+  .covers .catalog-game h2 {
+    font-size: 20px;
+  }
+  .covers .catalog-game-data {
+    gap: 10px 14px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .catalog-search,
+  .catalog-layout {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 26px;
+  }
+  .catalog-game {
+    grid-template-columns: 160px minmax(0, 1fr) 20px;
+    gap: 19px;
+  }
+  .covers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 800px) {
+  .catalog-search,
+  .catalog-layout {
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 20px;
+  }
+  .filters {
+    position: static;
+  }
+  .catalog-game {
+    grid-template-columns: 135px minmax(0, 1fr);
+    gap: 17px;
+  }
+  .catalog-game-copy > p {
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .edition-line,
+  .cover-copy .eyebrow,
+  .side-story > .eyebrow,
+  .reading-note .eyebrow,
+  .article-toc .eyebrow,
+  .row-main .eyebrow,
+  .catalog-game .eyebrow,
+  .image-caption {
+    font-size: 10px;
+  }
+  .breadcrumbs,
+  .data-note,
+  .footer-bottom,
+  .section-title .text-link,
+  .reading-note .text-link {
+    font-size: 11px;
+  }
+  .row-main p,
+  .catalog-game-data,
+  .footer-responsibility p,
+  .slot-figure figcaption,
+  .prose .source-note {
+    font-size: 11px;
+  }
+  .cover-copy h1 {
+    font-size: 43px;
+    letter-spacing: -1.6px;
+  }
+  .cover-copy p {
+    font-size: 15px;
+  }
+  .side-story h2 {
+    font-size: 22px;
+    line-height: 1.15;
+  }
+  .catalog-search,
+  .catalog-layout {
+    display: block;
+  }
+  .catalog-search {
+    margin-bottom: 0;
+  }
+  .catalog-search > label {
+    font-size: 11px;
+  }
+  .catalog-search input {
+    font-size: 17px;
+  }
+  .results-toolbar {
+    position: static;
+    min-height: 46px;
+    font-size: 11px;
+  }
+  .results-toolbar select {
+    min-width: 0;
+    max-width: 145px;
+    font-size: 11px;
+  }
+  .active-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 14px;
+    font-size: 11px;
+    scrollbar-width: thin;
+  }
+  .active-filters .clear-all {
+    margin-left: 4px;
+  }
+  .catalog-game {
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 15px;
+    padding: 17px 0;
+  }
+  .catalog-game-art img {
+    aspect-ratio: 1.15;
+  }
+  .catalog-game h2 {
+    font-size: 20px;
+  }
+  .catalog-game-copy > p {
+    display: none;
+  }
+  .catalog-more {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .covers {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 15px;
+  }
+  .covers .catalog-game {
+    display: block;
+  }
+  .covers .catalog-game h2 {
+    font-size: 18px;
   }
 }

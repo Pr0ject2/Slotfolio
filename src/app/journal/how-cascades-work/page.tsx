@@ -14,7 +14,7 @@ export default function Page() {
     <>
       <Breadcrumbs
         items={[
-          { label: "Журнал", href: "/journal" },
+          { label: "Разборы", href: "/journal" },
           { label: "Как работают каскады" },
         ]}
       />

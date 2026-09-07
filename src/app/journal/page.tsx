@@ -1,19 +1,19 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = { title: "Журнал — разборы и гайды" };
+export const metadata = { title: "Разборы и гайды" };
 export default function Page() {
   return (
     <>
-      <Breadcrumbs items={[{ label: "Журнал" }]} />
+      <Breadcrumbs items={[{ label: "Разборы" }]} />
       <div className="page-heading">
         <div>
-          <span className="eyebrow accent">Читать между вращениями</span>
-          <h1>Журнал</h1>
+          <span className="eyebrow accent">Механики, RTP и бонусы</span>
+          <h1>Разборы и гайды</h1>
         </div>
         <p>
-          Разборы, объяснения и наблюдения.
+          Практические объяснения механик и условий.
           <br />
-          Меньше обещаний — больше контекста.
+          Без рекламной подачи и лишних обещаний.
         </p>
       </div>
       <section className="feature-band" style={{ marginTop: 0 }}>

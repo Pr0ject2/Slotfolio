@@ -9,7 +9,7 @@ export default function Home() {
           <i /> СЕЙЧАС В ФОКУСЕ
         </span>
         <span>Игры, механики и факты</span>
-        <span>Сентябрь / 2026</span>
+        <span>Обновляем регулярно</span>
       </div>
       <section className="front-lead">
         <article className="cover-story">
@@ -20,18 +20,13 @@ export default function Home() {
             </span>
           </Link>
           <div className="cover-copy">
-            <span className="eyebrow accent">
-              Игра крупным планом / Pragmatic Play
-            </span>
+            <span className="eyebrow accent">Досье игры / Pragmatic Play</span>
             <h1>
-              <Link href="/slots/gates-of-olympus">
-                За воротами <br />
-                Олимпа
-              </Link>
+              <Link href="/slots/gates-of-olympus">Gates of Olympus</Link>
             </h1>
             <p>
-              Не только Зевс и молнии. Как устроены каскады, множители и
-              ожидание большого события в Gates of Olympus.
+              Каскады, множители и высокая волатильность: что происходит в игре
+              и на какие правила стоит смотреть в первую очередь.
             </p>
             <Link href="/slots/gates-of-olympus" className="text-link">
               Разобрать игру <span>↗</span>
@@ -45,11 +40,7 @@ export default function Home() {
             </Link>
             <span className="eyebrow accent">Другая логика игры</span>
             <h2>
-              <Link href="/slots/reactoonz">
-                Когда поле
-                <br />
-                живёт своей жизнью
-              </Link>
+              <Link href="/slots/reactoonz">Reactoonz: поле без линий</Link>
             </h2>
             <p>
               Reactoonz и цепная реакция: что происходит, когда исчезают линии.
@@ -105,7 +96,7 @@ export default function Home() {
       </section>
       <section className="feature-band">
         <div className="feature-band-title">
-          <span className="eyebrow">Журнал / Устройство игры</span>
+          <span className="eyebrow">Разбор механики / Каскады</span>
           <h2>
             <Link href={article.href}>
               Один спин.
@@ -186,7 +177,7 @@ export default function Home() {
           <br />
           <span>Объясняем механику, отделяем факты от впечатлений.</span>
         </p>
-        <Link href="/about">О редакции ↗</Link>
+        <Link href="/about">О проекте ↗</Link>
       </div>
     </>
   );

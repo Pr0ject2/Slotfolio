@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     template: "%s — Slotfolio",
   },
   description:
-    "Независимый журнал и каталог слотов. Изучайте игры, сравнивайте механики и разбирайтесь в правилах.",
+    "Каталог и редакционные разборы слотов: механики, провайдеры, сравнение игр и понятные объяснения правил.",
   robots: { index: false, follow: false },
 };
 export default function Layout({ children }: { children: React.ReactNode }) {

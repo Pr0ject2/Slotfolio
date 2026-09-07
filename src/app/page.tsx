@@ -6,9 +6,9 @@ export default function Home() {
     <>
       <div className="edition-line">
         <span>
-          <i /> В ФОКУСЕ РЕДАКЦИИ
+          <i /> СЕЙЧАС В ФОКУСЕ
         </span>
-        <span>Игры, механики и контекст</span>
+        <span>Игры, механики и факты</span>
         <span>Сентябрь / 2026</span>
       </div>
       <section className="front-lead">
@@ -86,7 +86,7 @@ export default function Home() {
             </p>
             <p>
               Шесть игр, разные способы собрать выигрыш. Факты, особенности и
-              взгляд редакции.
+              короткий редакционный комментарий.
             </p>
             <form action="/slots" className="mini-search">
               <label className="sr-only" htmlFor="home-search">

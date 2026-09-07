@@ -128,7 +128,12 @@ export const article = {
 };
 export const getSlot = (slug: string) => slots.find((s) => s.slug === slug);
 export const providerSlug = (name: string) =>
-  name === "Pragmatic Play" ? "pragmatic-play" : "play-n-go";
+  name
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 export const mechanics = [
   {
     name: "Каскады",

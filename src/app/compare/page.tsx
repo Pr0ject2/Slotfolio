@@ -7,7 +7,7 @@ export default function Page() {
       <Breadcrumbs
         items={[{ label: "Каталог", href: "/slots" }, { label: "Сравнение" }]}
       />
-      <div className="page-heading">
+      <div className="page-heading utility-heading">
         <div>
           <span className="eyebrow accent">Рядом — понятнее</span>
           <h1>Сравнить игры</h1>

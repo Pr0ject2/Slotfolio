@@ -18,12 +18,12 @@ export function Header() {
           slotfolio<span className="brand-dot">.</span>
         </Link>
         <span className="tagline">
-          Независимый журнал
+          Каталог, разборы
           <br />
-          об играх и их устройстве
+          и механики игр
         </span>
         <span className="header-edition">
-          НАВИГАТОР ПО МИРУ СЛОТОВ <span>18+</span>
+          КАТАЛОГ · РАЗБОРЫ · СРАВНЕНИЕ <span>18+</span>
         </span>
         <Link className="header-search" href="/search">
           <svg
@@ -115,7 +115,7 @@ export function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© 2026 Slotfolio · Демонстрационная редакция</span>
+        <span>© 2026 Slotfolio</span>
         <Link href="/privacy">Конфиденциальность</Link>
         <Link href="/disclosure">Партнёрские отношения</Link>
       </div>

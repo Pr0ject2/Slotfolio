@@ -3,6 +3,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { slots, mechanics, providerSlug, type Slot } from "@/lib/data";
 import { GameImage } from "./editorial-client";
+const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map((name) => ({
+  name,
+  slug: providerSlug(name),
+}));
 function readSelection(): string[] {
   try {
     const value = JSON.parse(localStorage.getItem("slotfolio-compare") || "[]");
@@ -155,8 +159,11 @@ export function Catalog({
               onChange={(e) => setProvider(e.target.value)}
             >
               <option value="">Все провайдеры</option>
-              <option value="pragmatic-play">Pragmatic Play</option>
-              <option value="play-n-go">Play’n GO</option>
+              {providerOptions.map((item) => (
+                <option key={item.slug} value={item.slug}>
+                  {item.name}
+                </option>
+              ))}
             </select>
             <fieldset>
               <legend>Механика</legend>
@@ -280,7 +287,7 @@ export function Catalog({
             <Link href="/journal/understanding-rtp">Как читать RTP ↗</Link>
           </p>
           <div className="catalog-end">
-            Вы посмотрели весь демонстрационный каталог.{" "}
+            Показаны все игры, подходящие под текущие фильтры.{" "}
             <Link href="/compare">Перейти к сравнению ↗</Link>
           </div>
         </div>

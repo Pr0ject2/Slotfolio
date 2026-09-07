@@ -7,7 +7,7 @@ export default function Page() {
       <Breadcrumbs
         items={[{ label: "Каталог", href: "/slots" }, { label: "Провайдеры" }]}
       />
-      <div className="page-heading">
+      <div className="page-heading utility-heading">
         <div>
           <span className="eyebrow accent">Студии и их игры</span>
           <h1>Кто делает слоты</h1>
@@ -22,8 +22,8 @@ export default function Page() {
           <span className="number">P</span>
           <h2>Pragmatic Play</h2>
           <p>
-            Каскады, линии и механики сбора. Четыре игры в демонстрационном
-            каталоге.
+            Каскады, линии и механики сбора. Четыре игры уже связаны
+            с профилем провайдера.
           </p>
           <b>↗</b>
         </Link>

@@ -294,7 +294,7 @@ export default function Page() {
                 Gates of Olympus
               </a>{" "}
               и <a href="https://www.playngo.com/games/reactoonz">Reactoonz</a>.
-              Демонстрационный редакционный материал.
+              Редакционный материал Slotfolio.
             </p>
           </section>
         </article>

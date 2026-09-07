@@ -10,7 +10,7 @@ export default async function Page({
   return (
     <>
       <Breadcrumbs items={[{ label: "Поиск" }]} />
-      <div className="page-heading">
+      <div className="page-heading utility-heading">
         <div>
           <span className="eyebrow accent">Быстрый доступ</span>
           <h1>Найти свою игру</h1>

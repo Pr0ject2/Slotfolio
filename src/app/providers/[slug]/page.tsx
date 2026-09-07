@@ -4,17 +4,18 @@ import { slots, providerSlug } from "@/lib/data";
 import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return [{ slug: "pragmatic-play" }, { slug: "play-n-go" }];
+  return Array.from(new Set(slots.map((s) => providerSlug(s.provider)))).map(
+    (slug) => ({ slug }),
+  );
 }
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  return {
-    title:
-      (await params).slug === "pragmatic-play" ? "Pragmatic Play" : "Play’n GO",
-  };
+  const { slug } = await params;
+  const provider = slots.find((s) => providerSlug(s.provider) === slug)?.provider;
+  return { title: provider || "Провайдер" };
 }
 export default async function Page({
   params,
@@ -45,7 +46,7 @@ export default async function Page({
         <div className="provider-mark">
           {name}
           <span className="eyebrow" style={{ marginTop: 20, letterSpacing: 2 }}>
-            GAME DEVELOPER
+            РАЗРАБОТЧИК ИГР
           </span>
         </div>
         <div>

@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { slots, mechanics, providerSlug, type Slot } from "@/lib/data";
 import { GameImage } from "./editorial-client";
 const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map((name) => ({
@@ -65,6 +66,18 @@ export function CompareButton({ slug }: { slug: string }) {
     </div>
   );
 }
+export function CatalogFromUrl() {
+  const params = useSearchParams();
+  return (
+    <Catalog
+      initialQ={params.get("q") || ""}
+      initialProvider={params.get("provider") || ""}
+      initialMechanic={params.get("mechanic") || ""}
+      initialSort={params.get("sort") || "editorial"}
+    />
+  );
+}
+
 export function Catalog({
   initialQ = "",
   initialProvider = "",

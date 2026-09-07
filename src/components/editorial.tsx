@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { type Slot, providerSlug } from "@/lib/data";
 import { affiliateUrl, operators } from "@/lib/affiliate";
+import { withBasePath } from "@/lib/base-path";
 export function Breadcrumbs({
   items,
 }: {
@@ -54,7 +55,7 @@ export function GameImage({
   return (
     <img
       className={"game-image " + className}
-      src={priority && slot.featureImage ? slot.featureImage : slot.image}
+      src={withBasePath(priority && slot.featureImage ? slot.featureImage : slot.image)}
       alt={`Иллюстрация ${slot.name}`}
       width={500}
       height={280}

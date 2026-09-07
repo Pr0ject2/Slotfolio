@@ -1,12 +1,10 @@
-import { Catalog } from "@/components/catalog";
+import { Suspense } from "react";
+import { Catalog, CatalogFromUrl } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
+
 export const metadata = { title: "Поиск игр" };
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const p = await searchParams;
+
+export default function Page() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Поиск" }]} />
@@ -21,12 +19,9 @@ export default async function Page({
           Материалы и гайды собраны в журнале.
         </p>
       </div>
-      <Catalog
-        initialQ={typeof p.q === "string" ? p.q : ""}
-        initialProvider={typeof p.provider === "string" ? p.provider : ""}
-        initialMechanic={typeof p.mechanic === "string" ? p.mechanic : ""}
-        initialSort={typeof p.sort === "string" ? p.sort : "editorial"}
-      />
+      <Suspense fallback={<Catalog />}>
+        <CatalogFromUrl />
+      </Suspense>
     </>
   );
 }

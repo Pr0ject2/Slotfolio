@@ -1,13 +1,11 @@
-import { Catalog } from "@/components/catalog";
+import { Suspense } from "react";
+import { Catalog, CatalogFromUrl } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
 import { slots } from "@/lib/data";
+
 export const metadata = { title: "Каталог слотов" };
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-}) {
-  const p = await searchParams;
+
+export default function Page() {
   return (
     <>
       <Breadcrumbs items={[{ label: "Каталог слотов" }]} />
@@ -15,7 +13,10 @@ export default async function Page({
         <div>
           <span className="eyebrow accent">Игровой указатель</span>
           <h1>
-            Каталог слотов<span className="title-count">{String(slots.length).padStart(2, "0")}</span>
+            Каталог слотов
+            <span className="title-count">
+              {String(slots.length).padStart(2, "0")}
+            </span>
           </h1>
         </div>
         <p>
@@ -24,12 +25,9 @@ export default async function Page({
           Ищите, изучайте механику, сравнивайте.
         </p>
       </div>
-      <Catalog
-        initialSort={typeof p.sort === "string" ? p.sort : "editorial"}
-        initialQ={typeof p.q === "string" ? p.q : ""}
-        initialProvider={typeof p.provider === "string" ? p.provider : ""}
-        initialMechanic={typeof p.mechanic === "string" ? p.mechanic : ""}
-      />
+      <Suspense fallback={<Catalog />}>
+        <CatalogFromUrl />
+      </Suspense>
     </>
   );
 }

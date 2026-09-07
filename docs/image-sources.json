@@ -275,5 +275,104 @@
     "local": "/images/slots/book-of-99.webp",
     "localize": "checked-in",
     "image": "https://clientarea.relax-gaming.com/gameassets/bookof99/screenshot/qKgwq3Z8w7nVgxRdZQYU/Sceenshot1.jpg"
+  },
+  {
+    "slug": "gates-of-olympus-1000",
+    "title": "Gates of Olympus 1000",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus-1000/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/gates-of-olympus-1000.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "sugar-rush-1000",
+    "title": "Sugar Rush 1000",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/sugar-rush-1000/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/sugar-rush-1000.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "gates-of-olympus-super-scatter",
+    "title": "Gates of Olympus Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus-super-scatter/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/gates-of-olympus-super-scatter.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "sweet-bonanza-super-scatter",
+    "title": "Sweet Bonanza Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/sweet-bonanza-super-scatter/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/sweet-bonanza-super-scatter.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "mahjong-wins-super-scatter",
+    "title": "Mahjong Wins Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/mahjong-wins-super-scatter/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/mahjong-wins-super-scatter.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "hand-of-anubis",
+    "title": "Hand of Anubis",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/hand-of-anubis",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/hand-of-anubis.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "rip-city",
+    "title": "RIP City",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/rip-city",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/rip-city.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "hell-hot-100",
+    "title": "Hell Hot 100",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/hell-hot-100",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/hell-hot-100.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "joker-stoker",
+    "title": "Joker Stoker",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/joker-stoker",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/joker-stoker.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "lucky-streak-1",
+    "title": "Lucky Streak 1",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/lucky-streak-1",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/lucky-streak-1.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "3-coin-towers",
+    "title": "3 Coin Towers",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/3-coin-towers",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/3-coin-towers.webp",
+    "localize": "build-time"
   }
 ]

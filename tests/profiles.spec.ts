@@ -85,15 +85,16 @@ test("all entity profiles expose the right games, statistics and breadcrumbs", a
     titles.add(await page.title());
     descriptions.add((await page.locator('meta[name="description"]').getAttribute("content"))!);
   }
-  expect(titles.size).toBe(12);
-  expect(descriptions.size).toBe(12);
+  expect(titles.size).toBe(providerProfiles.length + mechanics.length);
+  expect(descriptions.size).toBe(providerProfiles.length + mechanics.length);
 });
 
 test("provider and mechanic entry links apply filters and preserve rare tags", async ({page}) => {
   await page.goto("/providers/pragmatic-play");
   await page.locator('.entity-jump a[href*="provider="]').click();
   await expect(page.locator("#provider")).toHaveValue("pragmatic-play");
-  await expect(page.locator(".catalog-game")).toHaveCount(7);
+  const pragmaticCount = slots.filter((s) => providerSlug(s.provider) === "pragmatic-play").length;
+  await expect(page.locator(".catalog-game")).toHaveCount(pragmaticCount);
   await page.goto("/mechanics/clusters");
   await page.locator('#games .section-title a').click();
   const count = slots.filter((s) => s.mechanics.includes("Кластеры")).length;

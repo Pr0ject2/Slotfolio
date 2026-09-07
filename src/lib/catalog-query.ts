@@ -48,6 +48,9 @@ const searchAliasGroups = [
   ["cascades", "tumble", "avalanche", "каскады"],
   ["clusters", "cluster", "кластеры"],
   ["ways", "xways", "способы"],
+  ["super scatter", "супер скаттер", "суперскаттер"],
+  ["risk game", "риск игра", "риск"],
+  ["hold and win", "холд энд вин", "холд"],
 ];
 
 export function normalizeCatalogSearch(value: string) {

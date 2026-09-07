@@ -40,7 +40,7 @@ const routes = [
 ];
 
 test("catalog taxonomy, richer search and related-game scoring", () => {
-  expect(slots).toHaveLength(30);
+  expect(slots).toHaveLength(41);
   for (const slot of slots) {
     expect(slot.mechanics.length, `${slot.slug} mechanics`).toBeGreaterThan(0);
     expect(slot.tags.length, `${slot.slug} tags`).toBeGreaterThanOrEqual(3);
@@ -58,6 +58,52 @@ test("catalog taxonomy, richer search and related-game scoring", () => {
   expect(related.every((slot) => slot.slug !== jammin.slug)).toBe(true);
 });
 
+
+
+const pre1winPolicySlugs = new Set([
+  "gates-of-olympus",
+  "sweet-bonanza",
+  "book-of-dead",
+  "reactoonz",
+  "the-dog-house",
+  "big-bass-bonanza",
+  "jammin-jars",
+  "razor-shark",
+  "wanted-dead-or-a-wild",
+  "le-bandit",
+  "san-quentin-xways",
+  "fire-in-the-hole",
+  "starlight-princess",
+  "sugar-rush",
+  "fruit-party",
+  "legacy-of-dead",
+  "fire-joker",
+  "rise-of-olympus",
+  "fat-rabbit",
+  "retro-tapes",
+  "chaos-crew",
+  "chaos-crew-2",
+  "deadwood",
+  "mental",
+  "starburst",
+  "gonzos-quest",
+  "dead-or-alive-2",
+  "money-train-2",
+  "snake-arena",
+  "book-of-99",
+]);
+
+test("every slot added after v123 keeps auditable 1win availability evidence", () => {
+  const additions = slots.filter((slot) => !pre1winPolicySlugs.has(slot.slug));
+  expect(additions.length).toBeGreaterThanOrEqual(11);
+  for (const slot of additions) {
+    const evidence = slot.availability?.find((item) => item.operator === "1win");
+    expect(evidence, `${slot.slug} 1win evidence`).toBeTruthy();
+    expect(evidence!.verifiedAt).toMatch(/^20\d{2}-\d{2}-\d{2}$/);
+    expect(evidence!.source).toMatch(/^https:\/\/(?:www\.)?(?:1win\.com|forum\.1win\.com)\//);
+    expect(evidence!.evidence.length).toBeGreaterThan(20);
+  }
+});
 
 test("dossier enrichment exposes verified metrics and feature cards", () => {
   const wanted = slots.find((slot) => slot.slug === "wanted-dead-or-a-wild")!;
@@ -171,9 +217,12 @@ test("catalog query, combined filters, empty state, reset and sorting persist", 
   await expect(page.getByText("Такой игры пока нет")).toBeVisible();
   await page.getByRole("button", { name: "Показать все игры" }).click();
   await expect(page.locator(".catalog-game")).toHaveCount(18);
-  await expect(page.getByRole("button", { name: "Показать ещё 12 ↓" })).toBeVisible();
-  await page.getByRole("button", { name: "Показать ещё 12 ↓" }).click();
-  await expect(page.locator(".catalog-game")).toHaveCount(30);
+  await expect(page.getByRole("button", { name: "Показать ещё 18 ↓" })).toBeVisible();
+  await page.getByRole("button", { name: "Показать ещё 18 ↓" }).click();
+  await expect(page.locator(".catalog-game")).toHaveCount(36);
+  await expect(page.getByRole("button", { name: "Показать ещё 5 ↓" })).toBeVisible();
+  await page.getByRole("button", { name: "Показать ещё 5 ↓" }).click();
+  await expect(page.locator(".catalog-game")).toHaveCount(41);
   await page.getByRole("radio", { name: "Каскады" }).check();
   const cascadeCount = slots.filter((slot) =>
     slotMechanics(slot).includes("Каскады"),

@@ -1,3 +1,10 @@
+export type OperatorAvailability = {
+  operator: "1win";
+  verifiedAt: string;
+  source: string;
+  evidence: string;
+};
+
 export type Slot = {
   slug: string;
   name: string;
@@ -15,6 +22,7 @@ export type Slot = {
   feature: string;
   note: string;
   source: string;
+  availability?: OperatorAvailability[];
 };
 
 export const slots: Slot[] = [
@@ -590,6 +598,294 @@ export const slots: Slot[] = [
     note: "Высокий RTP не делает короткую сессию предсказуемой. Эта игра особенно полезна для объяснения разницы между долгосрочной теорией и отдельным результатом.",
     source: "https://www.relax-gaming.com/products/casino/bookof99",
   },
+
+  {
+    slug: "gates-of-olympus-1000",
+    name: "Gates of Olympus 1000",
+    provider: "Pragmatic Play",
+    year: 2023,
+    mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Свободные вращения", "Множители", "Pay Anywhere"],
+    field: "6 × 5",
+    rtp: "96,50%",
+    volatility: "Высокая",
+    image: "/images/slots/gates-of-olympus-1000.webp",
+    description:
+      "Усиленная версия Gates of Olympus с тем же Pay Anywhere и каскадами, но случайные множители теперь доходят до 1 000x.",
+    feature:
+      "В свободных вращениях выпавшие множители добавляются к общему значению раунда и применяются к последующим выигрышным каскадам.",
+    note:
+      "Сравнивайте её с оригиналом по конкретным пределам множителей и максимальной выплате, а не только по знакомой теме и сетке.",
+    source: "https://www.pragmaticplay.com/en/games/gates-of-olympus-1000/",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://1win.com/casino?provider=Pragmatic+Play",
+      evidence: "Текущий официальный каталог 1win перечисляет Gates of Olympus 1000 среди популярных игр.",
+    }],
+  },
+  {
+    slug: "sugar-rush-1000",
+    name: "Sugar Rush 1000",
+    provider: "Pragmatic Play",
+    year: 2024,
+    mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Множители", "Золотые клетки", "Свободные вращения"],
+    field: "7 × 7",
+    rtp: "96,50%",
+    volatility: "Высокая",
+    image: "/images/slots/sugar-rush-1000.webp",
+    description:
+      "Кластерная сетка 7 × 7 с каскадами и отмеченными позициями, где множители могут удваиваться вплоть до 1 024x.",
+    feature:
+      "В бонусе отмеченные клетки и накопленные на них множители сохраняются между свободными вращениями.",
+    note:
+      "Главная разница с обычной Sugar Rush находится в потолке множителя. Сам принцип кластеров и каскадов остаётся знакомым.",
+    source: "https://www.pragmaticplay.com/en/games/sugar-rush-1000/",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://1win.com/casino?provider=Pragmatic+Play",
+      evidence: "Текущий официальный каталог 1win перечисляет Sugar Rush 1000 среди популярных игр.",
+    }],
+  },
+  {
+    slug: "gates-of-olympus-super-scatter",
+    name: "Gates of Olympus Super Scatter",
+    provider: "Pragmatic Play",
+    year: 2025,
+    mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Свободные вращения", "Множители", "Pay Anywhere", "Super Scatter"],
+    field: "6 × 5",
+    rtp: "96,50%",
+    volatility: "Высокая",
+    image: "/images/slots/gates-of-olympus-super-scatter.webp",
+    description:
+      "Версия Gates of Olympus, где к знакомым каскадам и множителям добавлены Super Scatter с фиксированными призами при запуске бонуса.",
+    feature:
+      "Один-четыре Super Scatter при активации бонуса дают отдельную мгновенную выплату, а четыре таких символа соответствуют максимальному выигрышу 50 000x.",
+    note:
+      "Super Scatter меняет условия входа в бонус и потенциальную мгновенную выплату, но не отменяет основную каскадную логику игры.",
+    source: "https://www.pragmaticplay.com/en/games/gates-of-olympus-super-scatter/",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/353-%F0%9F%8F%86-champions-clash-%E2%80%94-%E2%82%AC500000-by-pragmatic-play/",
+      evidence: "Официальный форум 1win указывает игру в списке участников турнира Pragmatic Play.",
+    }],
+  },
+  {
+    slug: "sweet-bonanza-super-scatter",
+    name: "Sweet Bonanza Super Scatter",
+    provider: "Pragmatic Play",
+    year: 2025,
+    mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Свободные вращения", "Множители", "Pay Anywhere", "Super Scatter"],
+    field: "6 × 5",
+    rtp: "96,51%",
+    volatility: "Высокая",
+    image: "/images/slots/sweet-bonanza-super-scatter.webp",
+    description:
+      "Sweet Bonanza с Super Scatter: выплаты по всему полю, каскады и отдельные мгновенные призы при запуске бонусного раунда.",
+    feature:
+      "В свободных вращениях множители до 100x остаются на поле до конца бонуса, а Super Scatter могут дать фиксированную выплату вплоть до 50 000x.",
+    note:
+      "В этой версии важно не смешивать два слоя: постоянные бонусные множители и отдельную награду за Super Scatter при входе в функцию.",
+    source: "https://www.pragmaticplay.com/en/games/sweet-bonanza-super-scatter/",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/353-%F0%9F%8F%86-champions-clash-%E2%80%94-%E2%82%AC500000-by-pragmatic-play/",
+      evidence: "Официальный форум 1win указывает игру в списке участников турнира Pragmatic Play.",
+    }],
+  },
+  {
+    slug: "mahjong-wins-super-scatter",
+    name: "Mahjong Wins Super Scatter",
+    provider: "Pragmatic Play",
+    year: 2025,
+    mechanic: "Способы",
+    mechanics: ["Способы", "Каскады"],
+    tags: ["Каскады", "Множители", "Wild", "Super Scatter"],
+    field: "5 × 5",
+    rtp: "96,50%",
+    volatility: "Высокая",
+    image: "/images/slots/mahjong-wins-super-scatter.webp",
+    description:
+      "Поле 5 × 5 с выплатами до 2 000 способов, каскадами, растущим множителем и золотыми символами, которые оставляют wild.",
+    feature:
+      "Последовательные выигрышные каскады повышают множитель, а Super Scatter при запуске бонуса способны дать отдельный приз до 100 000x.",
+    note:
+      "Здесь полезно разделять число способов, цепочку каскадов и золотые позиции: это три независимых слоя состояния одного раунда.",
+    source: "https://www.pragmaticplay.com/en/games/mahjong-wins-super-scatter/",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/353-%F0%9F%8F%86-champions-clash-%E2%80%94-%E2%82%AC500000-by-pragmatic-play/",
+      evidence: "Официальный форум 1win указывает игру в списке участников турнира Pragmatic Play.",
+    }],
+  },
+  {
+    slug: "hand-of-anubis",
+    name: "Hand of Anubis",
+    provider: "Hacksaw Gaming",
+    year: 2022,
+    mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Множители", "Wild", "Soul Orbs"],
+    field: "5 × 6",
+    rtp: "96,24%",
+    volatility: "Экстремальная",
+    image: "/images/slots/hand-of-anubis.webp",
+    description:
+      "Тёмная египетская кластерная игра на поле 5 × 6, где каскады соединяются с Soul Orbs и накапливающимися множителями.",
+    feature:
+      "Soul Orbs помогают наращивать множители внутри цепочек, а бонусные режимы развивают эту систему отдельно от обычного кластерного выигрыша.",
+    note:
+      "Анимация бонусов здесь легко отвлекает от основы. Сначала отслеживайте размер кластера и каскад, затем уже значения Soul Orbs.",
+    source: "https://www.hacksawgaming.com/news/new-game-release-april-summary",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/468-%E2%80%8B-%F0%9F%92%A5-hacksaw-madness-are-these-bonuses-worth-the-risk-%E2%80%8B/",
+      evidence: "Администратор официального форума 1win отдельно разбирает Hand of Anubis и предлагает попробовать слоты Hacksaw.",
+    }],
+  },
+  {
+    slug: "rip-city",
+    name: "RIP City",
+    provider: "Hacksaw Gaming",
+    year: 2023,
+    mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Wild", "Расширяющийся символ", "Множители", "Свободные вращения"],
+    field: "5 × 5",
+    rtp: "96,22%",
+    volatility: "Средняя",
+    image: "/images/slots/rip-city.webp",
+    description:
+      "Пять барабанов, пять рядов и 19 линий. Wild Cat способен расширяться на барабан и поглощать обычные wild, превращая их в множители.",
+    feature:
+      "Два бонусных режима по-разному усиливают появление Wild Cat и сохраняют активированные барабаны в течение свободных вращений.",
+    note:
+      "RIP City показывает, как линейная игра может ощущаться динамичной без смены способа выплаты: меняются wild и состояние барабанов.",
+    source: "https://www.hacksawgaming.com/games/rip-city",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/468-%E2%80%8B-%F0%9F%92%A5-hacksaw-madness-are-these-bonuses-worth-the-risk-%E2%80%8B/",
+      evidence: "Администратор официального форума 1win отдельно перечисляет RIP City среди Hacksaw Slots.",
+    }],
+  },
+  {
+    slug: "hell-hot-100",
+    name: "Hell Hot 100",
+    provider: "Endorphina",
+    year: 2021,
+    mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Wild", "Risk Game", "Scatter"],
+    field: "5 × 4",
+    rtp: "96,07%",
+    volatility: "Низкая",
+    image: "/images/slots/hell-hot-100.webp",
+    description:
+      "Классическая фруктовая сетка 5 × 4 со 100 фиксированными линиями, stacked wild и отдельной карточной Risk Game.",
+    feature:
+      "После выигрыша доступна классическая Risk Game, где результат можно попытаться удвоить, выбирая карту против дилера.",
+    note:
+      "Это полезный контраст современным многоуровневым бонусам: основная структура проста, а риск-игра вынесена в отдельное действие после выплаты.",
+    source: "https://endorphina.com/games/hell-hot-100",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/1242-%F0%9F%8F%86-endorphina-winners-only-%E2%82%AC300000-network-tournament-%E2%80%8B/",
+      evidence: "Официальный форум 1win включает Hell Hot 100 в список игр турнира Endorphina.",
+    }],
+  },
+  {
+    slug: "joker-stoker",
+    name: "Joker Stoker",
+    provider: "Endorphina",
+    year: 2021,
+    mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Wild", "Свободные вращения", "Bonus Pop", "Scatter"],
+    field: "5 × 4",
+    rtp: "96,07%",
+    volatility: "Низкая",
+    image: "/images/slots/joker-stoker.webp",
+    description:
+      "Фруктовый слот на 40 фиксированных линиях с wild-джокером, scatter и прямым запуском свободных вращений.",
+    feature:
+      "Три, четыре или пять scatter дают 10, 20 или 30 свободных вращений; wild может появляться стеком и заменяет обычные символы.",
+    note:
+      "Joker Stoker хорошо показывает классическую схему: линии остаются основой, а бонус не меняет способ чтения базовой сетки.",
+    source: "https://endorphina.com/games/joker-stoker",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/1242-%F0%9F%8F%86-endorphina-winners-only-%E2%82%AC300000-network-tournament-%E2%80%8B/",
+      evidence: "Официальный форум 1win включает Joker Stoker в список игр турнира Endorphina.",
+    }],
+  },
+  {
+    slug: "lucky-streak-1",
+    name: "Lucky Streak 1",
+    provider: "Endorphina",
+    year: 2018,
+    mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Wild", "Risk Game", "Scatter"],
+    field: "5 × 4",
+    rtp: "96,09%",
+    volatility: "Средняя",
+    image: "/images/slots/lucky-streak-1.webp",
+    description:
+      "Сорок линий, фруктовые символы и минимальный набор специальных правил. После выплаты доступна классическая Risk Game.",
+    feature:
+      "Wild помогает составлять линейные комбинации, scatter оплачивается независимо от линии, а Risk Game позволяет отдельно рискнуть уже полученным выигрышем.",
+    note:
+      "Полезный ориентир для сравнения с современными слотами: здесь почти вся логика видна на самой таблице линий и символов.",
+    source: "https://endorphina.com/games/lucky-streak-1",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/1242-%F0%9F%8F%86-endorphina-winners-only-%E2%82%AC300000-network-tournament-%E2%80%8B/",
+      evidence: "Официальный форум 1win включает Lucky Streak 1 в список игр турнира Endorphina.",
+    }],
+  },
+  {
+    slug: "3-coin-towers",
+    name: "3 Coin Towers",
+    provider: "Endorphina",
+    year: 2026,
+    mechanic: "Сбор символов",
+    mechanics: ["Сбор символов", "Линии"],
+    tags: ["Свободные вращения", "Hold and Win", "Джекпоты", "Расширяющийся символ", "Pick-бонус"],
+    field: "5 × 3",
+    rtp: "96,08%",
+    volatility: "Высокая",
+    image: "/images/slots/3-coin-towers.webp",
+    description:
+      "Тридцать линий и три пагоды, которые растут от совпадающих монет и ведут к трём разным бонусным режимам.",
+    feature:
+      "Зелёная пагода открывает Free Games, красная — Coin Hold Bonus с джекпотами, синяя — отдельный Pick’em Bonus.",
+    note:
+      "Это не просто линейный слот с несколькими кнопками бонуса: сбор подходящих монет определяет, какая система будет развиваться дальше.",
+    source: "https://endorphina.com/games/3-coin-towers",
+    availability: [{
+      operator: "1win",
+      verifiedAt: "2026-09-07",
+      source: "https://forum.1win.com/topic/1242-%F0%9F%8F%86-endorphina-winners-only-%E2%82%AC300000-network-tournament-%E2%80%8B/",
+      evidence: "Официальный форум 1win включает 3 Coin Towers в список игр турнира Endorphina.",
+    }],
+  },
+
 ];
 
 export const article = {
@@ -627,6 +923,9 @@ const searchAliasGroups = [
   ["cascades", "tumble", "avalanche", "каскады"],
   ["clusters", "cluster", "кластеры"],
   ["ways", "xways", "способы"],
+  ["super scatter", "супер скаттер", "суперскаттер"],
+  ["risk game", "риск игра", "риск"],
+  ["hold and win", "холд энд вин", "холд"],
 ];
 
 function normalizeSearch(value: string) {
@@ -758,11 +1057,11 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Pragmatic Play",
     mark: "Каскады · кластеры · линии · сбор",
     catalogSummary:
-      "Каскады, кластерные поля, классические линии и бонусы со сбором символов — разные стороны каталога Pragmatic Play.",
+      "Каскады, кластеры, классические линии, сбор и новые ветки 1000 / Super Scatter — разные стороны каталога Pragmatic Play.",
     profileIntro:
-      "В каталоге одна студия охватывает несколько разных способов читать поле: от Pay Anywhere и кластеров до традиционных линий.",
+      "В текущей выборке студия охватывает несколько способов читать поле: от Pay Anywhere и кластеров до традиционных линий и Super Scatter-функций.",
     profileBody:
-      "Gates of Olympus, Sweet Bonanza и Starlight Princess показывают разные варианты каскадного ритма, Sugar Rush и Fruit Party переходят к кластерным полям, The Dog House остаётся ближе к линиям, а Big Bass Bonanza переносит внимание на сбор значений. Провайдер удобен как вход в каталог, но не описывает механику сам по себе.",
+      "Gates of Olympus, Gates of Olympus 1000 и Super Scatter-версия показывают, как одна базовая идея развивается через более крупные множители и отдельную функцию мгновенной выплаты. Sweet Bonanza и её Super Scatter-версия сохраняют Pay Anywhere, Sugar Rush и Fruit Party переходят к кластерным полям, The Dog House остаётся ближе к линиям, а Big Bass Bonanza переносит внимание на сбор значений. Провайдер удобен как вход в каталог, но логотип сам по себе не описывает механику конкретной игры.",
     signoff:
       "Чем шире линейка студии, тем меньше смысла делать выводы об игре только по логотипу провайдера.",
   },
@@ -797,11 +1096,11 @@ export const providerProfiles: ProviderProfile[] = [
     name: "Hacksaw Gaming",
     mark: "Линии · кластеры",
     catalogSummary:
-      "Линии, multiplier-wild и кластерные каскады: чем различаются Wanted, Chaos Crew и Le Bandit от Hacksaw Gaming.",
+      "Линии, multiplier-wild, расширяющиеся wild и кластерные каскады: разные способы устроить раунд в играх Hacksaw Gaming.",
     profileIntro:
-      "Wanted Dead or a Wild и две Chaos Crew опираются на линии, тогда как Le Bandit уходит в кластеры и состояние клеток.",
+      "Wanted Dead or a Wild, Chaos Crew и RIP City держатся за линейную геометрию, Hand of Anubis работает на каскадном кластерном поле, а Le Bandit уходит в кластеры и состояние клеток.",
     profileBody:
-      "У линейных игр провайдера сложность появляется в multiplier-wild, VS-символах и разных бонусных сценариях. Le Bandit меняет сам способ чтения поля: важны соседние группы, суперкаскады и золотые позиции. Узнаваемый визуальный язык не равен одинаковой структуре игры.",
+      "Wanted и Chaos Crew усложняют линии через multiplier-wild и разные бонусные сценарии, RIP City строит раунд вокруг расширяющегося Wild Cat. Hand of Anubis соединяет каскады, кластеры и Soul Orbs на поле 5 × 6. Le Bandit тоже меняет способ чтения поля, но делает акцент на суперкаскадах и золотых позициях. Узнаваемый визуальный язык не означает одинаковую структуру игры.",
     signoff:
       "Чем громче визуальные эффекты, тем полезнее возвращаться к простому вопросу: какое событие на самом деле создаёт выплату.",
   },
@@ -844,4 +1143,19 @@ export const providerProfiles: ProviderProfile[] = [
     signoff:
       "Одинаковые линии не делают игры похожими, если основная драматургия спрятана в разных бонусных системах.",
   },
+
+  {
+    slug: "endorphina",
+    name: "Endorphina",
+    mark: "Линии · сбор · классические бонусы",
+    catalogSummary:
+      "От Hell Hot 100 и Lucky Streak 1 до многоуровневого 3 Coin Towers: как Endorphina сочетает классические линии с отдельными бонусными системами.",
+    profileIntro:
+      "Текущая выборка Endorphina в Slotfolio начинается с простых линейных фруктовых игр и заканчивается слотом, где сбор монет открывает три самостоятельных бонусных режима.",
+    profileBody:
+      "Hell Hot 100 и Lucky Streak 1 оставляют основную математику на фиксированных линиях и выносят дополнительный риск в отдельную Risk Game. Joker Stoker добавляет свободные вращения и stacked wild. 3 Coin Towers использует ту же линейную основу, но связывает её со сбором монет, развитием пагод, Hold and Win и Pick’em. Поэтому логотип провайдера здесь не говорит о сложности игры сам по себе.",
+    signoff:
+      "У классической сетки может быть очень разная глубина: сравнивайте не оформление, а то, что сохраняет состояние между событиями.",
+  },
+
 ];

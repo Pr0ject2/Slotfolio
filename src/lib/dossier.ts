@@ -118,6 +118,43 @@ const verifiedMetrics: Record<string, VerifiedSlotMetrics> = {
     rtpVariants: ["99,00%"],
     source: "https://www.relax-gaming.com/products/casino/bookof99",
   },
+  "gates-of-olympus-1000": {
+    maxWin: "15 000x",
+    maxWinLabel: "Максимальная выплата",
+    source: "https://www.pragmaticplay.com/en/news/zeus-strikes-mighty-multipliers-in-pragmatic-plays-latest-release-gates-of-olympus-1000/",
+  },
+  "sugar-rush-1000": {
+    maxWin: "25 000x",
+    maxWinLabel: "Максимальная выплата",
+    source: "https://www.pragmaticplay.com/en/news/pragmatic-play-adds-to-sweet-sensation-in-sugar-rush-1000/",
+  },
+  "gates-of-olympus-super-scatter": {
+    maxWin: "50 000x",
+    maxWinLabel: "Максимальная выплата",
+    source: "https://www.pragmaticplay.com/en/games/gates-of-olympus-super-scatter/",
+  },
+  "sweet-bonanza-super-scatter": {
+    maxWin: "50 000x",
+    maxWinLabel: "Максимальная выплата",
+    source: "https://www.pragmaticplay.com/en/games/sweet-bonanza-super-scatter/",
+  },
+  "mahjong-wins-super-scatter": {
+    maxWin: "100 000x",
+    maxWinLabel: "Максимальная выплата",
+    source: "https://www.pragmaticplay.com/en/games/mahjong-wins-super-scatter/",
+  },
+  "hand-of-anubis": {
+    maxWin: "10 000x",
+    maxWinLabel: "Максимальная выплата",
+    rtpVariants: ["96,24%", "94,32%", "92,28%", "88,41%"],
+    source: "https://www.hacksawgaming.com/news/new-game-release-april-summary",
+  },
+  "rip-city": {
+    maxWin: "12 500x",
+    maxWinLabel: "Максимальная выплата",
+    rtpVariants: ["96,22%", "94,27%", "92,32%", "88,02%"],
+    source: "https://www.hacksawgaming.com/games/rip-city",
+  },
 };
 
 const tagExplanations: Record<string, string> = {
@@ -167,6 +204,22 @@ const tagExplanations: Record<string, string> = {
     "Отмеченные позиции сохраняют состояние и могут усиливать последующие каскады или бонусные события. Здесь важна не только комбинация символов, но и история самого поля.",
   "Персонажи-функции":
     "Специальные персонажи выполняют разные действия: собирают значения, умножают, добавляют символы или меняют состояние поля. Их эффект стоит разбирать по отдельности.",
+  "Super Scatter":
+    "Особый scatter даёт отдельную фиксированную награду при выполнении условий запуска бонуса. Его нужно считать отдельно от обычных scatter и от выигрышей внутри free spins.",
+  "Soul Orbs":
+    "Специальные орбы участвуют в накоплении множителей и других состояний функции. Следите за тем, какой орб изменился и сохраняется ли его значение после каскада.",
+  "Risk Game":
+    "После обычного выигрыша игра предлагает отдельно рискнуть уже полученной суммой. Это не меняет RTP одного спина и не является продолжением основной линии выплаты.",
+  Scatter:
+    "Scatter обычно считается независимо от фиксированных линий и может запускать бонус. Точное количество и позиции всегда нужно сверять с таблицей конкретной игры.",
+  "Bonus Pop":
+    "Дополнительная функция может ускорять переход к бонусному событию. Её доступность иногда зависит от версии игры, казино и юрисдикции.",
+  "Hold and Win":
+    "Бонус удерживает специальные символы на поле и даёт ограниченное число повторных попыток заполнить оставшиеся позиции. Состояние бонуса сохраняется между респинами.",
+  "Джекпоты":
+    "В игре есть отдельные фиксированные или прогрессивные уровни наград. Наличие джекпота само по себе не говорит о частоте его получения.",
+  "Pick-бонус":
+    "Бонус предлагает выбирать закрытые объекты с заранее определёнными наградами или эффектами. Главное отличие от обычного спина — отдельная последовательность решений внутри функции.",
 };
 
 export function getVerifiedSlotMetrics(slug: string) {

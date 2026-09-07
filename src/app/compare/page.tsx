@@ -4,7 +4,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Сравнение игр",
-  description: "Сравнение до трёх слотов по провайдеру, механике, игровому полю, RTP и волатильности.",
+  description: "Сравнение до трёх слотов по провайдеру, механикам, ключевым особенностям, игровому полю, RTP и волатильности.",
   path: "/compare",
   noIndex: true,
 });

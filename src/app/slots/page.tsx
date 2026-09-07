@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Каталог слотов",
-  description: "Каталог слотов Slotfolio с фильтрами по провайдеру и механике, краткими характеристиками и переходами к подробным досье.",
+  description: "Каталог слотов Slotfolio с фильтрами по провайдеру, механике, волатильности, RTP и особенностям, краткими характеристиками и подробными досье.",
   path: "/slots",
 });
 

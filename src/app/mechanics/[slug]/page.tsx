@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { mechanics, slots } from "@/lib/data";
+import { mechanics, slots, slotMechanics } from "@/lib/data";
 import { Breadcrumbs, GameRow, SectionTitle } from "@/components/editorial";
 import { pageMetadata } from "@/lib/seo";
 
@@ -78,7 +78,7 @@ export default async function Page({
   const m = mechanics.find((x) => x.slug === slug);
   if (!m || !texts[slug]) notFound();
 
-  const games = slots.filter((s) => s.mechanic === m.name);
+  const games = slots.filter((s) => slotMechanics(s).includes(m.name));
 
   return (
     <>

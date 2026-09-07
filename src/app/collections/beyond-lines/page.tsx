@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { slots } from "@/lib/data";
+import { slots, slotMechanics } from "@/lib/data";
 import { Breadcrumbs, GameImage, Affiliate } from "@/components/editorial";
 import { CompareButton } from "@/components/catalog";
 import { pageMetadata } from "@/lib/seo";
@@ -61,7 +61,7 @@ export default function Page() {
           </Link>
           <div>
             <span className="eyebrow accent">
-              {s.mechanic} / {s.provider}
+              {slotMechanics(s).join(" · ")} / {s.provider}
             </span>
             <h2>
               <Link href={"/slots/" + s.slug}>{s.name}</Link>

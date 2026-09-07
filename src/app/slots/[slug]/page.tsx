@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { slots, getSlot, providerSlug, mechanics } from "@/lib/data";
+import {
+  slots,
+  getSlot,
+  providerSlug,
+  mechanics,
+  relatedSlots,
+  slotMechanics,
+} from "@/lib/data";
 import {
   Breadcrumbs,
   GameImage,
@@ -45,7 +52,11 @@ export default async function Page({
 }) {
   const s = getSlot((await params).slug);
   if (!s) notFound();
-  const mechanic = mechanics.find((m) => m.name === s.mechanic)!;
+  const mechanicList = slotMechanics(s);
+  const mechanicRecords = mechanicList
+    .map((name) => mechanics.find((m) => m.name === name))
+    .filter((item): item is (typeof mechanics)[number] => Boolean(item));
+  const primaryMechanic = mechanicRecords[0];
 
   const mechanicExplanations: Record<string, string> = {
     "Каскады":
@@ -113,23 +124,7 @@ export default async function Page({
     },
   ];
 
-  const related = [
-    ...slots.filter(
-      (x) => x.slug !== s.slug && x.mechanic === s.mechanic,
-    ),
-    ...slots.filter(
-      (x) =>
-        x.slug !== s.slug &&
-        x.provider === s.provider &&
-        x.mechanic !== s.mechanic,
-    ),
-    ...slots.filter(
-      (x) => x.slug !== s.slug && x.provider !== s.provider,
-    ),
-  ].filter(
-    (item, index, array) =>
-      array.findIndex((candidate) => candidate.slug === item.slug) === index,
-  ).slice(0, 2);
+  const related = relatedSlots(s, 3);
 
   return (
     <>
@@ -162,9 +157,13 @@ export default async function Page({
           <p className="slot-deck">{s.description}</p>
           <dl className="facts">
             <div>
-              <dt>Механика</dt>
-              <dd>
-                <Link href={"/mechanics/" + mechanic.slug}>{s.mechanic} ↗</Link>
+              <dt>Механики</dt>
+              <dd className="fact-link-list">
+                {mechanicRecords.map((mechanic) => (
+                  <Link key={mechanic.slug} href={"/mechanics/" + mechanic.slug}>
+                    {mechanic.name} ↗
+                  </Link>
+                ))}
               </dd>
             </div>
             <div>
@@ -178,6 +177,19 @@ export default async function Page({
             <div>
               <dt>Волатильность</dt>
               <dd>{s.volatility}</dd>
+            </div>
+            <div className="facts-wide">
+              <dt>Ключевые особенности</dt>
+              <dd className="slot-tag-list">
+                {s.tags.map((tag) => (
+                  <Link
+                    key={tag}
+                    href={`/slots?feature=${encodeURIComponent(tag)}`}
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </dd>
             </div>
           </dl>
           <p className="data-note">
@@ -203,15 +215,22 @@ export default async function Page({
               {s.feature} Именно эта особенность определяет, за чем следить во
               время раунда.
             </p>
-            <p>{mechanicExplanations[s.mechanic]}</p>
+            {mechanicList.map((name) => (
+              <p key={name}>{mechanicExplanations[name]}</p>
+            ))}
             <p>
               Перед первым запуском откройте таблицу выплат. Она объясняет роль
               wild и scatter, условия срабатывания функций и ограничения
               максимальной выплаты для конкретной версии.
             </p>
-            <Link className="text-link" href={"/mechanics/" + mechanic.slug}>
-              Подробнее: {s.mechanic.toLowerCase()} ↗
-            </Link>
+            {primaryMechanic && (
+              <Link
+                className="text-link"
+                href={"/mechanics/" + primaryMechanic.slug}
+              >
+                Подробнее: {primaryMechanic.name.toLowerCase()} ↗
+              </Link>
+            )}
           </section>
           <section id="editor-view">
             <span className="eyebrow accent">Взгляд редакции</span>

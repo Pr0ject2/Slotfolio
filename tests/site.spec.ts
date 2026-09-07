@@ -1,5 +1,14 @@
 import { test, expect } from "@playwright/test";
-import { slots, mechanics, providerProfiles } from "../src/lib/data";
+import {
+  slots,
+  mechanics,
+  providerProfiles,
+  relatedSlots,
+  slotFeatureOptions,
+  slotMatchesSearch,
+  slotMechanics,
+  slotRtpValue,
+} from "../src/lib/data";
 const routes = [
   "/",
   "/slots",
@@ -24,6 +33,26 @@ const routes = [
   ...slots.map((s) => "/slots/" + s.slug),
   ...mechanics.map((m) => "/mechanics/" + m.slug),
 ];
+
+test("catalog taxonomy, richer search and related-game scoring", () => {
+  expect(slots).toHaveLength(30);
+  for (const slot of slots) {
+    expect(slot.mechanics.length, `${slot.slug} mechanics`).toBeGreaterThan(0);
+    expect(slot.tags.length, `${slot.slug} tags`).toBeGreaterThanOrEqual(3);
+    expect(slot.mechanics).toContain(slot.mechanic);
+    expect(slotRtpValue(slot)).toBeGreaterThan(0);
+  }
+  expect(slotFeatureOptions.some((item) => item.name === "Множители")).toBe(true);
+  expect(slotMatchesSearch(slots[0], "множители")).toBe(true);
+  expect(slotMatchesSearch(slots[0], "ртп")).toBe(true);
+  expect(slotMatchesSearch(slots[0], "вайлд")).toBe(false);
+  const jammin = slots.find((slot) => slot.slug === "jammin-jars")!;
+  expect(slotMechanics(jammin)).toEqual(["Кластеры", "Каскады"]);
+  const related = relatedSlots(jammin, 3);
+  expect(related).toHaveLength(3);
+  expect(related.every((slot) => slot.slug !== jammin.slug)).toBe(true);
+});
+
 test("slot media uses local runtime paths", () => {
   for (const slot of slots) {
     expect(slot.image, slot.slug).toMatch(/^\/images\/slots\/.+\.webp$/);
@@ -125,16 +154,43 @@ test("catalog query, combined filters, empty state, reset and sorting persist", 
   await page.getByRole("button", { name: "Показать ещё 12 ↓" }).click();
   await expect(page.locator(".catalog-game")).toHaveCount(30);
   await page.getByRole("radio", { name: "Каскады" }).check();
-  await expect(page.locator(".catalog-game")).toHaveCount(4);
+  const cascadeCount = slots.filter((slot) =>
+    slotMechanics(slot).includes("Каскады"),
+  ).length;
+  await expect(page.locator(".catalog-game")).toHaveCount(cascadeCount);
   await page.getByRole("combobox", { name: "Сортировка" }).selectOption("name");
   await page.reload();
-  await expect(page.locator(".catalog-game")).toHaveCount(4);
+  await expect(page.locator(".catalog-game")).toHaveCount(cascadeCount);
   await expect(page.getByRole("combobox", { name: "Сортировка" })).toHaveValue(
     "name",
   );
   await page.getByRole("button", { name: "Обложки", exact: true }).click();
   await expect(page.locator(".catalog-results")).toHaveClass(/covers/);
 });
+test("volatility, RTP and feature filters combine and persist in URL", async ({
+  page,
+}) => {
+  await page.goto("/slots");
+  await page.locator("#volatility").selectOption("Высокая");
+  await page.locator("#rtp").selectOption("96.5");
+  await page.locator("#feature").selectOption("Множители");
+  const expected = slots.filter(
+    (slot) =>
+      slot.volatility === "Высокая" &&
+      slotRtpValue(slot) >= 96.5 &&
+      slot.tags.includes("Множители"),
+  ).length;
+  await expect(page.locator(".catalog-game")).toHaveCount(expected);
+  await expect(page).toHaveURL(/volatility=/);
+  await expect(page).toHaveURL(/rtp=96.5/);
+  await expect(page).toHaveURL(/feature=/);
+  await page.reload();
+  await expect(page.locator("#volatility")).toHaveValue("Высокая");
+  await expect(page.locator("#rtp")).toHaveValue("96.5");
+  await expect(page.locator("#feature")).toHaveValue("Множители");
+  await expect(page.locator(".catalog-game")).toHaveCount(expected);
+});
+
 test("comparison selection, maximum, persistence and removal", async ({
   page,
 }) => {

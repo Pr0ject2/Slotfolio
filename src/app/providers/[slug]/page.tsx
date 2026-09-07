@@ -5,6 +5,8 @@ import {
   providerSlug,
   ruPlural,
   slots,
+  slotMechanics,
+  slotRtpValue,
 } from "@/lib/data";
 import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
 import { pageMetadata } from "@/lib/seo";
@@ -38,10 +40,6 @@ export async function generateMetadata({
   });
 }
 
-function parseRtp(value: string) {
-  return Number.parseFloat(value.replace(",", ".").replace("%", ""));
-}
-
 export default async function Page({
   params,
 }: {
@@ -56,14 +54,16 @@ export default async function Page({
 
   const mechanicGroups = Array.from(
     games.reduce((map, game) => {
-      const group = map.get(game.mechanic) || [];
-      group.push(game.name);
-      map.set(game.mechanic, group);
+      for (const mechanic of slotMechanics(game)) {
+        const group = map.get(mechanic) || [];
+        group.push(game.name);
+        map.set(mechanic, group);
+      }
       return map;
     }, new Map<string, string[]>()),
   );
   const averageRtp =
-    games.reduce((sum, game) => sum + parseRtp(game.rtp), 0) / games.length;
+    games.reduce((sum, game) => sum + slotRtpValue(game), 0) / games.length;
 
   return (
     <>

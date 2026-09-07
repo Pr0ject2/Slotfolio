@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { type Slot, providerSlug } from "@/lib/data";
+import { type Slot, providerSlug, slotMechanics } from "@/lib/data";
 import { affiliateUrl, operators } from "@/lib/affiliate";
 import { withBasePath } from "@/lib/base-path";
 export function Breadcrumbs({
@@ -87,7 +87,7 @@ export function GameRow({ slot, index }: { slot: Slot; index?: number }) {
           <Link href={"/slots/" + slot.slug}>{slot.name}</Link>
         </h3>
         <p>
-          {slot.mechanic} <span>·</span> {slot.year}
+          {slotMechanics(slot).join(" · ")} <span>·</span> {slot.year}
         </p>
       </div>
       <span className="row-rtp">

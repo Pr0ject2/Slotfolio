@@ -2,7 +2,16 @@
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { slots, mechanics, providerSlug, type Slot } from "@/lib/data";
+import {
+  slots,
+  mechanics,
+  providerSlug,
+  slotFeatureOptions,
+  slotMatchesSearch,
+  slotMechanics,
+  slotRtpValue,
+  type Slot,
+} from "@/lib/data";
 import { GameImage } from "./editorial-client";
 const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map(
   (name) => ({
@@ -75,6 +84,9 @@ export function CatalogFromUrl() {
       initialQ={params.get("q") || ""}
       initialProvider={params.get("provider") || ""}
       initialMechanic={params.get("mechanic") || ""}
+      initialVolatility={params.get("volatility") || ""}
+      initialRtp={params.get("rtp") || ""}
+      initialFeature={params.get("feature") || ""}
       initialSort={params.get("sort") || "editorial"}
     />
   );
@@ -84,17 +96,26 @@ export function Catalog({
   initialQ = "",
   initialProvider = "",
   initialMechanic = "",
+  initialVolatility = "",
+  initialRtp = "",
+  initialFeature = "",
   initialSort = "editorial",
 }: {
   initialQ?: string;
   initialProvider?: string;
   initialMechanic?: string;
+  initialVolatility?: string;
+  initialRtp?: string;
+  initialFeature?: string;
   initialSort?: string;
 }) {
   const PAGE_SIZE = 18;
   const [q, setQ] = useState(initialQ);
   const [provider, setProvider] = useState(initialProvider);
   const [mechanic, setMechanic] = useState(initialMechanic);
+  const [volatility, setVolatility] = useState(initialVolatility);
+  const [rtp, setRtp] = useState(initialRtp);
+  const [feature, setFeature] = useState(initialFeature);
   const [sort, setSort] = useState(initialSort);
   const [view, setView] = useState("list");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -104,36 +125,49 @@ export function Catalog({
     setQ(initialQ);
     setProvider(initialProvider);
     setMechanic(initialMechanic);
+    setVolatility(initialVolatility);
+    setRtp(initialRtp);
+    setFeature(initialFeature);
     setSort(initialSort);
-  }, [initialQ, initialProvider, initialMechanic, initialSort]);
+  }, [
+    initialQ,
+    initialProvider,
+    initialMechanic,
+    initialVolatility,
+    initialRtp,
+    initialFeature,
+    initialSort,
+  ]);
 
   useEffect(() => {
     const p = new URLSearchParams();
     if (q.trim()) p.set("q", q.trim());
     if (provider) p.set("provider", provider);
     if (mechanic) p.set("mechanic", mechanic);
+    if (volatility) p.set("volatility", volatility);
+    if (rtp) p.set("rtp", rtp);
+    if (feature) p.set("feature", feature);
     if (sort !== "editorial") p.set("sort", sort);
     window.history.replaceState(
       null,
       "",
       window.location.pathname + (p.size ? "?" + p : ""),
     );
-  }, [q, provider, mechanic, sort]);
+  }, [q, provider, mechanic, volatility, rtp, feature, sort]);
 
   useEffect(() => {
     setVisibleCount(PAGE_SIZE);
-  }, [q, provider, mechanic, sort]);
+  }, [q, provider, mechanic, volatility, rtp, feature, sort]);
 
-  const normalizedQuery = q.toLowerCase().trim();
-  let results = slots.filter((s) => {
-    const haystack =
-      `${s.name} ${s.provider} ${s.mechanic} ${s.year}`.toLowerCase();
-    return (
-      haystack.includes(normalizedQuery) &&
-      (!provider || providerSlug(s.provider) === provider) &&
-      (!mechanic || s.mechanic === mechanic)
-    );
-  });
+  const minRtp = rtp ? Number.parseFloat(rtp) : 0;
+  let results = slots.filter((s) =>
+    slotMatchesSearch(s, q) &&
+    (!provider || providerSlug(s.provider) === provider) &&
+    (!mechanic || slotMechanics(s).includes(mechanic)) &&
+    (!volatility || s.volatility === volatility) &&
+    (!rtp || slotRtpValue(s) >= minRtp) &&
+    (!feature || s.tags.includes(feature)),
+  );
 
   if (sort === "name")
     results = [...results].sort((a, b) => a.name.localeCompare(b.name, "ru"));
@@ -141,8 +175,7 @@ export function Catalog({
   if (sort === "rtp")
     results = [...results].sort(
       (a, b) =>
-        Number.parseFloat(b.rtp.replace(",", ".")) -
-        Number.parseFloat(a.rtp.replace(",", ".")),
+        slotRtpValue(b) - slotRtpValue(a),
     );
 
   const visibleResults = results.slice(0, visibleCount);
@@ -150,12 +183,17 @@ export function Catalog({
   const selectedProvider = providerOptions.find(
     (item) => item.slug === provider,
   );
-  const hasFilters = Boolean(q.trim() || provider || mechanic);
+  const hasFilters = Boolean(
+    q.trim() || provider || mechanic || volatility || rtp || feature,
+  );
 
   function reset() {
     setQ("");
     setProvider("");
     setMechanic("");
+    setVolatility("");
+    setRtp("");
+    setFeature("");
     setSort("editorial");
   }
 
@@ -173,7 +211,7 @@ export function Catalog({
             id="catalog-q"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Название, провайдер или механика"
+            placeholder="Название, провайдер, механика или особенность"
           />
           <span aria-hidden="true">↗</span>
         </div>
@@ -231,11 +269,56 @@ export function Catalog({
                   />
                   {m.name}
                   <span>
-                    {slots.filter((s) => s.mechanic === m.name).length}
+                    {slots.filter((s) => slotMechanics(s).includes(m.name)).length}
                   </span>
                 </label>
               ))}
             </fieldset>
+
+            <div className="filter-select-group">
+              <label htmlFor="volatility">Волатильность</label>
+              <select
+                id="volatility"
+                value={volatility}
+                onChange={(e) => setVolatility(e.target.value)}
+              >
+                <option value="">Любая</option>
+                {Array.from(new Set(slots.map((slot) => slot.volatility))).map(
+                  (value) => (
+                    <option key={value} value={value}>
+                      {value} · {slots.filter((slot) => slot.volatility === value).length}
+                    </option>
+                  ),
+                )}
+              </select>
+            </div>
+
+            <div className="filter-select-group">
+              <label htmlFor="rtp">RTP, справочно</label>
+              <select id="rtp" value={rtp} onChange={(e) => setRtp(e.target.value)}>
+                <option value="">Любой</option>
+                <option value="96">Не ниже 96,00%</option>
+                <option value="96.5">Не ниже 96,50%</option>
+                <option value="97">Не ниже 97,00%</option>
+              </select>
+            </div>
+
+            <div className="filter-select-group">
+              <label htmlFor="feature">Особенность</label>
+              <select
+                id="feature"
+                value={feature}
+                onChange={(e) => setFeature(e.target.value)}
+              >
+                <option value="">Любая</option>
+                {slotFeatureOptions.map((item) => (
+                  <option key={item.name} value={item.name}>
+                    {item.name} · {item.count}
+                  </option>
+                ))}
+              </select>
+            </div>
+
             <button
               className="reset-link"
               onClick={reset}
@@ -309,6 +392,21 @@ export function Catalog({
                   {mechanic} <b>×</b>
                 </button>
               )}
+              {volatility && (
+                <button onClick={() => setVolatility("")}>
+                  {volatility} <b>×</b>
+                </button>
+              )}
+              {rtp && (
+                <button onClick={() => setRtp("")}>
+                  RTP ≥ {rtp.replace(".", ",")}% <b>×</b>
+                </button>
+              )}
+              {feature && (
+                <button onClick={() => setFeature("")}>
+                  {feature} <b>×</b>
+                </button>
+              )}
               <button className="clear-all" onClick={reset}>
                 Сбросить всё
               </button>
@@ -346,8 +444,14 @@ export function Catalog({
                         <Link href={"/slots/" + s.slug}>{s.name}</Link>
                       </h2>
                       <p>{s.description}</p>
+                      <div className="catalog-game-tags" aria-label="Особенности игры">
+                        {s.tags.slice(0, 3).map((tag) => (
+                          <span key={tag}>{tag}</span>
+                        ))}
+                      </div>
                       <div className="catalog-game-data">
-                        <span>{s.mechanic}</span>
+                        <span>{slotMechanics(s).join(" · ")}</span>
+                        <span>{s.volatility}</span>
                         <span>RTP* {s.rtp}</span>
                         <CompareButton slug={s.slug} />
                       </div>
@@ -481,11 +585,9 @@ export function Comparison() {
     setPicker("");
   }
 
-  const selectedMechanics = new Set(games.map((game) => game.mechanic));
+  const selectedMechanics = new Set(games.flatMap((game) => slotMechanics(game)));
   const fields = new Set(games.map((game) => game.field));
-  const rtps = games.map((game) =>
-    Number.parseFloat(game.rtp.replace(",", ".").replace("%", "")),
-  );
+  const rtps = games.map(slotRtpValue);
   const minRtp = rtps.length ? Math.min(...rtps) : 0;
   const maxRtp = rtps.length ? Math.max(...rtps) : 0;
 
@@ -560,7 +662,7 @@ export function Comparison() {
                   <Link href={`/slots/${game.slug}`}>{game.name}</Link>
                 </h3>
                 <p>
-                  {game.mechanic} · {game.rtp}
+                  {slotMechanics(game).join(" · ")} · {game.rtp}
                 </p>
               </div>
               <button
@@ -643,26 +745,33 @@ export function Comparison() {
                   ))}
                 </tr>
                 <tr>
-                  <th scope="row">Механика</th>
-                  {games.map((game) => {
-                    const mechanic = mechanics.find(
-                      (item) => item.name === game.mechanic,
-                    );
-                    return (
-                      <td key={game.slug}>
-                        {mechanic ? (
-                          <Link
-                            className="comparison-cell-link"
-                            href={`/mechanics/${mechanic.slug}`}
-                          >
-                            {game.mechanic} ↗
-                          </Link>
-                        ) : (
-                          game.mechanic
-                        )}
-                      </td>
-                    );
-                  })}
+                  <th scope="row">Механики</th>
+                  {games.map((game) => (
+                    <td key={game.slug}>
+                      <div className="comparison-mechanics">
+                        {slotMechanics(game).map((name) => {
+                          const mechanic = mechanics.find((item) => item.name === name);
+                          return mechanic ? (
+                            <Link
+                              key={name}
+                              className="comparison-cell-link"
+                              href={`/mechanics/${mechanic.slug}`}
+                            >
+                              {name} ↗
+                            </Link>
+                          ) : (
+                            <span key={name}>{name}</span>
+                          );
+                        })}
+                      </div>
+                    </td>
+                  ))}
+                </tr>
+                <tr>
+                  <th scope="row">Ключевые особенности</th>
+                  {games.map((game) => (
+                    <td key={game.slug}>{game.tags.join(" · ")}</td>
+                  ))}
                 </tr>
                 {[
                   ["Поле", "field"],

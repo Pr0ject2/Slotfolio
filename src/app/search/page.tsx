@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
   title: "Поиск игр",
-  description: "Поиск по каталогу Slotfolio по названию игры, провайдеру и механике.",
+  description: "Поиск по каталогу Slotfolio по названию, провайдеру, механике, особенностям, RTP и волатильности.",
   path: "/search",
   noIndex: true,
 });
@@ -20,7 +20,7 @@ export default function Page() {
           <h1>Найти свою игру</h1>
         </div>
         <p>
-          Поиск по названию, провайдеру и механике.
+          Поиск по названию, провайдеру, механике и особенностям.
           <br />
           Материалы и гайды собраны в журнале.
         </p>

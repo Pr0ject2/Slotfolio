@@ -4,6 +4,8 @@ export type Slot = {
   provider: string;
   year: number;
   mechanic: string;
+  mechanics: string[];
+  tags: string[];
   field: string;
   rtp: string;
   volatility: string;
@@ -22,6 +24,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2021,
     mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Свободные вращения", "Множители", "Pay Anywhere"],
     field: "6 × 5",
     rtp: "96,50%",
     volatility: "Высокая",
@@ -40,6 +44,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2019,
     mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Свободные вращения", "Множители", "Pay Anywhere"],
     field: "6 × 5",
     rtp: "96,48%",
     volatility: "Высокая",
@@ -57,6 +63,8 @@ export const slots: Slot[] = [
     provider: "Play’n GO",
     year: 2016,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Свободные вращения", "Расширяющийся символ", "Book-бонус"],
     field: "5 × 3",
     rtp: "96,21%",
     volatility: "Высокая",
@@ -74,6 +82,8 @@ export const slots: Slot[] = [
     provider: "Play’n GO",
     year: 2017,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Шкала прогресса", "Преобразование символов"],
     field: "7 × 7",
     rtp: "96,51%",
     volatility: "Высокая",
@@ -91,6 +101,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2019,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Свободные вращения", "Закрепляющийся wild", "Множители"],
     field: "5 × 3",
     rtp: "96,51%",
     volatility: "Высокая",
@@ -108,6 +120,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2020,
     mechanic: "Сбор символов",
+    mechanics: ["Сбор символов", "Линии"],
+    tags: ["Свободные вращения", "Сбор значений", "Шкала прогресса"],
     field: "5 × 3",
     rtp: "96,71%",
     volatility: "Высокая",
@@ -125,6 +139,8 @@ export const slots: Slot[] = [
     provider: "Push Gaming",
     year: 2018,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Wild", "Множители"],
     field: "8 × 8",
     rtp: "96,83%",
     volatility: "Высокая",
@@ -142,6 +158,8 @@ export const slots: Slot[] = [
     provider: "Push Gaming",
     year: 2019,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Mystery-символы", "Множители", "Свободные вращения"],
     field: "5 × 4",
     rtp: "96,70%",
     volatility: "Высокая",
@@ -159,6 +177,8 @@ export const slots: Slot[] = [
     provider: "Hacksaw Gaming",
     year: 2021,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Wild", "Множители", "Несколько бонусов"],
     field: "5 × 5",
     rtp: "96,38%",
     volatility: "Высокая",
@@ -176,6 +196,8 @@ export const slots: Slot[] = [
     provider: "Hacksaw Gaming",
     year: 2023,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Золотые клетки", "Сбор значений"],
     field: "6 × 5",
     rtp: "96,34%",
     volatility: "Средняя",
@@ -193,6 +215,8 @@ export const slots: Slot[] = [
     provider: "Nolimit City",
     year: 2021,
     mechanic: "Способы",
+    mechanics: ["Способы"],
+    tags: ["xWays", "Split-символы", "Динамическое поле"],
     field: "5 × 3+",
     rtp: "96,03%",
     volatility: "Экстремальная",
@@ -210,6 +234,8 @@ export const slots: Slot[] = [
     provider: "Nolimit City",
     year: 2021,
     mechanic: "Способы",
+    mechanics: ["Способы", "Каскады"],
+    tags: ["Каскады", "xBomb", "Динамическое поле"],
     field: "6 × 3 → 6 × 6",
     rtp: "96,06%",
     volatility: "Экстремальная",
@@ -228,6 +254,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2021,
     mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Свободные вращения", "Множители", "Pay Anywhere"],
     field: "6 × 5",
     rtp: "96,50%",
     volatility: "Высокая",
@@ -245,6 +273,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2022,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Множители", "Золотые клетки"],
     field: "7 × 7",
     rtp: "96,50%",
     volatility: "Высокая",
@@ -262,6 +292,8 @@ export const slots: Slot[] = [
     provider: "Pragmatic Play",
     year: 2020,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Множители", "Свободные вращения"],
     field: "7 × 7",
     rtp: "96,47%",
     volatility: "Высокая",
@@ -279,6 +311,8 @@ export const slots: Slot[] = [
     provider: "Play’n GO",
     year: 2020,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Свободные вращения", "Расширяющийся символ", "Book-бонус"],
     field: "5 × 3",
     rtp: "96,58%",
     volatility: "Высокая",
@@ -296,6 +330,8 @@ export const slots: Slot[] = [
     provider: "Play’n GO",
     year: 2016,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Respin", "Wild", "Множители"],
     field: "3 × 3",
     rtp: "96,15%",
     volatility: "Средняя",
@@ -313,6 +349,8 @@ export const slots: Slot[] = [
     provider: "Play’n GO",
     year: 2018,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Шкала прогресса", "Преобразование символов"],
     field: "5 × 5",
     rtp: "96,50%",
     volatility: "Высокая",
@@ -330,6 +368,8 @@ export const slots: Slot[] = [
     provider: "Push Gaming",
     year: 2018,
     mechanic: "Линии",
+    mechanics: ["Линии", "Сбор символов"],
+    tags: ["Сбор значений", "Шкала прогресса", "Свободные вращения"],
     field: "5 × 5",
     rtp: "96,45%",
     volatility: "Высокая",
@@ -347,6 +387,8 @@ export const slots: Slot[] = [
     provider: "Push Gaming",
     year: 2022,
     mechanic: "Кластеры",
+    mechanics: ["Кластеры", "Каскады"],
+    tags: ["Каскады", "Wild", "Множители"],
     field: "9 × 6",
     rtp: "96,47%",
     volatility: "Высокая",
@@ -364,6 +406,8 @@ export const slots: Slot[] = [
     provider: "Hacksaw Gaming",
     year: 2020,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Множители", "Свободные вращения", "Wild"],
     field: "5 × 5",
     rtp: "96,30%",
     volatility: "Экстремальная",
@@ -381,6 +425,8 @@ export const slots: Slot[] = [
     provider: "Hacksaw Gaming",
     year: 2023,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Множители", "Несколько бонусов", "Wild"],
     field: "5 × 5",
     rtp: "96,35%",
     volatility: "Экстремальная",
@@ -398,6 +444,8 @@ export const slots: Slot[] = [
     provider: "Nolimit City",
     year: 2020,
     mechanic: "Способы",
+    mechanics: ["Способы"],
+    tags: ["xNudge", "Wild", "Множители"],
     field: "5 × 4",
     rtp: "96,03%",
     volatility: "Экстремальная",
@@ -415,6 +463,8 @@ export const slots: Slot[] = [
     provider: "Nolimit City",
     year: 2021,
     mechanic: "Способы",
+    mechanics: ["Способы"],
+    tags: ["xWays", "xSplit", "xNudge"],
     field: "5 барабанов · 3–2–3–2–3",
     rtp: "96,08%",
     volatility: "Экстремальная",
@@ -432,6 +482,8 @@ export const slots: Slot[] = [
     provider: "NetEnt",
     year: 2012,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Wild", "Respin", "Расширяющийся символ"],
     field: "5 × 3",
     rtp: "96,08%",
     volatility: "Низкая",
@@ -449,6 +501,8 @@ export const slots: Slot[] = [
     provider: "NetEnt",
     year: 2010,
     mechanic: "Каскады",
+    mechanics: ["Каскады"],
+    tags: ["Каскады", "Множители", "Свободные вращения"],
     field: "5 × 3",
     rtp: "95,97%",
     volatility: "Средняя",
@@ -466,6 +520,8 @@ export const slots: Slot[] = [
     provider: "NetEnt",
     year: 2019,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Закрепляющийся wild", "Множители", "Несколько бонусов"],
     field: "5 × 3",
     rtp: "96,80%",
     volatility: "Экстремальная",
@@ -483,6 +539,8 @@ export const slots: Slot[] = [
     provider: "Relax Gaming",
     year: 2020,
     mechanic: "Линии",
+    mechanics: ["Линии", "Сбор символов"],
+    tags: ["Сбор значений", "Динамическое поле", "Персонажи-функции"],
     field: "5 × 4",
     rtp: "96,40%",
     volatility: "Высокая",
@@ -500,6 +558,8 @@ export const slots: Slot[] = [
     provider: "Relax Gaming",
     year: 2020,
     mechanic: "Линии",
+    mechanics: ["Линии"],
+    tags: ["Свободные вращения", "Динамическое поле", "Шкала прогресса"],
     field: "5 × 5",
     rtp: "96,25%",
     volatility: "Экстремальная",
@@ -517,6 +577,8 @@ export const slots: Slot[] = [
     provider: "Relax Gaming",
     year: 2021,
     mechanic: "Линии",
+    mechanics: ["Линии", "Сбор символов"],
+    tags: ["Свободные вращения", "Расширяющийся символ", "Сбор символов"],
     field: "5 × 3",
     rtp: "99,00%",
     volatility: "Высокая",
@@ -539,6 +601,95 @@ export const article = {
 };
 
 export const getSlot = (slug: string) => slots.find((s) => s.slug === slug);
+
+export const slotMechanics = (slot: Slot) => slot.mechanics;
+
+export const slotRtpValue = (slot: Slot) =>
+  Number.parseFloat(slot.rtp.replace(",", ".").replace("%", ""));
+
+export const slotFeatureOptions = Array.from(
+  slots.reduce((counts, slot) => {
+    for (const tag of slot.tags) counts.set(tag, (counts.get(tag) || 0) + 1);
+    return counts;
+  }, new Map<string, number>()),
+)
+  .filter(([, count]) => count >= 2)
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "ru"))
+  .map(([name, count]) => ({ name, count }));
+
+const searchAliasGroups = [
+  ["wild", "вайлд", "вилд"],
+  ["free spins", "фриспины", "свободные вращения"],
+  ["rtp", "ртп", "возврат"],
+  ["cascades", "tumble", "avalanche", "каскады"],
+  ["clusters", "cluster", "кластеры"],
+  ["ways", "xways", "способы"],
+];
+
+function normalizeSearch(value: string) {
+  return value
+    .normalize("NFKD")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-zа-яё0-9.%×]+/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export function slotMatchesSearch(slot: Slot, query: string) {
+  const normalizedQuery = normalizeSearch(query);
+  if (!normalizedQuery) return true;
+  const searchable = normalizeSearch(
+    [
+      slot.name,
+      slot.provider,
+      "rtp ртп волатильность механика особенность",
+      slot.year,
+      slot.field,
+      slot.rtp,
+      slot.volatility,
+      ...slot.mechanics,
+      ...slot.tags,
+      slot.description,
+      slot.feature,
+    ].join(" "),
+  );
+  const tokens = normalizedQuery.split(" ").filter(Boolean);
+  return tokens.every((token) => {
+    if (searchable.includes(token)) return true;
+    const aliases = searchAliasGroups.find((group) =>
+      group.some((alias) => normalizeSearch(alias).includes(token) || token.includes(normalizeSearch(alias))),
+    );
+    return aliases ? aliases.some((alias) => searchable.includes(normalizeSearch(alias))) : false;
+  });
+}
+
+export function relatedSlots(slot: Slot, limit = 2) {
+  return slots
+    .filter((candidate) => candidate.slug !== slot.slug)
+    .map((candidate, index) => {
+      const sharedMechanics = candidate.mechanics.filter((name) =>
+        slot.mechanics.includes(name),
+      ).length;
+      const sharedTags = candidate.tags.filter((tag) => slot.tags.includes(tag)).length;
+      const sameProvider = candidate.provider === slot.provider ? 1 : 0;
+      const sameVolatility = candidate.volatility === slot.volatility ? 1 : 0;
+      const rtpDistance = Math.abs(slotRtpValue(candidate) - slotRtpValue(slot));
+      return {
+        candidate,
+        index,
+        score:
+          sharedMechanics * 5 +
+          sharedTags * 2 +
+          sameProvider * 3 +
+          sameVolatility -
+          Math.min(rtpDistance, 2) * 0.25,
+      };
+    })
+    .sort((a, b) => b.score - a.score || a.index - b.index)
+    .slice(0, limit)
+    .map(({ candidate }) => candidate);
+}
 
 export const providerSlug = (name: string) =>
   name

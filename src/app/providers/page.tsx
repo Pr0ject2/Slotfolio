@@ -5,6 +5,7 @@ import {
   providerSlug,
   ruPlural,
   slots,
+  slotMechanics,
 } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 
@@ -16,7 +17,7 @@ export const metadata = pageMetadata({
 
 function providerStats(name: string) {
   const games = slots.filter((slot) => slot.provider === name);
-  const mechanics = new Set(games.map((slot) => slot.mechanic));
+  const mechanics = new Set(games.flatMap((slot) => slotMechanics(slot)));
   return { games: games.length, mechanics: mechanics.size };
 }
 

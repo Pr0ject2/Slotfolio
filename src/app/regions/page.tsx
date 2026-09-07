@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = { title: "Страны и доступность" };
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Страны и доступность",
+  description: "Страновой справочник Slotfolio: как проверять доступность игр, оператора, лицензию и локальные ограничения.",
+  path: "/regions",
+});
+
 export default function Page() {
   return (
     <>

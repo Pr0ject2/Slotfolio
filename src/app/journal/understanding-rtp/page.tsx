@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = { title: "Что означает RTP" };
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Что означает RTP",
+  description: "Что означает RTP в слотах, почему 96% не обещают возврат за одну сессию и почему показатель нужно читать вместе с правилами игры.",
+  path: "/journal/understanding-rtp",
+  openGraphType: "article",
+});
+
 export default function Page() {
   return (
     <>

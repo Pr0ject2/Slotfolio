@@ -1,8 +1,14 @@
 import { Suspense } from "react";
 import { Catalog, CatalogFromUrl } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Поиск игр" };
+export const metadata = pageMetadata({
+  title: "Поиск игр",
+  description: "Поиск по каталогу Slotfolio по названию игры, провайдеру и механике.",
+  path: "/search",
+  noIndex: true,
+});
 
 export default function Page() {
   return (

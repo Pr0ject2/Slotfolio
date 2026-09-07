@@ -52,6 +52,55 @@ test("all public routes, local navigation targets, images and headings", async (
   }
   expect(errors).toEqual([]);
 });
+
+test("seo metadata, structured data, robots and sitemap", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/slots/gates-of-olympus");
+
+  const canonical = await page
+    .locator('link[rel="canonical"]')
+    .getAttribute("href");
+  expect(canonical).toContain("/slots/gates-of-olympus");
+
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+    "content",
+    /Gates of Olympus/,
+  );
+
+  const jsonLd = (
+    await page.locator('script[type="application/ld+json"]').allTextContents()
+  ).join("\n");
+  expect(jsonLd).toContain('"@type":"Article"');
+  expect(jsonLd).toContain('"@type":"Game"');
+  expect(jsonLd).toContain('"@type":"BreadcrumbList"');
+
+  await page.goto("/search");
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+    "content",
+    /noindex/,
+  );
+
+  const robots = await request.get("/robots.txt");
+  expect(robots.status()).toBe(200);
+  const robotsText = await robots.text();
+  if (process.env.NEXT_PUBLIC_INDEXABLE === "true") {
+    expect(robotsText).toContain("Allow: /");
+    expect(robotsText).toContain("Sitemap:");
+  } else {
+    expect(robotsText).toContain("Disallow: /");
+  }
+
+  const sitemap = await request.get("/sitemap.xml");
+  expect(sitemap.status()).toBe(200);
+  const sitemapText = await sitemap.text();
+  expect(sitemapText).toContain("/slots/gates-of-olympus");
+  expect(sitemapText).toContain("/providers/pragmatic-play");
+  expect(sitemapText).not.toContain("/search");
+  expect(sitemapText).not.toContain("/compare");
+});
+
 test("catalog query, combined filters, empty state, reset and sorting persist", async ({
   page,
 }) => {

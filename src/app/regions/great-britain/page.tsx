@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = {
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
   title: "Великобритания — проверка оператора и доступности",
-};
+  description: "Как проверить легальность и доступность азартной площадки в Великобритании: регулятор, лицензия и условия оператора.",
+  path: "/regions/great-britain",
+});
+
 export default function Page() {
   return (
     <>

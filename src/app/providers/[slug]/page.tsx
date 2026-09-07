@@ -6,6 +6,7 @@ import {
   slots,
 } from "@/lib/data";
 import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -20,7 +21,20 @@ export async function generateMetadata({
 }) {
   const { slug } = await params;
   const provider = providerProfiles.find((item) => item.slug === slug);
-  return { title: provider?.name || "Провайдер" };
+  if (!provider) {
+    return pageMetadata({
+      title: "Провайдер не найден",
+      description: "Такого профиля студии нет в текущем каталоге Slotfolio.",
+      path: "/providers",
+      noIndex: true,
+    });
+  }
+
+  return pageMetadata({
+    title: `${provider.name}: игры и механики`,
+    description: provider.catalogSummary,
+    path: `/providers/${provider.slug}`,
+  });
 }
 
 function parseRtp(value: string) {

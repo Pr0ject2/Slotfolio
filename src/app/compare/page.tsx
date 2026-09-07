@@ -1,7 +1,13 @@
 import { Comparison } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Сравнение игр" };
+export const metadata = pageMetadata({
+  title: "Сравнение игр",
+  description: "Сравнение до трёх слотов по провайдеру, механике, игровому полю, RTP и волатильности.",
+  path: "/compare",
+  noIndex: true,
+});
 
 export default function Page() {
   return (

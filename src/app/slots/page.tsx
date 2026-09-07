@@ -2,8 +2,13 @@ import { Suspense } from "react";
 import { Catalog, CatalogFromUrl } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
 import { slots } from "@/lib/data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Каталог слотов" };
+export const metadata = pageMetadata({
+  title: "Каталог слотов",
+  description: "Каталог слотов Slotfolio с фильтрами по провайдеру и механике, краткими характеристиками и переходами к подробным досье.",
+  path: "/slots",
+});
 
 export default function Page() {
   return (

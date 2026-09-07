@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { systemPages } from "@/lib/system-pages";
 import { Breadcrumbs } from "@/components/editorial";
+import { pageMetadata } from "@/lib/seo";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return Object.keys(systemPages).map((page) => ({ page }));
@@ -10,9 +11,22 @@ export async function generateMetadata({
 }: {
   params: Promise<{ page: string }>;
 }) {
-  return {
-    title: systemPages[(await params).page]?.title || "Страница не найдена",
-  };
+  const { page } = await params;
+  const data = systemPages[page];
+  if (!data) {
+    return pageMetadata({
+      title: "Страница не найдена",
+      description: "Такой страницы нет в Slotfolio.",
+      path: "/",
+      noIndex: true,
+    });
+  }
+
+  return pageMetadata({
+    title: data.title,
+    description: data.intro,
+    path: `/${page}`,
+  });
 }
 export default async function Page({
   params,

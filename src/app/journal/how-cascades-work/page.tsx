@@ -6,9 +6,15 @@ import {
   SectionTitle,
   GameRow,
 } from "@/components/editorial";
-export const metadata = {
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
   title: "Один спин — несколько событий. Как работают каскады",
-};
+  description: "Большой разбор каскадной механики: почему символы исчезают, как продолжается вращение и что меняется от игры к игре.",
+  path: "/journal/how-cascades-work",
+  openGraphType: "article",
+});
+
 export default function Page() {
   return (
     <>

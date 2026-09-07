@@ -9,6 +9,8 @@ import {
   Affiliate,
 } from "@/components/editorial";
 import { CompareButton } from "@/components/catalog";
+import { JsonLd } from "@/components/json-ld";
+import { absoluteMediaUrl, absoluteUrl, pageMetadata } from "@/lib/seo";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return slots.map((s) => ({ slug: s.slug }));
@@ -19,7 +21,22 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const s = getSlot((await params).slug);
-  return { title: s?.name || "Игра не найдена", description: s?.description };
+  if (!s) {
+    return pageMetadata({
+      title: "Игра не найдена",
+      description: "Такого игрового досье нет в текущем каталоге Slotfolio.",
+      path: "/slots",
+      noIndex: true,
+    });
+  }
+
+  return pageMetadata({
+    title: `${s.name}: механика, RTP и устройство игры`,
+    description: s.description,
+    path: `/slots/${s.slug}`,
+    image: s.featureImage || s.image,
+    openGraphType: "article",
+  });
 }
 export default async function Page({
   params,
@@ -43,6 +60,59 @@ export default async function Page({
       "Фиксированной линии нет: совпадения собираются через соседние барабаны, а число возможных маршрутов может меняться. Расширение поля, split-символы и дополнительные позиции увеличивают количество способов прямо по ходу раунда.",
   };
 
+  const dossierUrl = absoluteUrl(`/slots/${s.slug}`);
+  const imageUrl = absoluteMediaUrl(s.featureImage || s.image);
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: `${s.name}: механика, RTP и устройство игры`,
+      description: s.description,
+      url: dossierUrl,
+      mainEntityOfPage: dossierUrl,
+      image: [imageUrl],
+      inLanguage: "ru",
+      publisher: {
+        "@type": "Organization",
+        name: "Slotfolio",
+        url: absoluteUrl("/"),
+      },
+      about: {
+        "@type": "Game",
+        name: s.name,
+        description: s.description,
+        creator: {
+          "@type": "Organization",
+          name: s.provider,
+        },
+      },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Главная",
+          item: absoluteUrl("/"),
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Каталог слотов",
+          item: absoluteUrl("/slots"),
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: s.name,
+          item: dossierUrl,
+        },
+      ],
+    },
+  ];
+
   const related = [
     ...slots.filter(
       (x) => x.slug !== s.slug && x.mechanic === s.mechanic,
@@ -63,6 +133,7 @@ export default async function Page({
 
   return (
     <>
+      <JsonLd data={structuredData} />
       <Breadcrumbs
         items={[{ label: "Каталог", href: "/slots" }, { label: s.name }]}
       />

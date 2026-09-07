@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Header, Footer } from "@/components/shell";
+import { JsonLd } from "@/components/json-ld";
+import { SITE_DESCRIPTION, SITE_NAME, indexingEnabled, siteUrl } from "@/lib/seo";
 import "./globals.css";
 
 const golos = localFont({
@@ -16,19 +18,51 @@ const golos = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(`${siteUrl()}/`),
   title: {
     default: "Slotfolio — игры, механики и контекст",
     template: "%s — Slotfolio",
   },
-  description:
-    "Каталог и редакционные разборы слотов: механики, провайдеры, сравнение игр и понятные объяснения правил.",
-  robots: { index: false, follow: false },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  referrer: "origin-when-cross-origin",
+  formatDetection: { telephone: false, email: false, address: false },
+  robots: indexingEnabled()
+    ? {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          "max-image-preview": "large",
+          "max-snippet": -1,
+          "max-video-preview": -1,
+        },
+      }
+    : { index: false, follow: false },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru" className={golos.variable}>
       <body>
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: SITE_NAME,
+            url: siteUrl(),
+            description: SITE_DESCRIPTION,
+            inLanguage: "ru",
+            publisher: {
+              "@type": "Organization",
+              name: SITE_NAME,
+              url: siteUrl(),
+            },
+          }}
+        />
         <a href="#main" className="skip-link">
           Перейти к содержимому
         </a>

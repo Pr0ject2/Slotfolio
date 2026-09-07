@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { slots, article, mechanics } from "@/lib/data";
 import { GameImage, GameRow, SectionTitle } from "@/components/editorial";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Slotfolio — игры, механики и контекст",
+  description: "Редакционный каталог слотов: досье игр, механики, провайдеры, сравнение и понятные объяснения RTP и правил.",
+  path: "/",
+  absoluteTitle: true,
+});
+
 export default function Home() {
   return (
     <>

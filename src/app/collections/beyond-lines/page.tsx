@@ -2,9 +2,15 @@ import Link from "next/link";
 import { slots } from "@/lib/data";
 import { Breadcrumbs, GameImage, Affiliate } from "@/components/editorial";
 import { CompareButton } from "@/components/catalog";
-export const metadata = {
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
   title: "За пределами линий — три игры с другой логикой",
-};
+  description: "Подборка слотов без привычной логики линий: сравниваем Sweet Bonanza, Reactoonz и Gates of Olympus через правила и механику.",
+  path: "/collections/beyond-lines",
+  openGraphType: "article",
+});
+
 export default function Page() {
   const games = [slots[1], slots[3], slots[0]];
   const notes = [

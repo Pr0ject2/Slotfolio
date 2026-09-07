@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = { title: "Как читать условия бонусов" };
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Как читать условия бонусов",
+  description: "Как читать условия бонусов казино: отыгрыш, сроки, лимиты, исключения и другие пункты, которые важно проверить до активации.",
+  path: "/bonuses",
+  openGraphType: "article",
+});
+
 export default function Page() {
   return (
     <>

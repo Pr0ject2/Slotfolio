@@ -5,8 +5,13 @@ import {
   providerSlug,
   slots,
 } from "@/lib/data";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Провайдеры слотов" };
+export const metadata = pageMetadata({
+  title: "Провайдеры слотов",
+  description: "Провайдеры игр в каталоге Slotfolio: профили студий, представленные механики и разобранные слоты.",
+  path: "/providers",
+});
 
 function providerStats(name: string) {
   const games = slots.filter((slot) => slot.provider === name);

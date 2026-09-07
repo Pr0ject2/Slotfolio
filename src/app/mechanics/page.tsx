@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { mechanics } from "@/lib/data";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = { title: "Игровые механики" };
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Игровые механики",
+  description: "Справочник игровых механик слотов: каскады, кластеры, линии, сбор символов и способы.",
+  path: "/mechanics",
+});
+
 export default function Page() {
   return (
     <>

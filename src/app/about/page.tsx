@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { Breadcrumbs } from "@/components/editorial";
-export const metadata = { title: "О проекте" };
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "О проекте",
+  description: "Как устроен Slotfolio: редакционный подход к разбору слотов, источникам, фактам, партнёрским отношениям и ответственной игре.",
+  path: "/about",
+});
+
 export default function Page() {
   return (
     <>

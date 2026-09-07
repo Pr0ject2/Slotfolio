@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { slots } from "@/lib/data";
 import { Breadcrumbs, GameImage } from "@/components/editorial";
-export const metadata = { title: "Тематические подборки" };
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Тематические подборки",
+  description: "Тематические подборки Slotfolio: игры объединены по механике и устройству, чтобы проще видеть сходства и различия.",
+  path: "/collections",
+});
+
 export default function Page() {
   return (
     <>

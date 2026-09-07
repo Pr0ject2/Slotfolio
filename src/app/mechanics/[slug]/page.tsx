@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { mechanics, slots } from "@/lib/data";
 import { Breadcrumbs, GameRow, SectionTitle } from "@/components/editorial";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
 
@@ -15,7 +16,21 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  return { title: mechanics.find((x) => x.slug === slug)?.name || "Механика" };
+  const mechanic = mechanics.find((item) => item.slug === slug);
+  if (!mechanic) {
+    return pageMetadata({
+      title: "Механика не найдена",
+      description: "Такой механики нет в текущем справочнике Slotfolio.",
+      path: "/mechanics",
+      noIndex: true,
+    });
+  }
+
+  return pageMetadata({
+    title: `${mechanic.name}: как работает механика`,
+    description: mechanic.text,
+    path: `/mechanics/${mechanic.slug}`,
+  });
 }
 
 const texts: Record<string, string[]> = {

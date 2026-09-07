@@ -5,6 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
+    "predev": "node scripts/localize-slot-images.mjs --soft",
+    "assets:localize": "node scripts/localize-slot-images.mjs",
+    "prebuild": "node scripts/localize-slot-images.mjs",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
@@ -27,5 +30,8 @@
     "prettier": "^3.9.6",
     "typescript": "^7.0.2"
   },
-  "private": true
+  "private": true,
+  "optionalDependencies": {
+    "sharp": "^0.35.4"
+  }
 }

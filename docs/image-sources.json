@@ -2,73 +2,99 @@
   {
     "slug": "gates-of-olympus",
     "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus/",
-    "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/GOOL_EN_339x180.png"
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/GOOL_EN_339x180.png",
+    "local": "/images/slots/gates-of-olympus.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "sweet-bonanza",
     "page": "https://www.pragmaticplay.com/en/games/sweet-bonanza/",
-    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Sweet-Bonanza™_Thumb_339x180-3.png"
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Sweet-Bonanza™_Thumb_339x180-3.png",
+    "local": "/images/slots/sweet-bonanza.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "the-dog-house",
     "page": "https://www.pragmaticplay.com/en/games/the-dog-house/",
-    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/The-Dog-House™_339x180px-1-1.png"
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/The-Dog-House™_339x180px-1-1.png",
+    "local": "/images/slots/the-dog-house.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "big-bass-bonanza",
     "page": "https://www.pragmaticplay.com/en/games/big-bass-bonanza/",
-    "image": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Big-Bass-Bonanza™_EN_339x180_04.png"
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Big-Bass-Bonanza™_EN_339x180_04.png",
+    "local": "/images/slots/big-bass-bonanza.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "book-of-dead",
     "page": "https://www.playngo.com/games/book-of-dead",
-    "image": "https://static.wixstatic.com/media/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp/v1/fill/w_500,h_350,al_c/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp"
+    "image": "https://static.wixstatic.com/media/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp/v1/fill/w_500,h_350,al_c/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp",
+    "local": "/images/slots/book-of-dead.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "reactoonz",
     "page": "https://www.playngo.com/games/reactoonz",
-    "image": "https://static.wixstatic.com/media/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp/v1/fill/w_500,h_350,al_c/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp"
+    "image": "https://static.wixstatic.com/media/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp/v1/fill/w_500,h_350,al_c/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp",
+    "local": "/images/slots/reactoonz.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "gates-of-olympus-feature",
     "page": "https://www.pragmaticplay.com/en/news/pragmatic-play-aims-for-the-heavens-in-gates-of-olympus/",
     "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/1200x630_EN-8.png",
-    "use": "Large editorial image and game profile"
+    "use": "Large editorial image and game profile",
+    "local": "/images/slots/gates-of-olympus-feature.webp",
+    "localize": "checked-in"
   },
   {
     "slug": "jammin-jars",
     "page": "https://www.pushgaming.com/games/jammin-jars.html",
     "image": "https://www.primeapi.com/cmscdn/cdn/cms/GC/Jammin_Jars_Free_Spin_561b111e40.jpg.webp",
-    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+    "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
+    "local": "/images/slots/jammin-jars.webp",
+    "localize": "build"
   },
   {
     "slug": "razor-shark",
     "page": "https://www.pushgaming.com/games/razor-shark.html",
     "image": "https://www.lunasa.ie/wp-content/uploads/2024/08/Razor-Shark-Slot-Game-Play-1024x550.png",
-    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+    "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
+    "local": "/images/slots/razor-shark.webp",
+    "localize": "build"
   },
   {
     "slug": "wanted-dead-or-a-wild",
     "page": "https://www.hacksawgaming.com/games/wanted-dead-or-a-wild",
     "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1067_hero_DESKTOP.png",
-    "note": "External Hacksaw Gaming image URL; localize before public launch if licensing permits."
+    "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
+    "local": "/images/slots/wanted-dead-or-a-wild.webp",
+    "localize": "build"
   },
   {
     "slug": "le-bandit",
     "page": "https://www.hacksawgaming.com/games/le-bandit",
     "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1309_hero_Device_Desktop%20%281%29.png",
-    "note": "External Hacksaw Gaming image URL; localize before public launch if licensing permits."
+    "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
+    "local": "/images/slots/le-bandit.webp",
+    "localize": "build"
   },
   {
     "slug": "san-quentin-xways",
     "page": "https://nolimitcity.com/games/san-quentin",
     "image": "https://www.primeapi.com/cmscdn/cdn/cms/GZ/San_Quentin_Xways_RTP_and_Wagering_ba1d37865f.webp",
-    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+    "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
+    "local": "/images/slots/san-quentin-xways.webp",
+    "localize": "build"
   },
   {
     "slug": "fire-in-the-hole",
     "page": "https://nolimitcity.com/games/fire-in-the-hole",
     "image": "https://www.onlinecasinoreports.com/images/fireinthehole.png",
-    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+    "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
+    "local": "/images/slots/fire-in-the-hole.webp",
+    "localize": "build"
   }
 ]

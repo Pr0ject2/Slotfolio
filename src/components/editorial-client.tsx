@@ -9,6 +9,7 @@ export function GameImage({ slot }: { slot: Slot }) {
       width="500"
       height="280"
       loading="lazy"
+      decoding="async"
     />
   );
 }

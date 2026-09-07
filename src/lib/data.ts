@@ -25,8 +25,8 @@ export const slots: Slot[] = [
     field: "6 × 5",
     rtp: "96,50%",
     volatility: "Высокая",
-    image: "/images/gates-of-olympus.png",
-    featureImage: "/images/gates-of-olympus-feature.png",
+    image: "/images/slots/gates-of-olympus.webp",
+    featureImage: "/images/slots/gates-of-olympus-feature.webp",
     description:
       "Античный мир, каскадные символы и множители, которые меняют ход бонусного раунда. Разбираемся, что происходит за зрелищной оболочкой.",
     feature:
@@ -43,7 +43,7 @@ export const slots: Slot[] = [
     field: "6 × 5",
     rtp: "96,48%",
     volatility: "Высокая",
-    image: "/images/sweet-bonanza.png",
+    image: "/images/slots/sweet-bonanza.webp",
     description:
       "За фруктами и конфетами скрывается система выплат без привычных линий. Одинаковые символы считаются по всему полю.",
     feature:
@@ -60,7 +60,7 @@ export const slots: Slot[] = [
     field: "5 × 3",
     rtp: "96,21%",
     volatility: "Высокая",
-    image: "/images/book-of-dead.webp",
+    image: "/images/slots/book-of-dead.webp",
     description:
       "Египетское приключение с десятью линиями и расширяющимся символом. Лаконичная базовая игра и выразительный бонус.",
     feature:
@@ -77,7 +77,7 @@ export const slots: Slot[] = [
     field: "7 × 7",
     rtp: "96,51%",
     volatility: "Высокая",
-    image: "/images/reactoonz.webp",
+    image: "/images/slots/reactoonz.webp",
     description:
       "Цепные реакции на поле с одноглазыми существами. Вместо линий — соседние группы, накопление энергии и преобразование символов.",
     feature:
@@ -94,7 +94,7 @@ export const slots: Slot[] = [
     field: "5 × 3",
     rtp: "96,51%",
     volatility: "Высокая",
-    image: "/images/the-dog-house.png",
+    image: "/images/slots/the-dog-house.webp",
     description:
       "Собаки, будки и закрепляющиеся wild-символы. Классическая сетка с акцентом на сочетания множителей.",
     feature:
@@ -111,7 +111,7 @@ export const slots: Slot[] = [
     field: "5 × 3",
     rtp: "96,71%",
     volatility: "Высокая",
-    image: "/images/big-bass-bonanza.png",
+    image: "/images/slots/big-bass-bonanza.webp",
     description:
       "Рыбалка как механика: рыбак собирает значения денежных символов в свободных вращениях.",
     feature:
@@ -128,8 +128,7 @@ export const slots: Slot[] = [
     field: "8 × 8",
     rtp: "96,83%",
     volatility: "Высокая",
-    image:
-      "https://www.primeapi.com/cmscdn/cdn/cms/GC/Jammin_Jars_Free_Spin_561b111e40.jpg.webp",
+    image: "/images/slots/jammin-jars.webp",
     description:
       "Большое поле 8 × 8, кластерные выплаты и каскады. Wild-банки перемещаются по полю и наращивают множитель после участия в выигрыше.",
     feature:
@@ -146,8 +145,7 @@ export const slots: Slot[] = [
     field: "5 × 4",
     rtp: "96,70%",
     volatility: "Высокая",
-    image:
-      "https://www.lunasa.ie/wp-content/uploads/2024/08/Razor-Shark-Slot-Game-Play-1024x550.png",
+    image: "/images/slots/razor-shark.webp",
     description:
       "Двадцать линий, mystery-стеки и отдельная функция раскрытия золотой акулы. Бонус строится вокруг сдвигающихся стеков и растущего множителя.",
     feature:
@@ -164,8 +162,7 @@ export const slots: Slot[] = [
     field: "5 × 5",
     rtp: "96,38%",
     volatility: "Высокая",
-    image:
-      "https://www-live.hacksawgaming.com/casino_thumbnails/1067_hero_DESKTOP.png",
+    image: "/images/slots/wanted-dead-or-a-wild.webp",
     description:
       "Пятнадцать линий и три заметно разных бонусных сценария. VS-символы раскрывают целые wild-барабаны и добавляют множители к линиям.",
     feature:
@@ -182,8 +179,7 @@ export const slots: Slot[] = [
     field: "6 × 5",
     rtp: "96,34%",
     volatility: "Средняя",
-    image:
-      "https://www-live.hacksawgaming.com/casino_thumbnails/1309_hero_Device_Desktop%20%281%29.png",
+    image: "/images/slots/le-bandit.webp",
     description:
       "Кластерные выплаты, суперкаскады и золотые клетки, которые сохраняют след выигрышных позиций. Поверх них работают монеты, клеверы и горшки золота.",
     feature:
@@ -200,8 +196,7 @@ export const slots: Slot[] = [
     field: "5 × 3+",
     rtp: "96,03%",
     volatility: "Экстремальная",
-    image:
-      "https://www.primeapi.com/cmscdn/cdn/cms/GZ/San_Quentin_Xways_RTP_and_Wagering_ba1d37865f.webp",
+    image: "/images/slots/san-quentin-xways.webp",
     description:
       "Базовое поле 5 × 3 дополняют enhancer-клетки, split-символы и xWays. Число возможных маршрутов может резко увеличиваться прямо внутри вращения.",
     feature:
@@ -218,7 +213,7 @@ export const slots: Slot[] = [
     field: "6 × 3 → 6 × 6",
     rtp: "96,06%",
     volatility: "Экстремальная",
-    image: "https://www.onlinecasinoreports.com/images/fireinthehole.png",
+    image: "/images/slots/fire-in-the-hole.webp",
     description:
       "Шахта начинается с трёх активных рядов и раскрывается до шести. Количество способов растёт вместе с полем, а xBomb запускает новые обвалы и множители.",
     feature:

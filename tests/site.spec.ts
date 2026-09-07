@@ -24,6 +24,15 @@ const routes = [
   ...slots.map((s) => "/slots/" + s.slug),
   ...mechanics.map((m) => "/mechanics/" + m.slug),
 ];
+test("slot media uses local runtime paths", () => {
+  for (const slot of slots) {
+    expect(slot.image, slot.slug).toMatch(/^\/images\/slots\/.+\.webp$/);
+    if (slot.featureImage)
+      expect(slot.featureImage, `${slot.slug} feature`).toMatch(
+        /^\/images\/slots\/.+\.webp$/,
+      );
+  }
+});
 test("all public routes, local navigation targets, images and headings", async ({
   page,
   request,
@@ -44,6 +53,7 @@ test("all public routes, local navigation targets, images and headings", async (
     for (const src of await page
       .locator("img")
       .evaluateAll((imgs) => imgs.map((i) => i.getAttribute("src")!))) {
+      expect(src, `external runtime image on ${route}`).not.toMatch(/^https?:\/\//);
       expect((await request.get(src)).status(), src).toBe(200);
     }
   }

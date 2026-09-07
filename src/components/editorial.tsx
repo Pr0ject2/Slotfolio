@@ -55,11 +55,15 @@ export function GameImage({
   return (
     <img
       className={"game-image " + className}
-      src={withBasePath(priority && slot.featureImage ? slot.featureImage : slot.image)}
+      src={withBasePath(
+        priority && slot.featureImage ? slot.featureImage : slot.image,
+      )}
       alt={`Иллюстрация ${slot.name}`}
       width={500}
       height={280}
       loading={priority ? "eager" : "lazy"}
+      decoding="async"
+      fetchPriority={priority ? "high" : "auto"}
     />
   );
 }

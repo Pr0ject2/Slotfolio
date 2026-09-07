@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { slots, mechanics } from "../src/lib/data";
+import { slots, mechanics, providerProfiles } from "../src/lib/data";
 const routes = [
   "/",
   "/slots",
@@ -7,8 +7,7 @@ const routes = [
   "/compare",
   "/mechanics",
   "/providers",
-  "/providers/pragmatic-play",
-  "/providers/play-n-go",
+  ...providerProfiles.map((provider) => "/providers/" + provider.slug),
   "/collections",
   "/collections/beyond-lines",
   "/journal",
@@ -62,7 +61,7 @@ test("catalog query, combined filters, empty state, reset and sorting persist", 
   await page.locator("#provider").selectOption("play-n-go");
   await expect(page.getByText("Такой игры пока нет")).toBeVisible();
   await page.getByRole("button", { name: "Показать все игры" }).click();
-  await expect(page.locator(".catalog-game")).toHaveCount(6);
+  await expect(page.locator(".catalog-game")).toHaveCount(12);
   await page.getByRole("radio", { name: "Каскады" }).check();
   await expect(page.locator(".catalog-game")).toHaveCount(2);
   await page.getByRole("combobox", { name: "Сортировка" }).selectOption("name");

@@ -34,5 +34,41 @@
     "page": "https://www.pragmaticplay.com/en/news/pragmatic-play-aims-for-the-heavens-in-gates-of-olympus/",
     "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/1200x630_EN-8.png",
     "use": "Large editorial image and game profile"
+  },
+  {
+    "slug": "jammin-jars",
+    "page": "https://www.pushgaming.com/games/jammin-jars.html",
+    "image": "https://www.primeapi.com/cmscdn/cdn/cms/GC/Jammin_Jars_Free_Spin_561b111e40.jpg.webp",
+    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+  },
+  {
+    "slug": "razor-shark",
+    "page": "https://www.pushgaming.com/games/razor-shark.html",
+    "image": "https://www.lunasa.ie/wp-content/uploads/2024/08/Razor-Shark-Slot-Game-Play-1024x550.png",
+    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+  },
+  {
+    "slug": "wanted-dead-or-a-wild",
+    "page": "https://www.hacksawgaming.com/games/wanted-dead-or-a-wild",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1067_hero_DESKTOP.png",
+    "note": "External Hacksaw Gaming image URL; localize before public launch if licensing permits."
+  },
+  {
+    "slug": "le-bandit",
+    "page": "https://www.hacksawgaming.com/games/le-bandit",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1309_hero_Device_Desktop%20%281%29.png",
+    "note": "External Hacksaw Gaming image URL; localize before public launch if licensing permits."
+  },
+  {
+    "slug": "san-quentin-xways",
+    "page": "https://nolimitcity.com/games/san-quentin",
+    "image": "https://www.primeapi.com/cmscdn/cdn/cms/GZ/San_Quentin_Xways_RTP_and_Wagering_ba1d37865f.webp",
+    "note": "Temporary external editorial image; replace with approved local asset before public launch."
+  },
+  {
+    "slug": "fire-in-the-hole",
+    "page": "https://nolimitcity.com/games/fire-in-the-hole",
+    "image": "https://www.onlinecasinoreports.com/images/fireinthehole.png",
+    "note": "Temporary external editorial image; replace with approved local asset before public launch."
   }
 ]

@@ -430,6 +430,16 @@ export function Comparison() {
       caption: "Каскады + линии + сбор символов",
       slugs: ["gates-of-olympus", "book-of-dead", "big-bass-bonanza"],
     },
+    {
+      label: "Три кластерных поля",
+      caption: "Jammin’ Jars + Reactoonz + Le Bandit",
+      slugs: ["jammin-jars", "reactoonz", "le-bandit"],
+    },
+    {
+      label: "Динамические способы",
+      caption: "San Quentin xWays + Fire in the Hole",
+      slugs: ["san-quentin-xways", "fire-in-the-hole"],
+    },
   ];
 
   function save(next: string[]) {
@@ -689,8 +699,8 @@ export function Comparison() {
 
       <div className="comparison-end">
         <p>
-          Нужной игры ещё нет в указателе? Каталог пока небольшой и будет
-          расширяться постепенно.
+          Нужной игры ещё нет в указателе? Каталог расширяется постепенно,
+          по мере подготовки и проверки новых досье.
         </p>
         <Link className="text-link" href="/slots">
           Открыть каталог ↗

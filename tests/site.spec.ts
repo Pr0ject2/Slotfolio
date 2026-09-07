@@ -212,11 +212,11 @@ test("volatility, RTP and feature filters combine and persist in URL", async ({
   await expect(page.locator(".catalog-game")).toHaveCount(expected);
 });
 
-test("comparison selection, maximum, persistence and removal", async ({
+test("comparison selection, two-game maximum, persistence and removal", async ({
   page,
 }) => {
   await page.goto("/slots");
-  for (let i = 0; i < 3; i++)
+  for (let i = 0; i < 2; i++)
     await page
       .locator(".catalog-game")
       .nth(i)
@@ -224,18 +224,18 @@ test("comparison selection, maximum, persistence and removal", async ({
       .click();
   await page
     .locator(".catalog-game")
-    .nth(3)
+    .nth(2)
     .getByRole("button", { name: /^Добавить .+ в сравнение$/ })
     .click();
   await expect(
-    page.getByText("В сравнении уже 3 игры. Удалите одну."),
+    page.getByText("В сравнении уже 2 игры. Удалите одну."),
   ).toBeVisible();
   await page.goto("/compare");
-  await expect(page.locator(".comparison-selection article img")).toHaveCount(3);
-  await page.reload();
-  await expect(page.locator(".comparison-selection article img")).toHaveCount(3);
-  await page.getByRole("button", { name: "Удалить Gates of Olympus" }).click();
   await expect(page.locator(".comparison-selection article img")).toHaveCount(2);
+  await page.reload();
+  await expect(page.locator(".comparison-selection article img")).toHaveCount(2);
+  await page.getByRole("button", { name: "Удалить Gates of Olympus" }).click();
+  await expect(page.locator(".comparison-selection article img")).toHaveCount(1);
   await page.goto("/slots/gates-of-olympus");
   await expect(
     page.getByRole("button", { name: /^Добавить .+ в сравнение$/ }),

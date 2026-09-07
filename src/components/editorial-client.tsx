@@ -1,7 +1,6 @@
-import { type Slot } from "@/lib/data";
 import { withBasePath } from "@/lib/base-path";
 import { SlotArtwork } from "./slot-artwork";
-export function GameImage({ slot }: { slot: Slot }) {
+export function GameImage({ slot }: { slot: { name: string; image: string } }) {
   return (
     <SlotArtwork
       className="game-image"

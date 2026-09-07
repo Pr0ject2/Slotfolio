@@ -1,7 +1,8 @@
 import { Suspense } from "react";
-import { Catalog, CatalogFromUrl } from "@/components/catalog";
+import { CatalogFromUrl } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
 import { pageMetadata } from "@/lib/seo";
+import { createCatalogModel } from "@/lib/catalog-index";
 
 export const metadata = pageMetadata({
   title: "Поиск игр",
@@ -11,6 +12,7 @@ export const metadata = pageMetadata({
 });
 
 export default function Page() {
+  const model = createCatalogModel();
   return (
     <>
       <Breadcrumbs items={[{ label: "Поиск" }]} />
@@ -25,8 +27,8 @@ export default function Page() {
           Материалы и гайды собраны в журнале.
         </p>
       </div>
-      <Suspense fallback={<Catalog />}>
-        <CatalogFromUrl />
+      <Suspense fallback={<div className="catalog-loading">Готовим каталог…</div>}>
+        <CatalogFromUrl model={model} />
       </Suspense>
     </>
   );

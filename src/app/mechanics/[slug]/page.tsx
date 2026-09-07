@@ -31,11 +31,11 @@ export default async function Page({params}: {params: Promise<{slug: string}>}) 
         <section id="watch"><h2>Три вопроса к правилам</h2><ul>{guide.watch.map((text) => <li key={text}>{text}</li>)}</ul><div className="margin-note"><strong>Правило выплаты не определяет доходность</strong><p>Механика объясняет устройство раунда. RTP и волатильность относятся к математической конфигурации конкретной игры, а не к названию механики.</p></div></section>
       </article>
     </div>
-    {example && <section id="example" className="mechanic-example"><Link href={"/slots/" + example.slug}><GameImage slot={example} /></Link><div><span className="eyebrow accent">Разобрать на примере</span><h2><Link href={"/slots/" + example.slug}>{example.name} ↗</Link></h2><p>{guide.exampleNote}</p><p>{example.feature}</p><CompareButton slug={example.slug} /></div></section>}
+    {example && <section id="example" className="mechanic-example"><Link href={"/slots/" + example.slug}><GameImage slot={example} /></Link><div><span className="eyebrow accent">Разобрать на примере</span><h2><Link href={"/slots/" + example.slug}>{example.name} ↗</Link></h2><p>{guide.exampleNote}</p><p>{example.feature}</p><CompareButton slug={example.slug} name={example.name} /></div></section>}
     <EntityStats games={games} filter={{mechanic: m.name}} mechanicName={m.name} />
     <SectionTitle title="Сопоставить принципы" /><MechanicLinks names={guide.related} />
     <section id="games"><SectionTitle title={"Игры: " + m.name.toLowerCase()} href={"/slots?mechanic=" + encodeURIComponent(m.name)} label="Открыть с фильтром" /><div className="entity-games">{games.map((slot, index) => <GameRow key={slot.slug} slot={slot} index={index} compare />)}</div></section>
-    <div className="editorial-signoff"><p>Добавьте до трёх игр и сопоставьте базовую механику, особенности и математические параметры.</p><Link href="/compare">Открыть сравнение ↗</Link></div>
+    <div className="editorial-signoff"><p>Добавьте две игры и сопоставьте базовую механику, особенности и математические параметры.</p><Link href="/compare">Открыть сравнение ↗</Link></div>
     <div className="entity-reading-links"><Link href="/journal/how-cascades-work">Большой разбор каскадов ↗</Link><Link href="/collections/beyond-lines">Подборка: за пределами линий ↗</Link></div>
   </div>;
 }

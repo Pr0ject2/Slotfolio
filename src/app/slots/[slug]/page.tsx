@@ -154,7 +154,7 @@ export default async function Page({
             {s.provider} ↗
           </Link>
         </div>
-        <CompareButton slug={s.slug} />
+        <CompareButton slug={s.slug} name={s.name} />
       </div>
       <div className="slot-intro">
         <figure className="slot-figure">

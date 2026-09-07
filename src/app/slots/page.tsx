@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import { Catalog, CatalogFromUrl } from "@/components/catalog";
+import { CatalogFromUrl } from "@/components/catalog";
 import { Breadcrumbs } from "@/components/editorial";
-import { slots } from "@/lib/data";
+import { createCatalogModel } from "@/lib/catalog-index";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -11,6 +11,7 @@ export const metadata = pageMetadata({
 });
 
 export default function Page() {
+  const model = createCatalogModel();
   return (
     <>
       <Breadcrumbs items={[{ label: "Каталог слотов" }]} />
@@ -19,9 +20,7 @@ export default function Page() {
           <span className="eyebrow accent">Игровой указатель</span>
           <h1>
             Каталог слотов
-            <span className="title-count">
-              {String(slots.length).padStart(2, "0")}
-            </span>
+            <span className="title-count">{String(model.facets.total).padStart(2, "0")}</span>
           </h1>
         </div>
         <p>
@@ -30,8 +29,8 @@ export default function Page() {
           Ищите, изучайте механику, сравнивайте.
         </p>
       </div>
-      <Suspense fallback={<Catalog />}>
-        <CatalogFromUrl />
+      <Suspense fallback={<div className="catalog-loading">Готовим каталог…</div>}>
+        <CatalogFromUrl model={model} />
       </Suspense>
     </>
   );

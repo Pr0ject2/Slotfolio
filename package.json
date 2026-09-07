@@ -1,17 +1,18 @@
 {
   "name": "slotfolio",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
-    "predev": "node scripts/localize-slot-images.mjs --soft",
+    "predev": "node scripts/localize-slot-images.mjs --verify-only --soft",
     "assets:localize": "node scripts/localize-slot-images.mjs",
-    "prebuild": "node scripts/localize-slot-images.mjs",
+    "prebuild": "node scripts/localize-slot-images.mjs --verify-only",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
-    "test": "playwright test"
+    "test": "playwright test",
+    "assets:verify": "node scripts/localize-slot-images.mjs --verify-only"
   },
   "keywords": [],
   "author": "",

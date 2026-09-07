@@ -5,14 +5,26 @@ import sharp from "sharp";
 
 const projectRoot = process.cwd();
 const sourceFile = path.join(projectRoot, "docs", "image-sources.json");
-const outputDir = path.join(projectRoot, "public", "images", "slots");
 const cacheDir = path.join(projectRoot, ".asset-cache", "slot-images");
 const soft = process.argv.includes("--soft");
 const force = process.argv.includes("--force");
+const verifyOnly = process.argv.includes("--verify-only");
 const timeoutMs = 20_000;
 const maxSourceBytes = 16 * 1024 * 1024;
 
 const bytes = (n) => `${Math.max(1, Math.round(n / 1024))} KB`;
+
+function profileFor(entry) {
+  const feature = entry.slug.endsWith("-feature") || String(entry.use || "").toLowerCase().includes("large");
+  return feature
+    ? { width: 1200, height: 630, targetBytes: 180 * 1024, hardMaxBytes: 260 * 1024 }
+    : { width: 960, height: 540, targetBytes: 140 * 1024, hardMaxBytes: 220 * 1024 };
+}
+
+function outputFor(entry) {
+  const local = String(entry.local || `/images/slots/${entry.slug}.webp`).replace(/^\/+/, "");
+  return path.join(projectRoot, "public", local);
+}
 
 async function exists(file) {
   try {
@@ -28,7 +40,7 @@ function headers({ referer, accept }) {
     "accept-language": "en-US,en;q=0.8",
     ...(referer ? { referer } : {}),
     "user-agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36 SlotfolioAssetBuild/1.1",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36 SlotfolioAssetBuild/1.2",
   };
 }
 
@@ -47,8 +59,7 @@ async function fetchWithRetry(url, options) {
       return response;
     } catch (error) {
       lastError = error;
-      if (attempt < 3)
-        await new Promise((resolve) => setTimeout(resolve, 700 * attempt));
+      if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, 700 * attempt));
     } finally {
       clearTimeout(timer);
     }
@@ -68,16 +79,12 @@ async function download(url, referer) {
     !normalizedType.startsWith("image/") &&
     normalizedType !== "application/octet-stream" &&
     normalizedType !== "binary/octet-stream"
-  )
-    throw new Error(`unexpected content-type: ${contentType}`);
+  ) throw new Error(`unexpected content-type: ${contentType}`);
   const declared = Number(response.headers.get("content-length") || 0);
-  if (declared > maxSourceBytes)
-    throw new Error(`source is too large: ${bytes(declared)}`);
+  if (declared > maxSourceBytes) throw new Error(`source is too large: ${bytes(declared)}`);
   const buffer = Buffer.from(await response.arrayBuffer());
-  if (buffer.length > maxSourceBytes)
-    throw new Error(`source is too large: ${bytes(buffer.length)}`);
-  if (buffer.length < 1024)
-    throw new Error("source response is unexpectedly small");
+  if (buffer.length > maxSourceBytes) throw new Error(`source is too large: ${bytes(buffer.length)}`);
+  if (buffer.length < 1024) throw new Error("source response is unexpectedly small");
   return buffer;
 }
 
@@ -130,7 +137,6 @@ async function resolveSource(entry) {
       errors.push(`manifest URL: ${error?.message || error}`);
     }
   }
-
   try {
     const discovered = await discoverImage(entry.page);
     return {
@@ -141,82 +147,104 @@ async function resolveSource(entry) {
   } catch (error) {
     errors.push(`page metadata: ${error?.message || error}`);
   }
-
   throw new Error(errors.join("; "));
 }
 
-async function processImage(buffer, output) {
+async function processImage(buffer, output, entry) {
+  const profile = profileFor(entry);
+  const base = sharp(buffer, { failOn: "warning" }).rotate().resize({
+    width: profile.width,
+    height: profile.height,
+    fit: "inside",
+    withoutEnlargement: true,
+  });
+  let encoded;
+  for (const quality of [76, 72, 68]) {
+    encoded = await base.clone().webp({ quality, effort: 5, smartSubsample: true }).toBuffer();
+    if (encoded.length <= profile.targetBytes) break;
+  }
+  await mkdir(path.dirname(output), { recursive: true });
   const tmp = `${output}.tmp`;
-  await sharp(buffer, { failOn: "warning" })
-    .rotate()
-    .resize({
-      width: 1200,
-      height: 675,
-      fit: "inside",
-      withoutEnlargement: true,
-    })
-    .webp({ quality: 82, effort: 5, smartSubsample: true })
-    .toFile(tmp);
+  await writeFile(tmp, encoded);
   await rename(tmp, output);
 }
 
-await mkdir(outputDir, { recursive: true });
+async function verifyEntry(entry) {
+  const output = outputFor(entry);
+  if (!(await exists(output))) return { ok: false, error: "missing" };
+  const fileStat = await stat(output);
+  const profile = profileFor(entry);
+  let metadata;
+  try {
+    metadata = await sharp(output).metadata();
+  } catch (error) {
+    return { ok: false, error: `cannot decode: ${error?.message || error}` };
+  }
+  if ((metadata.width || 0) > profile.width || (metadata.height || 0) > profile.height)
+    return { ok: false, error: `dimensions ${metadata.width}×${metadata.height} exceed ${profile.width}×${profile.height}` };
+  if (fileStat.size > profile.hardMaxBytes)
+    return { ok: false, error: `${bytes(fileStat.size)} exceeds ${bytes(profile.hardMaxBytes)}` };
+  return { ok: true, size: fileStat.size };
+}
+
 await mkdir(cacheDir, { recursive: true });
 const manifest = JSON.parse(await readFile(sourceFile, "utf8"));
-const remote = manifest;
 const warnings = [];
 
-for (const entry of remote) {
-  const output = path.join(outputDir, `${entry.slug}.webp`);
-  const cache = path.join(cacheDir, `${entry.slug}.source`);
+if (!verifyOnly) {
+  for (const entry of manifest) {
+    const output = outputFor(entry);
+    const cache = path.join(cacheDir, `${entry.slug}.source`);
 
-  if (!force && (await exists(output))) {
-    console.log(`✓ ${entry.slug}: local asset already present`);
-    continue;
-  }
-
-  let source;
-  if (!force && (await exists(cache))) {
-    source = await readFile(cache);
-    console.log(`↺ ${entry.slug}: using cached source (${bytes(source.length)})`);
-  } else {
-    try {
-      const resolved = await resolveSource(entry);
-      source = resolved.buffer;
-      await writeFile(cache, source);
-      console.log(
-        `↓ ${entry.slug}: fetched ${bytes(source.length)} via ${resolved.method}`,
-      );
-    } catch (error) {
-      warnings.push(`${entry.slug}: ${error?.message || error}`);
-      console.warn(`! ${entry.slug}: real artwork could not be downloaded`);
+    if (!force && (await exists(output))) {
+      console.log(`✓ ${entry.slug}: local asset already present`);
       continue;
     }
-  }
 
-  try {
-    await processImage(source, output);
-    const size = (await stat(output)).size;
-    console.log(`  → public/images/slots/${entry.slug}.webp (${bytes(size)})`);
-  } catch (error) {
-    warnings.push(`${entry.slug}: image conversion failed: ${error?.message || error}`);
-    console.warn(`! ${entry.slug}: image conversion failed`);
-    await unlink(cache).catch(() => {});
-    await unlink(output).catch(() => {});
+    let source;
+    if (!force && (await exists(cache))) {
+      source = await readFile(cache);
+      console.log(`↺ ${entry.slug}: using cached source (${bytes(source.length)})`);
+    } else {
+      try {
+        const resolved = await resolveSource(entry);
+        source = resolved.buffer;
+        await writeFile(cache, source);
+        console.log(`↓ ${entry.slug}: fetched ${bytes(source.length)} via ${resolved.method}`);
+      } catch (error) {
+        warnings.push(`${entry.slug}: ${error?.message || error}`);
+        console.warn(`! ${entry.slug}: real artwork could not be downloaded`);
+        continue;
+      }
+    }
+
+    try {
+      await processImage(source, output, entry);
+      const size = (await stat(output)).size;
+      console.log(`  → ${path.relative(projectRoot, output).replaceAll("\\", "/")} (${bytes(size)})`);
+    } catch (error) {
+      warnings.push(`${entry.slug}: image conversion failed: ${error?.message || error}`);
+      console.warn(`! ${entry.slug}: image conversion failed`);
+      await unlink(cache).catch(() => {});
+      await unlink(output).catch(() => {});
+    }
   }
 }
 
-const missing = [];
-for (const entry of remote) {
-  const output = path.join(outputDir, `${entry.slug}.webp`);
-  if (!(await exists(output))) missing.push(entry.slug);
+const invalid = [];
+let totalBytes = 0;
+for (const entry of manifest) {
+  const result = await verifyEntry(entry);
+  if (!result.ok) invalid.push(`${entry.slug}: ${result.error}`);
+  else totalBytes += result.size;
 }
 
-if (missing.length) {
-  console.error(`\nSlot image localization incomplete: ${missing.join(", ")}`);
+if (invalid.length) {
+  console.error(`\nSlot image verification failed for ${invalid.length} asset(s):`);
+  for (const item of invalid) console.error(`- ${item}`);
   if (!soft) process.exit(1);
 } else {
-  console.log(`\nSlot images ready: ${remote.length} local asset(s).`);
+  console.log(`\nSlot images ready: ${manifest.length} local asset(s), ${bytes(totalBytes)} total.`);
 }
 
 if (warnings.length) {

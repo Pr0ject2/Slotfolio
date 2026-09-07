@@ -96,7 +96,7 @@ export function GameRow({ slot, index, compare = false }: { slot: Slot; index?: 
         <small>RTP*</small>
         {slot.rtp}
       </span>
-      {compare && <CompareButton slug={slot.slug} />}
+      {compare && <CompareButton slug={slot.slug} name={slot.name} />}
       <Link
         className="row-arrow"
         href={"/slots/" + slot.slug}

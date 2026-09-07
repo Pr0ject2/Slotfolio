@@ -1,4 +1,4 @@
-import { slots, slotRtpValue, type Slot } from "@/lib/data";
+import { slots, slotRtpValue, type Slot } from "./data";
 import { catalogStats } from "./catalog-stats";
 
 export type SlotFeatureCard = {

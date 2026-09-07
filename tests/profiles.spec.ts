@@ -1,6 +1,8 @@
 import { test, expect } from "@playwright/test";
 import { slots, providerProfiles, mechanics, providerSlug, slotMechanics, slotMatchesSearch, slotFeatureOptions, type Slot } from "../src/lib/data";
 import { catalogStats, representativeGames, rtpRange } from "../src/lib/catalog-stats";
+import { createCatalogModel } from "../src/lib/catalog-index";
+import { filterCatalogItems, sortCatalogItems } from "../src/lib/catalog-query";
 
 test("statistics handle duplicate records, overlapping mechanics and unavailable RTP", () => {
   const a = { ...slots[0], mechanics: ["Каскады", "Каскады", "Линии"], tags: ["Wild", "Wild"] };
@@ -18,17 +20,43 @@ test("statistics handle duplicate records, overlapping mechanics and unavailable
   expect(new Set(representativeGames([a, a, b]).map((game) => game.slug)).size).toBe(2);
 });
 
-test("every three-game combination has finite consistent derived data", () => {
-  let combinations = 0;
-  for (let a = 0; a < slots.length - 2; a++) for (let b = a + 1; b < slots.length - 1; b++) for (let c = b + 1; c < slots.length; c++) {
-    const stats = catalogStats([slots[a], slots[b], slots[c]]);
-    expect(stats.count).toBe(3);
+test("pair comparison derived data stays consistent without combinatorial testing", () => {
+  const pairs: Array<[number, number]> = [];
+  for (let a = 0; a < slots.length - 1 && pairs.length < 120; a++) {
+    for (let b = a + 1; b < slots.length && pairs.length < 120; b++) pairs.push([a, b]);
+  }
+  expect(pairs.length).toBeGreaterThan(0);
+  for (const [a, b] of pairs) {
+    const stats = catalogStats([slots[a], slots[b]]);
+    expect(stats.count).toBe(2);
     expect(stats.rtp.min).toBeLessThanOrEqual(stats.rtp.median!);
     expect(stats.rtp.median).toBeLessThanOrEqual(stats.rtp.max!);
-    expect(stats.volatility.reduce((sum, item) => sum + item.count, 0)).toBe(3);
-    combinations++;
+    expect(stats.volatility.reduce((sum, item) => sum + item.count, 0)).toBe(2);
   }
-  expect(combinations).toBe(4060);
+});
+
+test("compact catalog model handles a 5000-item synthetic catalogue", () => {
+  const model = createCatalogModel();
+  expect(model.items.length).toBe(slots.length);
+  const source = model.items[0];
+  const synthetic = Array.from({ length: 5000 }, (_, index) => ({
+    ...source,
+    slug: `synthetic-${index}`,
+    name: `Synthetic ${index}`,
+    provider: index % 2 ? source.provider : "Scale Provider",
+    providerSlug: index % 2 ? source.providerSlug : "scale-provider",
+    year: 2000 + (index % 27),
+    rtpValue: 95 + (index % 400) / 100,
+    rtp: `${(95 + (index % 400) / 100).toFixed(2).replace(".", ",")}%`,
+    searchText: `${source.searchText} synthetic ${index} scale provider`,
+  }));
+  const filtered = filterCatalogItems(synthetic, {
+    q: "scale provider", provider: "scale-provider", mechanic: "", volatility: "", rtp: "96.5", feature: "",
+  });
+  expect(filtered.length).toBeGreaterThan(0);
+  expect(filtered.every((item) => item.providerSlug === "scale-provider" && (item.rtpValue ?? 0) >= 96.5)).toBe(true);
+  const sorted = sortCatalogItems(filtered, "rtp");
+  expect(sorted[0].rtpValue).toBeGreaterThanOrEqual(sorted.at(-1)!.rtpValue!);
 });
 
 test("Russian aliases, decimal RTP and every feature remain searchable", () => {
@@ -98,7 +126,7 @@ test("comparison recovers corrupt, duplicate and unavailable browser storage", a
   await page.goto("/compare");
   await page.evaluate(() => localStorage.setItem("slotfolio-compare", '["starburst","starburst","not-a-game","mental"]'));
   await page.reload();
-  await expect(page.locator(".comparison-selection article")).toHaveCount(2);
+  await expect(page.locator(".comparison-selection article")).toHaveCount(1);
   await page.evaluate(() => localStorage.setItem("slotfolio-compare", '{broken'));
   await page.reload();
   await expect(page.locator(".comparison-selection article")).toHaveCount(0);

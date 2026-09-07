@@ -45,7 +45,7 @@ export function EntityStats({ games, filter, mechanicName }: { games: Slot[]; fi
 export function FeaturedGames({ games }: { games: Slot[] }) {
   return <div className="entity-featured">{games.map((game) => <article key={game.slug}>
     <Link href={`/slots/${game.slug}`} className="entity-featured-image"><GameImage slot={game} /></Link>
-    <div><span className="eyebrow">{slotMechanics(game).join(" · ")}</span><h3><Link href={`/slots/${game.slug}`}>{game.name}</Link></h3><p>{game.feature}</p><div className="entity-game-actions"><Link className="text-link" href={`/slots/${game.slug}`}>Читать досье ↗</Link><CompareButton slug={game.slug} /></div></div>
+    <div><span className="eyebrow">{slotMechanics(game).join(" · ")}</span><h3><Link href={`/slots/${game.slug}`}>{game.name}</Link></h3><p>{game.feature}</p><div className="entity-game-actions"><Link className="text-link" href={`/slots/${game.slug}`}>Читать досье ↗</Link><CompareButton slug={game.slug} name={game.name} /></div></div>
   </article>)}</div>;
 }
 

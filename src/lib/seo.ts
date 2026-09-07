@@ -31,7 +31,7 @@ export function pageMetadata({
   title,
   description,
   path,
-  image = "/images/gates-of-olympus-feature.png",
+  image = "/images/slots/gates-of-olympus-feature.webp",
   noIndex = false,
   openGraphType = "website",
   absoluteTitle = false,

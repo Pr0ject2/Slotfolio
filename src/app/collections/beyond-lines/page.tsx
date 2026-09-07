@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { slots, slotMechanics } from "@/lib/data";
 import { Breadcrumbs, GameImage, Affiliate } from "@/components/editorial";
-import { CompareButton } from "@/components/catalog";
+import { CompareButton } from "@/components/compare-button";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
@@ -70,7 +70,7 @@ export default function Page() {
             <Link className="text-link" href={"/slots/" + s.slug}>
               Досье игры ↗
             </Link>
-            <CompareButton slug={s.slug} />
+            <CompareButton slug={s.slug} name={s.name} />
           </div>
         </article>
       ))}

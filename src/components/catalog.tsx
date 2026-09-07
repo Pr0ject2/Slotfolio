@@ -13,6 +13,7 @@ import {
   type Slot,
 } from "@/lib/data";
 import { GameImage } from "./editorial-client";
+import { getVerifiedSlotMetrics } from "@/lib/dossier";
 const providerOptions = Array.from(new Set(slots.map((s) => s.provider))).map(
   (name) => ({
     name,
@@ -505,6 +506,7 @@ export function Catalog({
 export function Comparison() {
   const [selected, setSelected] = useState<string[]>([]);
   const [picker, setPicker] = useState("");
+  const seed = useSearchParams().get("seed");
 
   useEffect(() => {
     const sync = () => setSelected(readSelection());
@@ -512,6 +514,16 @@ export function Comparison() {
     window.addEventListener("comparison-change", sync);
     return () => window.removeEventListener("comparison-change", sync);
   }, []);
+
+  useEffect(() => {
+    if (!seed || !slots.some((game) => game.slug === seed)) return;
+    const stored = readSelection();
+    if (stored.includes(seed) || stored.length >= 3) return;
+    const next = [...stored, seed];
+    localStorage.setItem("slotfolio-compare", JSON.stringify(next));
+    setSelected(next);
+    window.dispatchEvent(new Event("comparison-change"));
+  }, [seed]);
 
   const games = selected
     .map((slug) => slots.find((game) => game.slug === slug))
@@ -772,6 +784,32 @@ export function Comparison() {
                   {games.map((game) => (
                     <td key={game.slug}>{game.tags.join(" · ")}</td>
                   ))}
+                </tr>
+                <tr>
+                  <th scope="row">RTP-конфигурации</th>
+                  {games.map((game) => {
+                    const metrics = getVerifiedSlotMetrics(game.slug);
+                    return (
+                      <td key={game.slug}>
+                        {metrics?.rtpVariants?.length
+                          ? metrics.rtpVariants.join(" · ")
+                          : `${game.rtp} · другие публично не подтверждены`}
+                      </td>
+                    );
+                  })}
+                </tr>
+                <tr>
+                  <th scope="row">Подтверждённый максимум</th>
+                  {games.map((game) => {
+                    const metrics = getVerifiedSlotMetrics(game.slug);
+                    return (
+                      <td key={game.slug}>
+                        {metrics?.maxWin
+                          ? `${metrics.maxWin} · ${(metrics.maxWinLabel || "максимум").toLowerCase()}`
+                          : "Не указан в используемом публичном источнике"}
+                      </td>
+                    );
+                  })}
                 </tr>
                 {[
                   ["Поле", "field"],

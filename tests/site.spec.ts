@@ -9,6 +9,11 @@ import {
   slotMechanics,
   slotRtpValue,
 } from "../src/lib/data";
+import {
+  catalogRtpContext,
+  getVerifiedSlotMetrics,
+  slotFeatureCards,
+} from "../src/lib/dossier";
 const routes = [
   "/",
   "/slots",
@@ -51,6 +56,19 @@ test("catalog taxonomy, richer search and related-game scoring", () => {
   const related = relatedSlots(jammin, 3);
   expect(related).toHaveLength(3);
   expect(related.every((slot) => slot.slug !== jammin.slug)).toBe(true);
+});
+
+
+test("dossier enrichment exposes verified metrics and feature cards", () => {
+  const wanted = slots.find((slot) => slot.slug === "wanted-dead-or-a-wild")!;
+  const wantedMetrics = getVerifiedSlotMetrics(wanted.slug)!;
+  expect(wantedMetrics.maxWin).toBe("12 500x");
+  expect(wantedMetrics.rtpVariants).toHaveLength(4);
+  const jammin = slots.find((slot) => slot.slug === "jammin-jars")!;
+  expect(getVerifiedSlotMetrics(jammin.slug)?.maxWinLabel).toContain("Наблюдавшийся");
+  expect(slotFeatureCards(wanted)).toHaveLength(4);
+  expect(catalogRtpContext(wanted).median).toBeGreaterThan(0);
+  expect(slots.find((slot) => slot.slug === "chaos-crew-2")?.rtp).toBe("96,27%");
 });
 
 test("slot media uses local runtime paths", () => {
@@ -97,6 +115,9 @@ test("seo metadata, structured data, robots and sitemap", async ({
   request,
 }) => {
   await page.goto("/slots/gates-of-olympus");
+  await expect(page.getByRole("heading", { name: "Что реально меняет ход раунда" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Цифры без ложной точности" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "С чем сравнивать эту игру" })).toBeVisible();
 
   const canonical = await page
     .locator('link[rel="canonical"]')
@@ -219,6 +240,8 @@ test("comparison selection, maximum, persistence and removal", async ({
   await expect(
     page.getByRole("button", { name: "+ Сравнить", exact: true }),
   ).toBeVisible();
+  await page.goto("/compare?seed=gates-of-olympus");
+  await expect(page.getByRole("link", { name: "Gates of Olympus", exact: true }).first()).toBeVisible();
 });
 test("mobile navigation, filters, FAQ and touch layouts", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });

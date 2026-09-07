@@ -428,7 +428,7 @@ export const slots: Slot[] = [
     mechanics: ["Линии"],
     tags: ["Множители", "Несколько бонусов", "Wild"],
     field: "5 × 5",
-    rtp: "96,35%",
+    rtp: "96,27%",
     volatility: "Экстремальная",
     image: "/images/slots/chaos-crew-2.webp",
     description:

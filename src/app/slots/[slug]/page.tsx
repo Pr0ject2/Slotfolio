@@ -18,6 +18,12 @@ import {
 import { CompareButton } from "@/components/catalog";
 import { JsonLd } from "@/components/json-ld";
 import { absoluteMediaUrl, absoluteUrl, pageMetadata } from "@/lib/seo";
+import {
+  catalogRtpContext,
+  getVerifiedSlotMetrics,
+  slotFeatureCards,
+  volatilityContext,
+} from "@/lib/dossier";
 export const dynamicParams = false;
 export function generateStaticParams() {
   return slots.map((s) => ({ slug: s.slug }));
@@ -125,6 +131,10 @@ export default async function Page({
   ];
 
   const related = relatedSlots(s, 3);
+  const featureCards = slotFeatureCards(s);
+  const verified = getVerifiedSlotMetrics(s.slug);
+  const rtpContext = catalogRtpContext(s);
+  const volatilitySummary = volatilityContext(s);
 
   return (
     <>
@@ -178,6 +188,12 @@ export default async function Page({
               <dt>Волатильность</dt>
               <dd>{s.volatility}</dd>
             </div>
+            {verified?.maxWin && (
+              <div>
+                <dt>{verified.maxWinLabel || "Подтверждённый максимум"}</dt>
+                <dd>{verified.maxWin}</dd>
+              </div>
+            )}
             <div className="facts-wide">
               <dt>Ключевые особенности</dt>
               <dd className="slot-tag-list">
@@ -193,8 +209,10 @@ export default async function Page({
             </div>
           </dl>
           <p className="data-note">
-            * Версия RTP зависит от конфигурации. Проверяйте справку внутри
-            игры.
+            * RTP указан для справочной конфигурации.
+            {verified?.rtpVariants && verified.rtpVariants.length > 1
+              ? ` Публичный источник также перечисляет варианты: ${verified.rtpVariants.join(" · ")}.`
+              : " У оператора может использоваться другая версия."}
           </p>
         </div>
       </div>
@@ -202,7 +220,10 @@ export default async function Page({
         <aside className="article-toc">
           <span className="eyebrow">В этом досье</span>
           <a href="#mechanic">Как устроена игра</a>
+          <a href="#features">Функции и бонусы</a>
+          <a href="#math-profile">Математический профиль</a>
           <a href="#editor-view">Взгляд редакции</a>
+          <a href="#catalog-context">Сравнение с каталогом</a>
           <a href="#facts">Факты и источники</a>
           <a href="#faq">Вопросы об игре</a>
           <a href="#related">Похожие игры</a>
@@ -232,6 +253,58 @@ export default async function Page({
               </Link>
             )}
           </section>
+          <section id="features">
+            <span className="eyebrow accent">Функции и бонусы</span>
+            <h2>Что реально меняет ход раунда</h2>
+            <div className="dossier-feature-grid">
+              {featureCards.map((card, index) => (
+                <article
+                  className={`dossier-feature-card ${card.kind === "primary" ? "is-primary" : ""}`}
+                  key={`${card.title}-${index}`}
+                >
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              ))}
+            </div>
+          </section>
+          <section id="math-profile">
+            <span className="eyebrow accent">Математический профиль</span>
+            <h2>Цифры без ложной точности</h2>
+            <div className="dossier-metric-grid">
+              <div>
+                <span>RTP в каталоге</span>
+                <strong>{s.rtp}</strong>
+                <small>Справочная конфигурация</small>
+              </div>
+              {verified?.rtpVariants && verified.rtpVariants.length > 1 && (
+                <div>
+                  <span>RTP-конфигурации</span>
+                  <strong>{verified.rtpVariants.length}</strong>
+                  <small>{verified.rtpVariants.join(" · ")}</small>
+                </div>
+              )}
+              {verified?.maxWin && (
+                <div>
+                  <span>{verified.maxWinLabel || "Подтверждённый максимум"}</span>
+                  <strong>{verified.maxWin}</strong>
+                  <small>В единицах ставки</small>
+                </div>
+              )}
+              <div>
+                <span>Волатильность</span>
+                <strong>{s.volatility}</strong>
+                <small>{volatilitySummary}</small>
+              </div>
+              <div>
+                <span>Игровое поле</span>
+                <strong>{s.field}</strong>
+                <small>{mechanicList.join(" · ")}</small>
+              </div>
+            </div>
+            {verified?.note && <p className="metric-caveat">{verified.note}</p>}
+          </section>
           <section id="editor-view">
             <span className="eyebrow accent">Взгляд редакции</span>
             <blockquote>{s.note}</blockquote>
@@ -242,8 +315,32 @@ export default async function Page({
               ожидания.
             </p>
           </section>
+          <section id="catalog-context">
+            <span className="eyebrow accent">Контекст каталога</span>
+            <h2>С чем сравнивать эту игру</h2>
+            <div className="dossier-context-grid">
+              <div>
+                <span>RTP относительно базы</span>
+                <strong>{rtpContext.label}</strong>
+                <small>Медиана {slots.length} игр: {rtpContext.median.toFixed(2).replace(".", ",")}%</small>
+              </div>
+              <div>
+                <span>Волатильность</span>
+                <strong>{s.volatility}</strong>
+                <small>{volatilitySummary}</small>
+              </div>
+              <div>
+                <span>Ближайшие по устройству</span>
+                <strong>{related.map((item) => item.name).join(" · ")}</strong>
+                <small>Подбор по механикам, тегам, провайдеру и RTP</small>
+              </div>
+            </div>
+            <Link className="text-link" href={`/compare?seed=${s.slug}`}>
+              Открыть таблицу сравнения ↗
+            </Link>
+          </section>
           <section id="facts">
-            <h2>Как читать характеристики</h2>
+            <h2>Как читать эти характеристики</h2>
             <p>
               RTP описывает теоретическую долю возврата на большой дистанции. Он
               не показывает, сколько вернётся за одну сессию. Волатильность
@@ -259,12 +356,22 @@ export default async function Page({
               </p>
             </div>
             <p className="source-note">
-              Источник описания функций и характеристик:{" "}
+              Базовый источник описания функций:{" "}
               <a href={s.source} target="_blank" rel="noreferrer">
                 официальная страница {s.provider} ↗
               </a>
-              . Числовые параметры сверяются с источником и конкретной версией
-              перед публикацией.
+              .
+              {verified && verified.source !== s.source && (
+                <>
+                  {" "}Дополнительные числовые параметры сверены по {" "}
+                  <a href={verified.source} target="_blank" rel="noreferrer">
+                    {verified.sourceLabel || "официальному источнику"} ↗
+                  </a>
+                  .
+                </>
+              )}
+              {verified && verified.source === s.source &&
+                " Дополнительные числовые параметры взяты с той же официальной страницы."}
             </p>
           </section>
           <Affiliate />

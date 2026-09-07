@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import {
   providerProfiles,
   providerSlug,
+  ruPlural,
   slots,
 } from "@/lib/data";
 import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
@@ -79,7 +80,7 @@ export default async function Page({
           <h1>{profile.name}</h1>
         </div>
         <p>
-          {games.length} игры в каталоге · {mechanicGroups.length} механики
+          {games.length} {ruPlural(games.length, "игра", "игры", "игр")} в каталоге · {mechanicGroups.length} {ruPlural(mechanicGroups.length, "механика", "механики", "механик")}
           <br />
           Смотрим на студию через конкретные игры.
         </p>

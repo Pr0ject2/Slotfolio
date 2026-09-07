@@ -440,6 +440,21 @@ export function Comparison() {
       caption: "San Quentin xWays + Fire in the Hole",
       slugs: ["san-quentin-xways", "fire-in-the-hole"],
     },
+    {
+      label: "Эволюция каскадов",
+      caption: "Gonzo’s Quest + Gates of Olympus + Starlight Princess",
+      slugs: ["gonzos-quest", "gates-of-olympus", "starlight-princess"],
+    },
+    {
+      label: "Три классические сетки",
+      caption: "Starburst + Fire Joker + Book of 99",
+      slugs: ["starburst", "fire-joker", "book-of-99"],
+    },
+    {
+      label: "Большие кластерные поля",
+      caption: "Sugar Rush + Jammin’ Jars + Retro Tapes",
+      slugs: ["sugar-rush", "jammin-jars", "retro-tapes"],
+    },
   ];
 
   function save(next: string[]) {

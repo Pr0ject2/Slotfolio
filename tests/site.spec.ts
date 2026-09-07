@@ -120,12 +120,15 @@ test("catalog query, combined filters, empty state, reset and sorting persist", 
   await page.locator("#provider").selectOption("play-n-go");
   await expect(page.getByText("Такой игры пока нет")).toBeVisible();
   await page.getByRole("button", { name: "Показать все игры" }).click();
-  await expect(page.locator(".catalog-game")).toHaveCount(12);
+  await expect(page.locator(".catalog-game")).toHaveCount(18);
+  await expect(page.getByRole("button", { name: "Показать ещё 12 ↓" })).toBeVisible();
+  await page.getByRole("button", { name: "Показать ещё 12 ↓" }).click();
+  await expect(page.locator(".catalog-game")).toHaveCount(30);
   await page.getByRole("radio", { name: "Каскады" }).check();
-  await expect(page.locator(".catalog-game")).toHaveCount(2);
+  await expect(page.locator(".catalog-game")).toHaveCount(4);
   await page.getByRole("combobox", { name: "Сортировка" }).selectOption("name");
   await page.reload();
-  await expect(page.locator(".catalog-game")).toHaveCount(2);
+  await expect(page.locator(".catalog-game")).toHaveCount(4);
   await expect(page.getByRole("combobox", { name: "Сортировка" })).toHaveValue(
     "name",
   );
@@ -178,7 +181,7 @@ test("mobile navigation, filters, FAQ and touch layouts", async ({ page }) => {
   await expect(page.locator("#provider")).not.toBeVisible();
   await page.getByRole("button", { name: /Фильтры/ }).click();
   await page.locator("#provider").selectOption("play-n-go");
-  await expect(page.locator(".catalog-game")).toHaveCount(2);
+  await expect(page.locator(".catalog-game")).toHaveCount(5);
   await page.goto("/slots/reactoonz");
   await page
     .getByText("Почему RTP на другом сайте отличается?", { exact: true })

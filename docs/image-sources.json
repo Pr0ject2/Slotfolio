@@ -96,5 +96,167 @@
     "note": "Исходник загружается только на этапе сборки, затем публикуется как локальный WebP-asset Slotfolio.",
     "local": "/images/slots/fire-in-the-hole.webp",
     "localize": "build"
+  },
+  {
+    "slug": "starlight-princess",
+    "title": "Starlight Princess",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/starlight-princess/",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/starlight-princess.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "sugar-rush",
+    "title": "Sugar Rush",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/sugar-rush/",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/sugar-rush.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "fruit-party",
+    "title": "Fruit Party",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/fruit-party/",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/fruit-party.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "legacy-of-dead",
+    "title": "Legacy of Dead",
+    "provider": "Play’n GO",
+    "page": "https://www.playngo.com/games/legacy-of-dead",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/legacy-of-dead.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "fire-joker",
+    "title": "Fire Joker",
+    "provider": "Play’n GO",
+    "page": "https://www.playngo.com/games/fire-joker",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/fire-joker.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "rise-of-olympus",
+    "title": "Rise of Olympus",
+    "provider": "Play’n GO",
+    "page": "https://www.playngo.com/games/rise-of-olympus",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/rise-of-olympus.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "fat-rabbit",
+    "title": "Fat Rabbit",
+    "provider": "Push Gaming",
+    "page": "https://www.pushgaming.com/games/fat-rabbit.html",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/fat-rabbit.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "retro-tapes",
+    "title": "Retro Tapes",
+    "provider": "Push Gaming",
+    "page": "https://www.pushgaming.com/games/retro-tapes.html",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/retro-tapes.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "chaos-crew",
+    "title": "Chaos Crew",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/chaos-crew",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/chaos-crew.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "chaos-crew-2",
+    "title": "Chaos Crew 2",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/chaos-crew-2",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/chaos-crew-2.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "deadwood",
+    "title": "Deadwood",
+    "provider": "Nolimit City",
+    "page": "https://nolimitcity.com/games/deadwood",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/deadwood.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "mental",
+    "title": "Mental",
+    "provider": "Nolimit City",
+    "page": "https://nolimitcity.com/games/mental",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/mental.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "starburst",
+    "title": "Starburst",
+    "provider": "NetEnt",
+    "page": "https://netent.com/games/starburst",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/starburst.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "gonzos-quest",
+    "title": "Gonzo’s Quest",
+    "provider": "NetEnt",
+    "page": "https://netent.com/games/gonzos-quest",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/gonzos-quest.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "dead-or-alive-2",
+    "title": "Dead or Alive 2",
+    "provider": "NetEnt",
+    "page": "https://netent.com/games/dead-or-alive-2",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/dead-or-alive-2.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "money-train-2",
+    "title": "Money Train 2",
+    "provider": "Relax Gaming",
+    "page": "https://www.relax-gaming.com/products/casino/moneytrain2",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/money-train-2.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "snake-arena",
+    "title": "Snake Arena",
+    "provider": "Relax Gaming",
+    "page": "https://www.relax-gaming.com/products/casino/snakearena",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/snake-arena.webp",
+    "localize": "build"
+  },
+  {
+    "slug": "book-of-99",
+    "title": "Book of 99",
+    "provider": "Relax Gaming",
+    "page": "https://www.relax-gaming.com/products/casino/bookof99",
+    "note": "Обложка определяется по metadata официальной страницы на этапе сборки; при недоступности источника создаётся локальная редакционная заглушка.",
+    "local": "/images/slots/book-of-99.webp",
+    "localize": "build"
   }
 ]

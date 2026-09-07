@@ -3,6 +3,7 @@ import { Breadcrumbs } from "@/components/editorial";
 import {
   providerProfiles,
   providerSlug,
+  ruPlural,
   slots,
 } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
@@ -72,8 +73,8 @@ export default function Page() {
               </div>
               <p>{profile.catalogSummary}</p>
               <div className="provider-index-stats">
-                <span>{stats.games} игры</span>
-                <span>{stats.mechanics} механики</span>
+                <span>{stats.games} {ruPlural(stats.games, "игра", "игры", "игр")}</span>
+                <span>{stats.mechanics} {ruPlural(stats.mechanics, "механика", "механики", "механик")}</span>
               </div>
               <b aria-hidden="true">↗</b>
             </Link>

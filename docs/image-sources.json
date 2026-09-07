@@ -1,0 +1,38 @@
+[
+  {
+    "slug": "gates-of-olympus",
+    "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/GOOL_EN_339x180.png"
+  },
+  {
+    "slug": "sweet-bonanza",
+    "page": "https://www.pragmaticplay.com/en/games/sweet-bonanza/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Sweet-Bonanza™_Thumb_339x180-3.png"
+  },
+  {
+    "slug": "the-dog-house",
+    "page": "https://www.pragmaticplay.com/en/games/the-dog-house/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/The-Dog-House™_339x180px-1-1.png"
+  },
+  {
+    "slug": "big-bass-bonanza",
+    "page": "https://www.pragmaticplay.com/en/games/big-bass-bonanza/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Big-Bass-Bonanza™_EN_339x180_04.png"
+  },
+  {
+    "slug": "book-of-dead",
+    "page": "https://www.playngo.com/games/book-of-dead",
+    "image": "https://static.wixstatic.com/media/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp/v1/fill/w_500,h_350,al_c/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp"
+  },
+  {
+    "slug": "reactoonz",
+    "page": "https://www.playngo.com/games/reactoonz",
+    "image": "https://static.wixstatic.com/media/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp/v1/fill/w_500,h_350,al_c/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp"
+  },
+  {
+    "slug": "gates-of-olympus-feature",
+    "page": "https://www.pragmaticplay.com/en/news/pragmatic-play-aims-for-the-heavens-in-gates-of-olympus/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/1200x630_EN-8.png",
+    "use": "Large editorial image and game profile"
+  }
+]

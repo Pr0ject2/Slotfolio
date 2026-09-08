@@ -143,6 +143,10 @@ test("all public routes, local navigation targets, images and headings", async (
       .locator('a[href^="/"]')
       .evaluateAll((as) => as.map((a) => a.getAttribute("href")!)))
       links.add(href.split("#")[0]);
+
+    // Give hydrated SlotArtwork a chance to replace a missing reviewed cover
+    // with the local fallback before validating the final runtime image URLs.
+    await page.waitForLoadState("networkidle");
     for (const src of await page
       .locator("img")
       .evaluateAll((imgs) => imgs.map((i) => i.getAttribute("src")!))) {
@@ -214,10 +218,11 @@ test("catalog query, combined filters, pagination, reset and sorting persist", a
 
   await page.getByRole("radio", { name: "Каскады" }).check();
   const cascadeCount = slots.filter((slot) => slotMechanics(slot).includes("Каскады")).length;
-  await expect(page.locator(".catalog-game")).toHaveCount(cascadeCount);
+  const firstCascadePage = Math.min(18, cascadeCount);
+  await expect(page.locator(".catalog-game")).toHaveCount(firstCascadePage);
   await page.getByRole("combobox", { name: "Сортировка" }).selectOption("name");
   await page.reload();
-  await expect(page.locator(".catalog-game")).toHaveCount(cascadeCount);
+  await expect(page.locator(".catalog-game")).toHaveCount(firstCascadePage);
   await expect(page.getByRole("combobox", { name: "Сортировка" })).toHaveValue("name");
   await page.getByRole("button", { name: "Обложки", exact: true }).click();
   await expect(page.locator(".catalog-results")).toHaveClass(/covers/);
@@ -306,9 +311,14 @@ test("unknown pages and safe unconfigured affiliate route", async ({ request }) 
     "/go/unknown",
   ])
     expect((await request.get(path)).status()).toBe(404);
+
   const r = await request.get("/go/1win", { maxRedirects: 0 });
-  expect(r.status()).toBe(307);
-  expect(r.headers().location).toContain("/disclosure");
+  if (process.env.SLOTFOLIO_STATIC_PREVIEW === "true") {
+    expect(r.status()).toBe(404);
+  } else {
+    expect(r.status()).toBe(307);
+    expect(r.headers().location).toContain("/disclosure");
+  }
 });
 
 test("no viewport overflow across mobile, tablet and desktop", async ({ page }) => {

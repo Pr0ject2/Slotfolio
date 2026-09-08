@@ -1,0 +1,40 @@
+name: Harvest Provider Sitemaps
+
+on:
+  push:
+    branches: ["fix/v129-unique-100"]
+    paths:
+      - "scripts/harvest-sitemaps.mjs"
+      - ".github/workflows/harvest-sitemaps.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "catalog-sitemaps-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Harvest official provider sitemaps
+        run: node scripts/harvest-sitemaps.mjs
+
+      - name: Upload sitemap catalog
+        uses: actions/upload-artifact@v4
+        with:
+          name: slot-catalog-sitemaps
+          path: artifacts/catalog-sitemaps*.json
+          if-no-files-found: error
+          retention-days: 1

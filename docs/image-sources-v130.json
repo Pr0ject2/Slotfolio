@@ -1,0 +1,32 @@
+[
+  {
+    "slug": "777-coins",
+    "title": "777 Coins",
+    "provider": "3 Oaks Gaming",
+    "page": "https://3oaks.com/game/777_coins",
+    "local": "/images/slots/777-coins.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official 3 Oaks game page confirmed. A game-specific cover URL must be visually reviewed before it is pinned; do not substitute generic provider metadata."
+  },
+  {
+    "slug": "3-hot-chillies",
+    "title": "3 Hot Chillies",
+    "provider": "3 Oaks Gaming",
+    "page": "https://3oaks.com/game/3_hot_chillies",
+    "local": "/images/slots/3-hot-chillies.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official 3 Oaks game page confirmed. A game-specific cover URL must be visually reviewed before it is pinned; do not substitute generic provider metadata."
+  },
+  {
+    "slug": "egypt-fire",
+    "title": "Egypt Fire",
+    "provider": "3 Oaks Gaming",
+    "page": "https://3oaks.com/game/egypt_fire",
+    "local": "/images/slots/egypt-fire.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official 3 Oaks game page confirmed. A game-specific cover URL must be visually reviewed before it is pinned; do not substitute generic provider metadata."
+  }
+]

@@ -18,6 +18,7 @@ import { slotAdditions3 } from "./slot-additions-3";
 import { slotAdditions4 } from "./slot-additions-4";
 import { slotAdditions5 } from "./slot-additions-5";
 import { providerProfileOverrides } from "./provider-profile-overrides";
+import { providerProfileAdditions5 } from "./provider-profile-additions-5";
 
 export { article, mechanics, providerSlug, ruPlural, slotMatchesSearch, slotMechanics, slotRtpValue };
 export type { OperatorAvailability, ProviderProfile, Slot };
@@ -105,4 +106,5 @@ const overrides = new Map(providerProfileOverrides.map((profile) => [profile.slu
 export const providerProfiles: ProviderProfile[] = [
   ...baseProviderProfiles.map((profile) => overrides.get(profile.slug) ?? profile),
   ...providerProfileOverrides.filter((profile) => !baseProviderProfiles.some((base) => base.slug === profile.slug)),
+  ...providerProfileAdditions5,
 ];

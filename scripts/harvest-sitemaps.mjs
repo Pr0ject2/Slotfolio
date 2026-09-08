@@ -1,7 +1,8 @@
 import { mkdir, writeFile } from "node:fs/promises";
 
 const outDir = process.env.CATALOG_HARVEST_OUT || "artifacts";
-const timeoutMs = 10_000;
+const timeoutMs = 8_000;
+const sitemapConcurrency = 20;
 
 const providers = [
   { provider: "Pragmatic Play", origin: "https://www.pragmaticplay.com", match: /^\/en\/games\/[^/?#]+\/?$/i },
@@ -76,14 +77,14 @@ async function fetchText(url) {
         headers: {
           accept: "application/xml,text/xml,text/plain;q=0.9,*/*;q=0.5",
           "accept-language": "en-US,en;q=0.8",
-          "user-agent": "Mozilla/5.0 SlotfolioCatalogResearch/1.2",
+          "user-agent": "Mozilla/5.0 SlotfolioCatalogResearch/1.3",
         },
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.text();
     } catch (error) {
       lastError = error;
-      if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 400));
+      if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 300));
     } finally {
       clearTimeout(timer);
     }
@@ -102,44 +103,66 @@ function robotsSitemaps(text) {
     .filter(Boolean);
 }
 
+async function mapLimit(values, limit, worker) {
+  const result = new Array(values.length);
+  let cursor = 0;
+  async function run() {
+    while (true) {
+      const index = cursor++;
+      if (index >= values.length) return;
+      result[index] = await worker(values[index], index);
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(limit, values.length || 1) }, run));
+  return result;
+}
+
 async function discoverUrls(config) {
-  const queue = new Set([
+  const origin = new URL(config.origin).origin;
+  const seedSitemaps = new Set([
     `${config.origin}/sitemap.xml`,
     `${config.origin}/sitemap_index.xml`,
     `${config.origin}/sitemap-index.xml`,
   ]);
   try {
     const robots = await fetchText(`${config.origin}/robots.txt`);
-    for (const url of robotsSitemaps(robots)) queue.add(url);
+    for (const url of robotsSitemaps(robots)) seedSitemaps.add(url);
   } catch {}
 
   const visited = new Set();
   const pages = new Set();
-  while (queue.size && visited.size < 80) {
-    const sitemap = queue.values().next().value;
-    queue.delete(sitemap);
-    if (visited.has(sitemap)) continue;
-    visited.add(sitemap);
-    let text;
-    try {
-      text = await fetchText(sitemap);
-    } catch {
-      continue;
-    }
-    for (const loc of xmlLocs(text)) {
-      let url;
+  let frontier = Array.from(seedSitemaps);
+  while (frontier.length && visited.size < 120) {
+    const batch = frontier.filter((url) => !visited.has(url)).slice(0, Math.max(0, 120 - visited.size));
+    if (!batch.length) break;
+    for (const url of batch) visited.add(url);
+    const documents = await mapLimit(batch, sitemapConcurrency, async (url) => {
       try {
-        url = new URL(loc);
+        return { url, text: await fetchText(url) };
       } catch {
-        continue;
+        return { url, text: "" };
       }
-      if (url.origin !== new URL(config.origin).origin) continue;
-      if (/\.xml(?:\.gz)?(?:$|\?)/i.test(url.pathname)) {
-        if (!/\.gz$/i.test(url.pathname)) queue.add(url.toString());
-        continue;
+    });
+
+    const next = new Set();
+    for (const document of documents) {
+      if (!document.text) continue;
+      for (const loc of xmlLocs(document.text)) {
+        let url;
+        try {
+          url = new URL(loc);
+        } catch {
+          continue;
+        }
+        if (url.origin !== origin) continue;
+        if (/\.xml(?:\.gz)?(?:$|\?)/i.test(url.pathname)) {
+          if (!/\.gz$/i.test(url.pathname) && !visited.has(url.toString())) next.add(url.toString());
+          continue;
+        }
+        if (config.match.test(url.pathname) && !(config.reject?.test(url.pathname))) pages.add(url.toString());
       }
-      if (config.match.test(url.pathname) && !(config.reject?.test(url.pathname))) pages.add(url.toString());
     }
+    frontier = Array.from(next);
   }
   return Array.from(pages).sort();
 }

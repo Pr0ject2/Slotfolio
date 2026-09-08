@@ -12,42 +12,49 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  probe-endorphina:
+  test:
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 20
     steps:
-      - name: Extract official Endorphina screenshots
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p /tmp/endorphina-materials /tmp/endorphina-screens
-          for slug in hell-hot-100 joker-stoker lucky-streak-1 3-coin-towers; do
-            echo "===== ${slug} ====="
-            outer="/tmp/endorphina-materials/${slug}.zip"
-            curl --fail --location --silent --show-error --retry 2 \
-              --user-agent 'Mozilla/5.0 SlotfolioAssetResearch/1.0' \
-              "https://endorphina.com/games/download-materials?slug=${slug}" \
-              --output "$outer"
-            inner_name="$(unzip -Z1 "$outer" | grep -E '^game_.*\.zip$' | head -n 1)"
-            inner="/tmp/endorphina-materials/${slug}-inner.zip"
-            unzip -p "$outer" "$inner_name" > "$inner"
-            mkdir -p "/tmp/endorphina-screens/${slug}"
-            while IFS= read -r entry; do
-              case "$entry" in
-                __MACOSX/*) continue ;;
-              esac
-              if printf '%s' "$entry" | grep -Eiq '/(Screenshots|Screens)/[^/]+\.(png|jpe?g|webp)$'; then
-                base="$(basename "$entry")"
-                unzip -p "$inner" "$entry" > "/tmp/endorphina-screens/${slug}/${base}"
-              fi
-            done < <(unzip -Z1 "$inner")
-            find "/tmp/endorphina-screens/${slug}" -type f -maxdepth 1 -printf '%f %s bytes\n' | sort -V
-          done
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: Upload Endorphina screenshots
-        uses: actions/upload-artifact@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          name: endorphina-screenshots
-          path: /tmp/endorphina-screens
-          if-no-files-found: error
-          retention-days: 1
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck source and tests
+        run: npm run typecheck
+
+      - name: Localize reviewed artwork where available
+        run: npm run assets:localize -- --soft
+
+      - name: Build static production site
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.invalid
+          NEXT_PUBLIC_INDEXABLE: "false"
+          NEXT_PUBLIC_BASE_PATH: ""
+        run: |
+          rm -f 'src/app/go/[operator]/route.ts'
+          npx next build
+
+      - name: Start static site
+        run: |
+          python3 -m http.server 3000 --directory out > /tmp/slotfolio-http.log 2>&1 &
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/slotfolio-http.log
+          exit 1
+
+      - name: Run Playwright
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          SLOTFOLIO_STATIC_PREVIEW: "true"
+        run: npm test

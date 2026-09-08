@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/editorial";
 import { catalogSeeds, getCatalogSeed } from "@/lib/catalog-seeds";
+import { providerSlug } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 
 export const dynamicParams = false;
@@ -77,7 +78,7 @@ export default async function CatalogSlotPage({
             игр она будет заменена полноценной страницей с механикой, RTP-конфигурациями, особенностями,
             источниками и сравнением.
           </p>
-          <Link className="text-link" href={`/slots?provider=${encodeURIComponent(slot.provider)}`}>
+          <Link className="text-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>
             Другие игры {slot.provider} ↗
           </Link>
         </section>

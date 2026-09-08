@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 6
     steps:
-      - name: Inspect official Endorphina nested assets
+      - name: Extract official Endorphina screenshots
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p /tmp/endorphina-materials /tmp/endorphina-sheets
+          mkdir -p /tmp/endorphina-materials /tmp/endorphina-screens
           for slug in hell-hot-100 joker-stoker lucky-streak-1 3-coin-towers; do
             echo "===== ${slug} ====="
             outer="/tmp/endorphina-materials/${slug}.zip"
@@ -28,26 +28,26 @@ jobs:
               --user-agent 'Mozilla/5.0 SlotfolioAssetResearch/1.0' \
               "https://endorphina.com/games/download-materials?slug=${slug}" \
               --output "$outer"
-
-            sheet="$(unzip -Z1 "$outer" | grep -E '^game_sheet_.*\.(png|jpe?g)$' | head -n 1)"
             inner_name="$(unzip -Z1 "$outer" | grep -E '^game_.*\.zip$' | head -n 1)"
-            echo "sheet: $sheet"
-            echo "inner: $inner_name"
-
-            ext="${sheet##*.}"
-            unzip -p "$outer" "$sheet" > "/tmp/endorphina-sheets/${slug}.${ext}"
-            unzip -p "$outer" "$inner_name" > "/tmp/endorphina-materials/${slug}-inner.zip"
-
-            echo "-- image candidates in inner archive --"
-            unzip -l "/tmp/endorphina-materials/${slug}-inner.zip" \
-              | grep -Ei '\.(png|jpe?g|webp)[[:space:]]*$' \
-              | sed -n '1,220p' || true
+            inner="/tmp/endorphina-materials/${slug}-inner.zip"
+            unzip -p "$outer" "$inner_name" > "$inner"
+            mkdir -p "/tmp/endorphina-screens/${slug}"
+            while IFS= read -r entry; do
+              case "$entry" in
+                __MACOSX/*) continue ;;
+              esac
+              if printf '%s' "$entry" | grep -Eiq '/(Screenshots|Screens)/[^/]+\.(png|jpe?g|webp)$'; then
+                base="$(basename "$entry")"
+                unzip -p "$inner" "$entry" > "/tmp/endorphina-screens/${slug}/${base}"
+              fi
+            done < <(unzip -Z1 "$inner")
+            find "/tmp/endorphina-screens/${slug}" -type f -maxdepth 1 -printf '%f %s bytes\n' | sort -V
           done
 
-      - name: Upload Endorphina game sheets
+      - name: Upload Endorphina screenshots
         uses: actions/upload-artifact@v4
         with:
-          name: endorphina-game-sheets
-          path: /tmp/endorphina-sheets
+          name: endorphina-screenshots
+          path: /tmp/endorphina-screens
           if-no-files-found: error
           retention-days: 1

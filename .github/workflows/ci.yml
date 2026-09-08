@@ -31,6 +31,24 @@ jobs:
       - name: Typecheck source and tests
         run: npm run typecheck
 
+      - name: Inspect official Endorphina material archives
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/endorphina-materials
+          for slug in hell-hot-100 joker-stoker lucky-streak-1 3-coin-towers; do
+            echo "===== ${slug} ====="
+            zip="/tmp/endorphina-materials/${slug}.zip"
+            curl --fail --location --silent --show-error \
+              --retry 2 \
+              --user-agent 'Mozilla/5.0 SlotfolioAssetResearch/1.0' \
+              "https://endorphina.com/games/download-materials?slug=${slug}" \
+              --output "$zip"
+            file "$zip"
+            du -h "$zip"
+            unzip -l "$zip" | sed -n '1,140p'
+          done
+
       - name: Localize reviewed artwork where available
         run: npm run assets:localize -- --soft
 

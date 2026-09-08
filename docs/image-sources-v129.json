@@ -7,8 +7,8 @@
     "local": "/images/slots/zeus-claws.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Zeus-Claws/webp/Game_Info_Block_1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Zeus-Claws/webp/Game_Info_Block_1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "panda-claw-jackpot",
@@ -18,8 +18,8 @@
     "local": "/images/slots/panda-claw-jackpot.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Panda-Claw-Jackpot/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Panda-Claw-Jackpot/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "wolf-hunt-claw-and-win",
@@ -29,8 +29,8 @@
     "local": "/images/slots/wolf-hunt-claw-and-win.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Wolf-Hunt-Claw-and-Win/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Wolf-Hunt-Claw-and-Win/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "claw-bonanza-gold-rush",
@@ -40,8 +40,8 @@
     "local": "/images/slots/claw-bonanza-gold-rush.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Claw-Bonanza-Gold-Rush/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Claw-Bonanza-Gold-Rush/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "double-triple-burning-wilds",
@@ -51,8 +51,8 @@
     "local": "/images/slots/double-triple-burning-wilds.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Double-Triple-Burning-Wilds/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Double-Triple-Burning-Wilds/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "clawbass-bonanza",
@@ -62,8 +62,8 @@
     "local": "/images/slots/clawbass-bonanza.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/ClawBass-Bonanza/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/ClawBass-Bonanza/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "clawbass-bonanza-free-rush",
@@ -73,8 +73,8 @@
     "local": "/images/slots/clawbass-bonanza-free-rush.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/ClawBass-Bonanza-Free-Rush/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/ClawBass-Bonanza-Free-Rush/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "3-claws-of-aztec-fire",
@@ -84,8 +84,8 @@
     "local": "/images/slots/3-claws-of-aztec-fire.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/3-Claws-of-Aztec-Fire-Hold-Win/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/3-Claws-of-Aztec-Fire-Hold-Win/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page; path resolved against the page base URL."
   },
   {
     "slug": "great-clawsby-deluxe",

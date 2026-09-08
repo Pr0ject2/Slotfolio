@@ -1,4 +1,4 @@
-import rawSeeds from "@/data/catalog-seeds.json";
+import rawSeeds from "@/data/catalog-seeds.json" with { type: "json" };
 import { slots } from "./data-v128";
 
 export type CatalogSeed = {
@@ -97,6 +97,10 @@ while (selected.length < wanted && providerNames.length) {
     if (selected.length >= wanted) break;
   }
   if (!pickedThisRound) break;
+}
+
+if (selected.length !== wanted) {
+  throw new Error(`Catalog target mismatch: expected ${wanted} catalog-only records, got ${selected.length}.`);
 }
 
 export const catalogSeeds = selected;

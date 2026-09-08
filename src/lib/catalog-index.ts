@@ -5,6 +5,7 @@ import {
   slotMechanics,
   slotRtpValue,
 } from "./data-v128";
+import { catalogSeeds } from "./catalog-seeds";
 import { getVerifiedSlotMetrics } from "./dossier";
 import {
   buildCatalogSearchText,
@@ -21,7 +22,7 @@ function frequency(values: string[]) {
 }
 
 export function createCatalogModel(): CatalogModel {
-  const items: CatalogItem[] = slots.map((slot) => {
+  const dossierItems: CatalogItem[] = slots.map((slot) => {
     const mechanicNames = slotMechanics(slot);
     const value = slotRtpValue(slot);
     return {
@@ -55,6 +56,33 @@ export function createCatalogModel(): CatalogModel {
     };
   });
 
+  const catalogItems: CatalogItem[] = catalogSeeds.map((seed) => {
+    const description = `${seed.name} от ${seed.provider}. Название подтверждено в официальном каталоге провайдера; подробные характеристики проходят редакционную проверку.`;
+    return {
+      slug: seed.slug,
+      name: seed.name,
+      provider: seed.provider,
+      providerSlug: providerSlug(seed.provider),
+      year: null,
+      mechanics: [],
+      tags: [],
+      field: "",
+      rtp: "",
+      rtpValue: null,
+      volatility: "",
+      image: "/images/unavailable.svg",
+      description,
+      coverage: "catalog",
+      source: seed.source,
+      searchText: buildCatalogSearchText({
+        name: seed.name,
+        provider: seed.provider,
+        description,
+      }),
+    };
+  });
+
+  const items = [...dossierItems, ...catalogItems];
   const providerCounts = frequency(items.map((item) => item.provider));
   const providerCountMap = new Map(providerCounts.map((item) => [item.name, item.count]));
   const mechanicCounts = frequency(items.flatMap((item) => [...new Set(item.mechanics)]));

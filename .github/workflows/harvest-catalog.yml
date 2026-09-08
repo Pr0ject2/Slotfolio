@@ -1,8 +1,8 @@
 name: Harvest Slot Catalog
 
 on:
-  pull_request:
-    branches: ["main", "master"]
+  push:
+    branches: ["fix/v129-unique-100"]
     paths:
       - "scripts/harvest-catalog.mjs"
       - "scripts/harvest-catalog-browser.mjs"
@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: "catalog-harvest-${{ github.event.pull_request.number || github.ref }}"
+  group: "catalog-harvest-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:

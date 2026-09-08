@@ -10,6 +10,7 @@ function cleanName(value = "") {
     .replace(/^find out more about\s+/i, "")
     .replace(/^more info(?: about)?\s+/i, "")
     .replace(/\s+(?:try it|play demo|play now|find out more|details)$/i, "")
+    .replace(/^image:\s*/i, "")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -30,6 +31,8 @@ function goodName(name) {
   if (name.length < 2 || name.length > 110) return false;
   if (/^(?:games?|slots?|home|details|more info|find out more|play|play now|play demo|try it|load more|show more|coming soon|back to home)$/i.test(name)) return false;
   if (/^(?:rtp|volatility|medium|high|low|very-high|medium-high|medium-low)$/i.test(name)) return false;
+  if (/\b(?:logo|award|license|licensed|certificate|certified|flag|icon|footer|header|gambleaware|responsible gaming|cookie)\b/i.test(name)) return false;
+  if (/^(?:english|русский|español|português|deutsch|français)$/i.test(name)) return false;
   return /[a-z0-9]/i.test(name);
 }
 
@@ -54,59 +57,17 @@ function normalize(records) {
 }
 
 const providers = [
-  {
-    provider: "BGaming",
-    url: "https://bgaming.com/game-type/slots",
-    href: /bgaming\.com\/games\/[^/?#]+\/?(?:[?#].*)?$/i,
-    more: /show more|load more/i,
-  },
-  {
-    provider: "Hacksaw Gaming",
-    url: "https://www.hacksawgaming.com/games/slots",
-    href: /hacksawgaming\.com\/games\/[^/?#]+\/?(?:[?#].*)?$/i,
-  },
-  {
-    provider: "Pragmatic Play",
-    url: "https://www.pragmaticplay.com/en/games/",
-    href: /pragmaticplay\.com\/en\/games\/[^/?#]+\/?(?:[?#].*)?$/i,
-    more: /load more games|load more/i,
-  },
-  {
-    provider: "Play’n GO",
-    url: "https://www.playngo.com/games",
-    href: /playngo\.com\/games\/[^/?#]+\/?(?:[?#].*)?$/i,
-    more: /load more|show more/i,
-  },
-  {
-    provider: "Endorphina",
-    url: "https://endorphina.com/games",
-    href: /endorphina\.com\/games\/[^/?#]+\/?(?:[?#].*)?$/i,
-    more: /load more|show more/i,
-  },
-  {
-    provider: "Nolimit City",
-    url: "https://nolimitcity.com/games/",
-    href: /nolimitcity\.com\/(?:game|games)\/[^/?#]+\/?(?:[?#].*)?$/i,
-    more: /load more|show more/i,
-  },
-  {
-    provider: "Push Gaming",
-    url: "https://www.pushgaming.com/games/",
-    href: /pushgaming\.com\/(?:game|games)\/[^/?#]+\/?(?:[?#].*)?$/i,
-    more: /load more|show more/i,
-  },
+  { provider: "BGaming", url: "https://bgaming.com/game-type/slots", href: /bgaming\.com\/games\/[^/?#]+/i, more: /show more|load more/i },
+  { provider: "Hacksaw Gaming", url: "https://www.hacksawgaming.com/games/slots", href: /hacksawgaming\.com\/games\/[^/?#]+/i },
+  { provider: "Pragmatic Play", url: "https://www.pragmaticplay.com/en/games/", href: /pragmaticplay\.com\/en\/games\/[^/?#]+/i, more: /load more games|load more/i },
+  { provider: "Play’n GO", url: "https://www.playngo.com/games", href: /playngo\.com\/games\/[^/?#]+/i, more: /load more|show more/i },
+  { provider: "Endorphina", url: "https://endorphina.com/games", href: /endorphina\.com\/games\/[^/?#]+/i, more: /load more|show more/i },
+  { provider: "Nolimit City", url: "https://nolimitcity.com/games/", href: /nolimitcity\.com\/(?:game|games)\/[^/?#]+/i, more: /load more|show more/i },
+  { provider: "Push Gaming", url: "https://www.pushgaming.com/games/", href: /pushgaming\.com\/(?:game|games)\/[^/?#]+/i, more: /load more|show more/i },
 ];
 
 async function dismissOverlays(page) {
-  const candidates = [
-    /yes,? i am over 18/i,
-    /^yes$/i,
-    /accept all/i,
-    /accept cookies/i,
-    /allow all/i,
-    /agree/i,
-  ];
-  for (const pattern of candidates) {
+  for (const pattern of [/yes,? i am over 18/i, /^yes$/i, /accept all/i, /accept cookies/i, /allow all/i, /agree/i]) {
     const button = page.getByRole("button", { name: pattern }).first();
     if (await button.isVisible().catch(() => false)) {
       await button.click({ timeout: 1500 }).catch(() => {});
@@ -116,30 +77,37 @@ async function dismissOverlays(page) {
 }
 
 async function reveal(page, pattern) {
-  for (let round = 0; round < 80; round += 1) {
+  let stableRounds = 0;
+  let previousHeight = 0;
+  for (let round = 0; round < 100 && stableRounds < 6; round += 1) {
+    const height = await page.evaluate(() => document.body.scrollHeight);
     await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(300);
-    if (!pattern) continue;
-    const buttons = page.getByRole("button", { name: pattern });
-    const count = await buttons.count();
+    await page.waitForTimeout(350);
     let clicked = false;
-    for (let i = 0; i < count; i += 1) {
-      const button = buttons.nth(i);
-      if (await button.isVisible().catch(() => false)) {
-        await button.click({ timeout: 2500 }).catch(() => {});
-        await page.waitForTimeout(450);
-        clicked = true;
-        break;
+    if (pattern) {
+      const buttons = page.getByRole("button", { name: pattern });
+      for (let i = 0; i < (await buttons.count()); i += 1) {
+        const button = buttons.nth(i);
+        if (await button.isVisible().catch(() => false)) {
+          await button.click({ timeout: 2500 }).catch(() => {});
+          await page.waitForTimeout(500);
+          clicked = true;
+          break;
+        }
       }
     }
-    if (!clicked && round > 5) break;
+    const nextHeight = await page.evaluate(() => document.body.scrollHeight);
+    if (!clicked && nextHeight <= Math.max(height, previousHeight)) stableRounds += 1;
+    else stableRounds = 0;
+    previousHeight = nextHeight;
   }
 }
 
-async function extractCards(page, config) {
-  const rows = await page.evaluate(() => {
+async function extractCandidates(page, config) {
+  const raw = await page.evaluate(() => {
+    const rows = [];
     const generic = /^(details|more info|find out more|play|play now|play demo|try it|coming soon)$/i;
-    const links = [];
+
     for (const anchor of document.querySelectorAll("a[href]")) {
       const href = anchor.href;
       const own = (anchor.textContent || "").replace(/\s+/g, " ").trim();
@@ -155,15 +123,30 @@ async function extractCards(page, config) {
         const alt = (image?.getAttribute("alt") || "").replace(/\s+/g, " ").trim();
         if (alt && !generic.test(alt)) name = alt;
       }
-      links.push({ href, name });
+      rows.push({ kind: "link", href, name });
     }
-    return links;
+
+    for (const image of document.querySelectorAll("img[alt]")) {
+      const name = (image.getAttribute("alt") || "").replace(/\s+/g, " ").trim();
+      rows.push({ kind: "image", href: "", name });
+    }
+
+    for (const title of document.querySelectorAll("h2,h3,h4,[class*='game-title'],[class*='game__title'],[class*='game-name'],[class*='game__name']")) {
+      const name = (title.textContent || "").replace(/\s+/g, " ").trim();
+      rows.push({ kind: "title", href: "", name });
+    }
+    return rows;
   });
-  return normalize(
-    rows
-      .filter((row) => config.href.test(row.href))
-      .map((row) => ({ provider: config.provider, name: row.name, source: row.href })),
-  );
+
+  const exactLinks = raw
+    .filter((row) => row.kind === "link" && config.href.test(row.href))
+    .map((row) => ({ provider: config.provider, name: row.name, source: row.href }));
+
+  const broad = raw
+    .filter((row) => row.kind !== "link")
+    .map((row) => ({ provider: config.provider, name: row.name, source: config.url }));
+
+  return normalize([...exactLinks, ...broad]);
 }
 
 const browser = await chromium.launch({ executablePath: chromePath, headless: true });
@@ -175,13 +158,13 @@ try {
     try {
       await page.goto(config.url, { waitUntil: "domcontentloaded", timeout: 45_000 });
       await dismissOverlays(page);
-      await page.waitForTimeout(1000);
+      await page.waitForTimeout(1200);
       await reveal(page, config.more);
-      const rows = await extractCards(page, config);
+      const rows = await extractCandidates(page, config);
       all.push(...rows);
       diagnostics[config.provider] = {
         count: rows.length,
-        sample: rows.slice(0, 12).map((row) => ({ name: row.name, source: row.source })),
+        sample: rows.slice(0, 20).map((row) => ({ name: row.name, source: row.source })),
         title: await page.title(),
       };
       console.log(`${config.provider}: ${rows.length}`);
@@ -197,9 +180,7 @@ try {
 }
 
 const catalog = normalize(all).sort((a, b) => a.provider.localeCompare(b.provider) || a.name.localeCompare(b.name));
-const counts = Object.fromEntries(
-  Array.from(catalog.reduce((map, item) => map.set(item.provider, (map.get(item.provider) || 0) + 1), new Map())).sort(),
-);
+const counts = Object.fromEntries(Array.from(catalog.reduce((map, item) => map.set(item.provider, (map.get(item.provider) || 0) + 1), new Map())).sort());
 
 await mkdir(outDir, { recursive: true });
 await writeFile(`${outDir}/catalog-browser.json`, `${JSON.stringify(catalog, null, 2)}\n`);

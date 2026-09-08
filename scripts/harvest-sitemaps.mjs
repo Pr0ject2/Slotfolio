@@ -1,14 +1,13 @@
 import { mkdir, writeFile } from "node:fs/promises";
 
 const outDir = process.env.CATALOG_HARVEST_OUT || "artifacts";
-const timeoutMs = 18_000;
-const pageConcurrency = 12;
+const timeoutMs = 10_000;
 
 const providers = [
   { provider: "Pragmatic Play", origin: "https://www.pragmaticplay.com", match: /^\/en\/games\/[^/?#]+\/?$/i },
   { provider: "Play’n GO", origin: "https://www.playngo.com", match: /^\/games\/[^/?#]+\/?$/i },
   { provider: "Endorphina", origin: "https://endorphina.com", match: /^\/games\/[^/?#]+\/?$/i },
-  { provider: "Hacksaw Gaming", origin: "https://www.hacksawgaming.com", match: /^\/games\/[^/?#]+\/?$/i, reject: /^\/games\/(?:slots|instant-win)\/?$/i },
+  { provider: "Hacksaw Gaming", origin: "https://www.hacksawgaming.com", match: /^\/games\/[^/?#]+\/?$/i, reject: /^\/games\/(?:slots|instant-win-games|scratchcards)\/?$/i },
   { provider: "Nolimit City", origin: "https://nolimitcity.com", match: /^\/(?:game|games)\/[^/?#]+\/?$/i },
   { provider: "Push Gaming", origin: "https://www.pushgaming.com", match: /^\/(?:game|games)\/[^/?#]+\/?$/i },
   { provider: "3 Oaks Gaming", origin: "https://3oaks.com", match: /^\/game\/[^/?#]+\/?$/i },
@@ -29,14 +28,6 @@ function stripTags(value = "") {
   return decodeHtml(value).replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
 }
 
-function cleanTitle(value, provider) {
-  return stripTags(value)
-    .replace(/\s*[|–—-]\s*(?:Pragmatic Play|Play.?n GO|Endorphina|Hacksaw Gaming|Nolimit City|Push Gaming|3 Oaks Gaming|Onlyplay).*$/i, "")
-    .replace(/^(?:Play|Demo|Slot)\s*[:–—-]\s*/i, "")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 function slugify(value) {
   return value
     .normalize("NFKD")
@@ -49,16 +40,33 @@ function slugify(value) {
     .replace(/-+/g, "-");
 }
 
-function goodTitle(value) {
-  if (!value || value.length < 2 || value.length > 110) return false;
-  if (/^(?:games?|slots?|home|casino games|all games|play|demo)$/i.test(value)) return false;
-  if (/\b(?:privacy|cookie|terms|careers?|contact|responsible gaming|sitemap)\b/i.test(value)) return false;
-  return /[a-z0-9]/i.test(value);
+function nameFromUrl(value) {
+  const url = new URL(value);
+  let segment = url.pathname.split("/").filter(Boolean).at(-1) || "";
+  try {
+    segment = decodeURIComponent(segment);
+  } catch {}
+  segment = segment.replace(/\.html?$/i, "").replace(/[+_]+/g, " ").replace(/-+/g, " ").trim();
+  if (!segment || /^(?:game|slot|demo|play|games|slots|game \d+)$/i.test(segment)) return "";
+  return segment
+    .split(/\s+/)
+    .map((word) => {
+      if (/^(?:xways|megaways|rtp|vip)$/i.test(word)) return word.toUpperCase();
+      if (/^\d+[a-z]?$/i.test(word)) return word.toUpperCase();
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+    })
+    .join(" ")
+    .replace(/\bAnd\b/g, "and")
+    .replace(/\bOf\b/g, "of")
+    .replace(/\bThe\b/g, "the")
+    .replace(/\bIn\b/g, "in")
+    .replace(/\bTo\b/g, "to")
+    .trim();
 }
 
 async function fetchText(url) {
   let lastError;
-  for (let attempt = 1; attempt <= 3; attempt += 1) {
+  for (let attempt = 1; attempt <= 2; attempt += 1) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
     try {
@@ -66,16 +74,16 @@ async function fetchText(url) {
         redirect: "follow",
         signal: controller.signal,
         headers: {
-          accept: "text/html,application/xhtml+xml,application/xml,text/xml;q=0.9,*/*;q=0.5",
+          accept: "application/xml,text/xml,text/plain;q=0.9,*/*;q=0.5",
           "accept-language": "en-US,en;q=0.8",
-          "user-agent": "Mozilla/5.0 SlotfolioCatalogResearch/1.1",
+          "user-agent": "Mozilla/5.0 SlotfolioCatalogResearch/1.2",
         },
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       return await response.text();
     } catch (error) {
       lastError = error;
-      if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt * 600));
+      if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 400));
     } finally {
       clearTimeout(timer);
     }
@@ -118,8 +126,7 @@ async function discoverUrls(config) {
     } catch {
       continue;
     }
-    const locs = xmlLocs(text);
-    for (const loc of locs) {
+    for (const loc of xmlLocs(text)) {
       let url;
       try {
         url = new URL(loc);
@@ -134,62 +141,30 @@ async function discoverUrls(config) {
       if (config.match.test(url.pathname) && !(config.reject?.test(url.pathname))) pages.add(url.toString());
     }
   }
-  return Array.from(pages);
-}
-
-function extractName(html, provider) {
-  const candidates = [
-    /<h1\b[^>]*>([\s\S]*?)<\/h1>/i.exec(html)?.[1],
-    /<meta\b[^>]*(?:property|name)=["']og:title["'][^>]*content=["']([^"']+)["'][^>]*>/i.exec(html)?.[1],
-    /<meta\b[^>]*content=["']([^"']+)["'][^>]*(?:property|name)=["']og:title["'][^>]*>/i.exec(html)?.[1],
-    /<title\b[^>]*>([\s\S]*?)<\/title>/i.exec(html)?.[1],
-  ];
-  for (const candidate of candidates) {
-    const title = cleanTitle(candidate || "", provider);
-    if (goodTitle(title)) return title;
-  }
-  return "";
-}
-
-async function mapLimit(values, limit, worker) {
-  const result = new Array(values.length);
-  let cursor = 0;
-  async function run() {
-    while (true) {
-      const index = cursor++;
-      if (index >= values.length) return;
-      result[index] = await worker(values[index], index);
-    }
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, values.length) }, run));
-  return result;
+  return Array.from(pages).sort();
 }
 
 const records = [];
 const diagnostics = {};
 for (const config of providers) {
   const urls = await discoverUrls(config);
-  console.log(`${config.provider}: ${urls.length} candidate URL(s)`);
-  const rows = await mapLimit(urls, pageConcurrency, async (url) => {
-    try {
-      const html = await fetchText(url);
-      const name = extractName(html, config.provider);
+  const rows = urls
+    .map((source) => {
+      const name = nameFromUrl(source);
       if (!name) return null;
       return {
         slug: `${slugify(config.provider)}-${slugify(name)}`,
         name,
         provider: config.provider,
-        source: url,
+        source,
         verifiedBy: "official-provider-catalog",
+        titleSource: "official-url-slug",
       };
-    } catch {
-      return null;
-    }
-  });
-  const clean = rows.filter(Boolean);
-  diagnostics[config.provider] = { discovered: urls.length, resolved: clean.length };
-  records.push(...clean);
-  console.log(`${config.provider}: ${clean.length} resolved title(s)`);
+    })
+    .filter(Boolean);
+  diagnostics[config.provider] = { discovered: urls.length, usable: rows.length };
+  records.push(...rows);
+  console.log(`${config.provider}: ${rows.length} usable official game URL(s)`);
 }
 
 const unique = [];

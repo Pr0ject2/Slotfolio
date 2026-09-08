@@ -5,6 +5,7 @@ import { Breadcrumbs, SectionTitle, GameRow } from "@/components/editorial";
 import { EntityJsonLd, EntityStats, FeaturedGames, MechanicLinks } from "@/components/entity-profile";
 import { catalogStats, representativeGames } from "@/lib/catalog-stats";
 import { providerReadingNotes } from "@/lib/profile-content";
+import { providerReadingNotesV129 } from "@/lib/provider-reading-v129";
 import { pageMetadata } from "@/lib/seo";
 export const dynamicParams = false;
 export function generateStaticParams() { return providerProfiles.map(({slug}) => ({slug})); }
@@ -19,7 +20,7 @@ export default async function Page({params}: {params: Promise<{slug: string}>}) 
   if (!profile) notFound();
   const games = slots.filter((s) => providerSlug(s.provider) === slug);
   const stats = catalogStats(games);
-  const reading = providerReadingNotes[slug];
+  const reading = providerReadingNotesV129[slug] ?? providerReadingNotes[slug];
   return <div className="entity-profile provider-dossier">
     <EntityJsonLd name={profile.name} description={profile.catalogSummary} path={"/providers/" + slug} parent="providers" games={games} />
     <Breadcrumbs items={[{label: "Провайдеры", href: "/providers"}, {label: profile.name}]} />

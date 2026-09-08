@@ -11,6 +11,20 @@ export type CatalogSeed = {
 
 export const CATALOG_TARGET = 1000;
 
+const trustedProviderHosts: Record<string, string[]> = {
+  BGaming: ["bgaming.com"],
+  "Hacksaw Gaming": ["hacksawgaming.com"],
+  "Pragmatic Play": ["pragmaticplay.com"],
+  "Play’n GO": ["playngo.com"],
+  Endorphina: ["endorphina.com"],
+  "Nolimit City": ["nolimitcity.com"],
+  "Push Gaming": ["pushgaming.com"],
+  "3 Oaks Gaming": ["3oaks.com"],
+  Onlyplay: ["onlyplay.com", "onlyplay.net"],
+  "Mancala Gaming": ["mancalagaming.com"],
+  Clawbuster: ["clawbuster.com"],
+};
+
 function normalizedKey(provider: string, name: string) {
   return `${provider}\u0000${name}`
     .normalize("NFKC")
@@ -21,6 +35,17 @@ function normalizedKey(provider: string, name: string) {
     .trim();
 }
 
+function trustedSource(provider: string, source: string) {
+  const allowed = trustedProviderHosts[provider];
+  if (!allowed) return false;
+  try {
+    const hostname = new URL(source).hostname.toLowerCase().replace(/^www\./, "");
+    return allowed.some((host) => hostname === host || hostname.endsWith(`.${host}`));
+  } catch {
+    return false;
+  }
+}
+
 function sanitizeSeed(value: unknown): CatalogSeed | null {
   if (!value || typeof value !== "object") return null;
   const item = value as Record<string, unknown>;
@@ -28,7 +53,7 @@ function sanitizeSeed(value: unknown): CatalogSeed | null {
   const name = typeof item.name === "string" ? item.name.trim() : "";
   const provider = typeof item.provider === "string" ? item.provider.trim() : "";
   const source = typeof item.source === "string" ? item.source.trim() : "";
-  if (!slug || !name || !provider || !/^https:\/\//i.test(source)) return null;
+  if (!slug || !name || !provider || !trustedSource(provider, source)) return null;
   return { slug, name, provider, source, verifiedBy: "official-provider-catalog" };
 }
 

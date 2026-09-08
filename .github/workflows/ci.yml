@@ -56,4 +56,5 @@ jobs:
       - name: Run Playwright
         env:
           CHROME_PATH: /usr/bin/google-chrome
+          SLOTFOLIO_STATIC_PREVIEW: "true"
         run: npm test

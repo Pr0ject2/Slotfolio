@@ -1,0 +1,9 @@
+/* v127 QA fixes layered over the stable v124 stylesheet. */
+@media (max-width: 600px) {
+  .slot-heading { flex-wrap: wrap; }
+}
+.catalog-game-art img,
+.slot-figure .game-image {
+  object-fit: contain;
+  background: var(--olive);
+}

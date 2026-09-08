@@ -1,0 +1,338 @@
+[
+  {
+    "slug": "hell-hot-40",
+    "title": "Hell Hot 40",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/hell-hot-40",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/hell-hot-40.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/loader-37208e6c10.jpg"
+  },
+  {
+    "slug": "crown-coins",
+    "title": "Crown Coins",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/crown-coins",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/crown-coins.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-642bf55788.png"
+  },
+  {
+    "slug": "2026-hit-slot",
+    "title": "2026 Hit Slot",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/2026-hit-slot",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/2026-hit-slot.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-7b100482a4.png"
+  },
+  {
+    "slug": "2021-hit-slot",
+    "title": "2021 Hit Slot",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/2021-hit-slot",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/2021-hit-slot.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/loader-9e1327a485.jpg"
+  },
+  {
+    "slug": "2023-hit-slot",
+    "title": "2023 Hit Slot",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/2023-hit-slot",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/2023-hit-slot.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-85cce2c6c4.jpg"
+  },
+  {
+    "slug": "2025-hit-slot",
+    "title": "2025 Hit Slot",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/2025-hit-slot",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/2025-hit-slot.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-6d1c1a680a.png"
+  },
+  {
+    "slug": "prestige-crown",
+    "title": "Prestige Crown",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/prestige-crown",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/prestige-crown.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-52db974974.png"
+  },
+  {
+    "slug": "lucky-streak-3",
+    "title": "Lucky Streak 3",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/lucky-streak-3",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/lucky-streak-3.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/luckystreak3-4acdb845ad.jpg"
+  },
+  {
+    "slug": "lucky-streak-1000",
+    "title": "Lucky Streak 1000",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/lucky-streak-1000",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/lucky-streak-1000.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-f68c768ae3.png"
+  },
+  {
+    "slug": "burning-coins-40",
+    "title": "Burning Coins 40",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/burning-coins-40",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/burning-coins-40.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/6-ce4545dc45.jpg"
+  },
+  {
+    "slug": "ultra-fresh",
+    "title": "Ultra Fresh",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/ultra-fresh",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/ultra-fresh.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/ultrafresh-0fe5de03cb.jpg"
+  },
+  {
+    "slug": "chance-machine-20",
+    "title": "Chance Machine 20",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/chance-machine-20",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/chance-machine-20.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/loader-04f569ad31.jpg"
+  },
+  {
+    "slug": "81-burning-ways",
+    "title": "81 Burning Ways",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/81-burning-ways",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/81-burning-ways.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-712cec1b1f.png"
+  },
+  {
+    "slug": "burning-coins-20",
+    "title": "Burning Coins 20",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/burning-coins-20",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/burning-coins-20.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-1546ff9cd2.png"
+  },
+  {
+    "slug": "dia-de-los-muertos-2",
+    "title": "Dia De Los Muertos 2",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/dia-de-los-muertos-2",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/dia-de-los-muertos-2.webp",
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-8297dc3401.png"
+  },
+  {
+    "slug": "bear-crazy",
+    "title": "Bear Crazy",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/bear-crazy/",
+    "note": "Build-time source. GitHub Actions localizes official provider artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/bear-crazy.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "the-big-dog-house",
+    "title": "The Big Dog House",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/the-big-dog-house/",
+    "note": "Build-time source. GitHub Actions localizes official provider artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/the-big-dog-house.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "fury-of-anubis",
+    "title": "Fury of Anubis",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/fury-of-anubis/",
+    "note": "Build-time source. GitHub Actions localizes official provider artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/fury-of-anubis.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "nitro-nights",
+    "title": "Nitro Nights",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/nitro-nights",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/nitro-nights.webp",
+    "localize": "build-time",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/2328_hero_Devices_Desktop.png"
+  },
+  {
+    "slug": "dork-unit",
+    "title": "Dork Unit",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games",
+    "note": "Game-specific source; visually inspected in v127. Official provider game artwork.",
+    "local": "/images/slots/dork-unit.webp",
+    "localize": "build-time",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1172.jpg"
+  },
+  {
+    "slug": "crypto-genesys",
+    "title": "Crypto Genesys",
+    "provider": "Pragmatic Play",
+    "page": "https://decrypt.co/375947/crypto-genesys-goes-live-on-1win-in-limited-platform-release?amp=1",
+    "note": "Game-specific source; visually inspected in v127. 1win issuer press-release artwork published by PlayNewswire / Decrypt.",
+    "local": "/images/slots/crypto-genesys.webp",
+    "localize": "build-time",
+    "image": "https://cdn.decrypt.co/resize/1024/height/512/wp-content/uploads/2026/08/1200720_1_17866130840Vxwy4BKVs-gID_7.jpg"
+  },
+  {
+    "slug": "max-win-machine",
+    "title": "Max Win Machine",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/max-win-machine",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/max-win-machine.webp",
+    "localize": "build-time",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/2356_hero_MaxWinMachine_Devices_Desktop.png"
+  },
+  {
+    "slug": "power-of-ten",
+    "title": "Power of Ten",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/power-of-ten",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/power-of-ten.webp",
+    "localize": "build-time",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/2234_hero_Device_Desktop%2016x9%20(1).png"
+  },
+  {
+    "slug": "gemhalla",
+    "title": "Gemhalla",
+    "provider": "BGaming",
+    "page": "https://bgaming.com/games/gemhalla",
+    "note": "Build-time source. The localizer captures source artwork once and publishes only local WebP at runtime; visual identity should be checked during final browser QA.",
+    "local": "/images/slots/gemhalla.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "house-of-sins",
+    "title": "House of Sins",
+    "provider": "BGaming",
+    "page": "https://forum.1win.com/topic/964-%F0%9F%8E%B0-3-favorite-1win-slots-play-by-your-rules/",
+    "note": "Temporary checked-in editorial placeholder. No reviewed game-specific official artwork is currently available; do not replace it with page OG metadata or unverified third-party art.",
+    "local": "/images/slots/house-of-sins.svg",
+    "localize": "checked-in-placeholder",
+    "placeholder": true
+  },
+  {
+    "slug": "scarab-temple",
+    "title": "Scarab Temple",
+    "provider": "3 Oaks Gaming",
+    "page": "https://3oaks.com/game/scarab_temple",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/scarab-temple.webp",
+    "localize": "build-time",
+    "image": "https://3oaks.com/media/public/games/scarab_temple/gallery/img_hgsoq.jpg"
+  },
+  {
+    "slug": "jungle-volcano",
+    "title": "Jungle Volcano",
+    "provider": "3 Oaks Gaming",
+    "page": "https://3oaks.com/game/jungle_volcano",
+    "note": "Game-specific source; visually inspected in v127. Official provider game artwork.",
+    "local": "/images/slots/jungle-volcano.webp",
+    "localize": "build-time",
+    "image": "https://3oaks.com/media/public/games/jungle_volcano/gallery/img_atkiq.jpg"
+  },
+  {
+    "slug": "mighty-hot-amazonia",
+    "title": "Mighty Hot Amazonia",
+    "provider": "Wazdan",
+    "page": "https://wazdan.com/mighty-hot-amazonia",
+    "note": "Game-specific source; visually inspected in v127. Official game logo on white; replace with full scene when supplied.",
+    "local": "/images/slots/mighty-hot-amazonia.webp",
+    "localize": "build-time",
+    "image": "https://wazdan.com/wp-content/uploads/MightyHotAmazonia_logo.webp"
+  },
+  {
+    "slug": "mummyland-treasures",
+    "title": "Mummyland Treasures",
+    "provider": "Belatra Games",
+    "page": "https://belatragames.com/en/games/game/mummyland-treasures",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/mummyland-treasures.webp",
+    "localize": "build-time",
+    "image": "https://imgproxy.belatra.games/M9KU-yvlDQoVx-RyeAB3xtPxq4g6-oRHLbm6skFJ_yo/q:100/w:1344/rt:fill/czM6Ly9iZWxhdHJhL21lZGlhL0dhbWUvaW1hZ2UvYWYyYTkxZGQtMTljNy00NWY4LTg3NjQtYzBhYTA3YzcxODAyL9Ch0L3QuNC80L7Qui3RjdC60YDQsNC90LAtMjAyNi0wNy0wOC0yMjAxMDEucG5n.webp"
+  },
+  {
+    "slug": "troy-superways",
+    "title": "Troy SuperWays",
+    "provider": "Yggdrasil Gaming",
+    "page": "https://yggdrasilgaming.com/games/troy-superways",
+    "note": "Game-specific source; visually inspected in v127. Official provider game artwork.",
+    "local": "/images/slots/troy-superways.webp",
+    "localize": "build-time",
+    "image": "https://yggdrasilgaming.com/w/files/2026/05/SuperWays_Troy.jpg"
+  },
+  {
+    "slug": "gates-of-1win",
+    "title": "Gates of 1win",
+    "provider": "Pragmatic Play",
+    "page": "https://forum.1win.com/topic/964-%F0%9F%8E%B0-3-favorite-1win-slots-play-by-your-rules/",
+    "note": "Temporary checked-in editorial placeholder. No reviewed game-specific official artwork is currently available; do not replace it with page OG metadata or unverified third-party art.",
+    "local": "/images/slots/gates-of-1win.svg",
+    "localize": "checked-in-placeholder",
+    "placeholder": true
+  },
+  {
+    "slug": "1win-bonanza",
+    "title": "1win Bonanza",
+    "provider": "Big Time Gaming",
+    "page": "https://forum.1win.com/topic/964-%F0%9F%8E%B0-3-favorite-1win-slots-play-by-your-rules/",
+    "note": "Temporary checked-in editorial placeholder. No reviewed game-specific official artwork is currently available; do not replace it with page OG metadata or unverified third-party art.",
+    "local": "/images/slots/1win-bonanza.svg",
+    "localize": "checked-in-placeholder",
+    "placeholder": true
+  },
+  {
+    "slug": "black-friday-shady-lady",
+    "title": "Black Friday",
+    "provider": "Shady Lady",
+    "page": "https://shadylady.io/",
+    "note": "Official Shady Lady marketing pack, linked from shadylady.io: 4 banners / widescreen 575x323.png.",
+    "local": "/images/slots/black-friday-shady-lady.webp",
+    "localize": "build-time",
+    "image": "https://drive.google.com/uc?export=download&id=169qXKrI8yKL8folp5QWNmnimK4kWJAh7"
+  },
+  {
+    "slug": "devils-finger",
+    "title": "Devil’s Finger",
+    "provider": "Shady Lady",
+    "page": "https://microgaming.io/game/devils-finger/",
+    "note": "Pinned game-specific artwork from the official source page; visually audited in v127.",
+    "local": "/images/slots/devils-finger.webp",
+    "localize": "build-time",
+    "image": "https://AIiTGNuAPvSpmLDzUi4pD1vmUiALBQqedVRcnQxjtGA.bithe.net/ImageBuilder/v1/images/en/Square/600x600/P2_devilsFinger.JPG"
+  }
+]

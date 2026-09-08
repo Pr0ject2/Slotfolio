@@ -1,0 +1,378 @@
+[
+  {
+    "slug": "gates-of-olympus",
+    "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/GOOL_EN_339x180.png",
+    "local": "/images/slots/gates-of-olympus.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "sweet-bonanza",
+    "page": "https://www.pragmaticplay.com/en/games/sweet-bonanza/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/03/Sweet-Bonanza™_Thumb_339x180-3.png",
+    "local": "/images/slots/sweet-bonanza.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "the-dog-house",
+    "page": "https://www.pragmaticplay.com/en/games/the-dog-house/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2019/02/The-Dog-House™_339x180px-1-1.png",
+    "local": "/images/slots/the-dog-house.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "big-bass-bonanza",
+    "page": "https://www.pragmaticplay.com/en/games/big-bass-bonanza/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2020/11/Big-Bass-Bonanza™_EN_339x180_04.png",
+    "local": "/images/slots/big-bass-bonanza.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "book-of-dead",
+    "page": "https://www.playngo.com/games/book-of-dead",
+    "image": "https://static.wixstatic.com/media/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp/v1/fill/w_500,h_350,al_c/b24144_002e6f4aa59d4b41a4ae4bb88dd251c4~mv2.webp",
+    "local": "/images/slots/book-of-dead.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "reactoonz",
+    "page": "https://www.playngo.com/games/reactoonz",
+    "image": "https://static.wixstatic.com/media/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp/v1/fill/w_500,h_350,al_c/b3ef59_2dec18c13e3a42b8ba4db380623350c0~mv2.webp",
+    "local": "/images/slots/reactoonz.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "gates-of-olympus-feature",
+    "page": "https://www.pragmaticplay.com/en/news/pragmatic-play-aims-for-the-heavens-in-gates-of-olympus/",
+    "image": "https://www.pragmaticplay.com/wp-content/uploads/2021/02/1200x630_EN-8.png",
+    "use": "Large editorial image and game profile",
+    "local": "/images/slots/gates-of-olympus-feature.webp",
+    "localize": "checked-in",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests."
+  },
+  {
+    "slug": "jammin-jars",
+    "page": "https://www.pushgaming.com/games/jammin-jars.html",
+    "image": "https://www.primeapi.com/cmscdn/cdn/cms/GC/Jammin_Jars_Free_Spin_561b111e40.jpg.webp",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/jammin-jars.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "razor-shark",
+    "page": "https://www.pushgaming.com/games/razor-shark.html",
+    "image": "https://www.lunasa.ie/wp-content/uploads/2024/08/Razor-Shark-Slot-Game-Play-1024x550.png",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/razor-shark.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "wanted-dead-or-a-wild",
+    "page": "https://www.hacksawgaming.com/games/wanted-dead-or-a-wild",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1067_hero_DESKTOP.png",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/wanted-dead-or-a-wild.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "le-bandit",
+    "page": "https://www.hacksawgaming.com/games/le-bandit",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1309_hero_Device_Desktop%20%281%29.png",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/le-bandit.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "san-quentin-xways",
+    "page": "https://nolimitcity.com/games/san-quentin",
+    "image": "https://www.primeapi.com/cmscdn/cdn/cms/GZ/San_Quentin_Xways_RTP_and_Wagering_ba1d37865f.webp",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/san-quentin-xways.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "fire-in-the-hole",
+    "page": "https://nolimitcity.com/games/fire-in-the-hole",
+    "image": "https://www.onlinecasinoreports.com/images/fireinthehole.png",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/fire-in-the-hole.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "starlight-princess",
+    "title": "Starlight Princess",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/starlight-princess/",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/starlight-princess.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "sugar-rush",
+    "title": "Sugar Rush",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/sugar-rush/",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/sugar-rush.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "fruit-party",
+    "title": "Fruit Party",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/fruit-party/",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/fruit-party.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "legacy-of-dead",
+    "title": "Legacy of Dead",
+    "provider": "Play’n GO",
+    "page": "https://www.playngo.com/games/legacy-of-dead",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/legacy-of-dead.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "fire-joker",
+    "title": "Fire Joker",
+    "provider": "Play’n GO",
+    "page": "https://www.playngo.com/games/fire-joker",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/fire-joker.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "rise-of-olympus",
+    "title": "Rise of Olympus",
+    "provider": "Play’n GO",
+    "page": "https://www.playngo.com/games/rise-of-olympus",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/rise-of-olympus.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "fat-rabbit",
+    "title": "Fat Rabbit",
+    "provider": "Push Gaming",
+    "page": "https://www.pushgaming.com/games/fat-rabbit.html",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/fat-rabbit.webp",
+    "localize": "checked-in",
+    "image": "https://www.pushgaming.com/uploads/fat-rabbit-page-bg.jpg"
+  },
+  {
+    "slug": "retro-tapes",
+    "title": "Retro Tapes",
+    "provider": "Push Gaming",
+    "page": "https://www.pushgaming.com/games/retro-tapes.html",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/retro-tapes.webp",
+    "localize": "checked-in",
+    "image": "https://www.pushgaming.com/uploads/Retro%20Tapes/Retro-Tapes_Home-Page_Background.jpg"
+  },
+  {
+    "slug": "chaos-crew",
+    "title": "Chaos Crew",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/chaos-crew",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/chaos-crew.webp",
+    "localize": "checked-in",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1059_hero_1059_screen_thumbnail.png"
+  },
+  {
+    "slug": "chaos-crew-2",
+    "title": "Chaos Crew 2",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/chaos-crew-2",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/chaos-crew-2.webp",
+    "localize": "checked-in",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1352_hero_Device_Desktop16x9.png"
+  },
+  {
+    "slug": "deadwood",
+    "title": "Deadwood",
+    "provider": "Nolimit City",
+    "page": "https://nolimitcity.com/games/deadwood",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/deadwood.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "mental",
+    "title": "Mental",
+    "provider": "Nolimit City",
+    "page": "https://nolimitcity.com/games/mental",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/mental.webp",
+    "localize": "checked-in"
+  },
+  {
+    "slug": "starburst",
+    "title": "Starburst",
+    "provider": "NetEnt",
+    "page": "https://netent.com/games/starburst",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/starburst.webp",
+    "localize": "checked-in",
+    "image": "https://fan-cdn.nolimitcity.com/starburst_ne_fansite_splashpost_2560x820_72f766d837.jpg"
+  },
+  {
+    "slug": "gonzos-quest",
+    "title": "Gonzo’s Quest",
+    "provider": "NetEnt",
+    "page": "https://netent.com/games/gonzos-quest",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/gonzos-quest.webp",
+    "localize": "checked-in",
+    "image": "https://fan-cdn.nolimitcity.com/gonzos_quest_ne_fansite_splashpost_2560x820px_f2768e9202.jpg"
+  },
+  {
+    "slug": "dead-or-alive-2",
+    "title": "Dead or Alive 2",
+    "provider": "NetEnt",
+    "page": "https://netent.com/games/dead-or-alive-2",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/dead-or-alive-2.webp",
+    "localize": "checked-in",
+    "image": "https://fan-cdn.nolimitcity.com/dead_or_alive_2_08_mobile_screenshot_horz_3701efdac2.jpg"
+  },
+  {
+    "slug": "money-train-2",
+    "title": "Money Train 2",
+    "provider": "Relax Gaming",
+    "page": "https://www.relax-gaming.com/products/casino/moneytrain2",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/money-train-2.webp",
+    "localize": "checked-in",
+    "image": "https://clientarea.relax-gaming.com/gameassets/moneytrain2/screenshot/Zx3dg5f4SD6DBvZQ5rw9/1-Relax_Gaming_Screenshot_MT2_Base_Game.jpg"
+  },
+  {
+    "slug": "snake-arena",
+    "title": "Snake Arena",
+    "provider": "Relax Gaming",
+    "page": "https://www.relax-gaming.com/products/casino/snakearena",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/snake-arena.webp",
+    "localize": "checked-in",
+    "image": "https://clientarea.relax-gaming.com/gameassets/snakearena/screenshot/ddsBhKZbCm6ppfXzRh5R/1_Screenshot_SA_splashscreen.jpg"
+  },
+  {
+    "slug": "book-of-99",
+    "title": "Book of 99",
+    "provider": "Relax Gaming",
+    "page": "https://www.relax-gaming.com/products/casino/bookof99",
+    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "local": "/images/slots/book-of-99.webp",
+    "localize": "checked-in",
+    "image": "https://clientarea.relax-gaming.com/gameassets/bookof99/screenshot/qKgwq3Z8w7nVgxRdZQYU/Sceenshot1.jpg"
+  },
+  {
+    "slug": "gates-of-olympus-1000",
+    "title": "Gates of Olympus 1000",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus-1000/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/gates-of-olympus-1000.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "sugar-rush-1000",
+    "title": "Sugar Rush 1000",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/sugar-rush-1000/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/sugar-rush-1000.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "gates-of-olympus-super-scatter",
+    "title": "Gates of Olympus Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/gates-of-olympus-super-scatter/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/gates-of-olympus-super-scatter.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "sweet-bonanza-super-scatter",
+    "title": "Sweet Bonanza Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/sweet-bonanza-super-scatter/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/sweet-bonanza-super-scatter.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "mahjong-wins-super-scatter",
+    "title": "Mahjong Wins Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/mahjong-wins-super-scatter/",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/mahjong-wins-super-scatter.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "hand-of-anubis",
+    "title": "Hand of Anubis",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/hand-of-anubis",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/hand-of-anubis.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "rip-city",
+    "title": "RIP City",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/rip-city",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/rip-city.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "hell-hot-100",
+    "title": "Hell Hot 100",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/hell-hot-100",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/hell-hot-100.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "joker-stoker",
+    "title": "Joker Stoker",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/joker-stoker",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/joker-stoker.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "lucky-streak-1",
+    "title": "Lucky Streak 1",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/lucky-streak-1",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/lucky-streak-1.webp",
+    "localize": "build-time"
+  },
+  {
+    "slug": "3-coin-towers",
+    "title": "3 Coin Towers",
+    "provider": "Endorphina",
+    "page": "https://endorphina.com/games/3-coin-towers",
+    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "local": "/images/slots/3-coin-towers.webp",
+    "localize": "build-time"
+  }
+]

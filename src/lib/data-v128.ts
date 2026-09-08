@@ -17,19 +17,31 @@ import { slotAdditions2 } from "./slot-additions-2";
 import { slotAdditions3 } from "./slot-additions-3";
 import { slotAdditions4 } from "./slot-additions-4";
 import { slotAdditions5 } from "./slot-additions-5";
+import { slotAdditions6 } from "./slot-additions-6";
 import { providerProfileOverrides } from "./provider-profile-overrides";
+import { providerProfileAdditions5 } from "./provider-profile-additions-5";
 
 export { article, mechanics, providerSlug, ruPlural, slotMatchesSearch, slotMechanics, slotRtpValue };
 export type { OperatorAvailability, ProviderProfile, Slot };
 
-export const slots: Slot[] = [
+function uniqueBySlug<T extends { slug: string }>(items: T[]) {
+  const bySlug = new Map<string, T>();
+  for (const item of items) bySlug.set(item.slug, item);
+  return Array.from(bySlug.values());
+}
+
+const mergedSlots: Slot[] = [
   ...baseSlots,
   ...slotAdditions1,
   ...slotAdditions2,
   ...slotAdditions3,
   ...slotAdditions4,
   ...slotAdditions5,
+  ...slotAdditions6,
 ];
+
+// Keep the latest record for a slug, but never expose duplicate public routes/cards.
+export const slots: Slot[] = uniqueBySlug(mergedSlots);
 export const getSlot = (slug: string) => slots.find((slot) => slot.slug === slug);
 
 export const slotFeatureOptions = Array.from(
@@ -102,7 +114,8 @@ export function relatedSlots(slot: Slot, limit = 2) {
 }
 
 const overrides = new Map(providerProfileOverrides.map((profile) => [profile.slug, profile]));
-export const providerProfiles: ProviderProfile[] = [
+export const providerProfiles: ProviderProfile[] = uniqueBySlug([
   ...baseProviderProfiles.map((profile) => overrides.get(profile.slug) ?? profile),
   ...providerProfileOverrides.filter((profile) => !baseProviderProfiles.some((base) => base.slug === profile.slug)),
-];
+  ...providerProfileAdditions5,
+]);

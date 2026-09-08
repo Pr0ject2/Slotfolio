@@ -5,6 +5,7 @@ on:
     branches: ["main", "master"]
     paths:
       - "scripts/harvest-catalog.mjs"
+      - "scripts/harvest-catalog-browser.mjs"
       - ".github/workflows/harvest-catalog.yml"
   workflow_dispatch:
 
@@ -18,7 +19,7 @@ concurrency:
 jobs:
   harvest:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,14 +28,23 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-      - name: Harvest official provider catalogs
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Harvest static provider catalogs
         run: node scripts/harvest-catalog.mjs
+
+      - name: Harvest dynamic provider catalogs
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node scripts/harvest-catalog-browser.mjs
 
       - name: Upload harvested catalog
         uses: actions/upload-artifact@v4
         with:
           name: slot-catalog-harvest
-          path: artifacts/catalog-harvest*.json
+          path: artifacts/catalog-*.json
           if-no-files-found: error
           retention-days: 1

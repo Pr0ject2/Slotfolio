@@ -4,8 +4,11 @@ import process from "node:process";
 import sharp from "sharp";
 
 const projectRoot = process.cwd();
-const sourceFile = path.join(projectRoot, "docs", "image-sources.json");
-const additionsFile = path.join(projectRoot, "docs", "image-sources-v128.json");
+const manifestFiles = [
+  path.join(projectRoot, "docs", "image-sources.json"),
+  path.join(projectRoot, "docs", "image-sources-v128.json"),
+  path.join(projectRoot, "docs", "image-sources-v129.json"),
+];
 const cacheDir = path.join(projectRoot, ".asset-cache", "slot-images");
 const soft = process.argv.includes("--soft");
 const force = process.argv.includes("--force");
@@ -41,7 +44,7 @@ function headers({ referer, accept }) {
     "accept-language": "en-US,en;q=0.8",
     ...(referer ? { referer } : {}),
     "user-agent":
-      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36 SlotfolioAssetBuild/1.2",
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36 SlotfolioAssetBuild/1.3",
   };
 }
 
@@ -129,7 +132,6 @@ async function resolveSource(entry) {
   if (entry.requireExplicitImage && !entry.image) {
     throw new Error("reviewed game-specific manifest image required; page preview is not approved artwork");
   }
-  const errors = [];
   if (entry.image) {
     try {
       return {
@@ -141,17 +143,12 @@ async function resolveSource(entry) {
       throw new Error(`manifest URL: ${error?.message || error}`);
     }
   }
-  try {
-    const discovered = await discoverImage(entry.page);
-    return {
-      buffer: await download(discovered, entry.page),
-      resolvedUrl: discovered,
-      method: "official page metadata",
-    };
-  } catch (error) {
-    errors.push(`page metadata: ${error?.message || error}`);
-  }
-  throw new Error(errors.join("; "));
+  const discovered = await discoverImage(entry.page);
+  return {
+    buffer: await download(discovered, entry.page),
+    resolvedUrl: discovered,
+    method: "official page metadata",
+  };
 }
 
 async function processImage(buffer, output, entry) {
@@ -192,14 +189,14 @@ async function verifyEntry(entry) {
 }
 
 await mkdir(cacheDir, { recursive: true });
-const baseManifest = JSON.parse(await readFile(sourceFile, "utf8"));
-let additionsManifest = [];
-try {
-  additionsManifest = JSON.parse(await readFile(additionsFile, "utf8"));
-} catch (error) {
-  if (error?.code !== "ENOENT") throw error;
+const manifest = [];
+for (const file of manifestFiles) {
+  try {
+    manifest.push(...JSON.parse(await readFile(file, "utf8")));
+  } catch (error) {
+    if (error?.code !== "ENOENT") throw error;
+  }
 }
-const manifest = [...baseManifest, ...additionsManifest];
 const warnings = [];
 
 if (!verifyOnly) {

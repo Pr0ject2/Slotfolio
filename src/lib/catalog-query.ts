@@ -3,7 +3,7 @@ export type CatalogItem = {
   name: string;
   provider: string;
   providerSlug: string;
-  year: number;
+  year: number | null;
   mechanics: string[];
   tags: string[];
   field: string;
@@ -13,6 +13,8 @@ export type CatalogItem = {
   image: string;
   description: string;
   searchText: string;
+  coverage: "dossier" | "catalog";
+  source?: string;
 };
 
 export type CatalogFacet = { name: string; count: number };
@@ -72,12 +74,12 @@ export function normalizeCatalogSearch(value: string) {
 export function buildCatalogSearchText(input: {
   name: string;
   provider: string;
-  year: number;
-  field: string;
-  rtp: string;
-  volatility: string;
-  mechanics: string[];
-  tags: string[];
+  year?: number | null;
+  field?: string;
+  rtp?: string;
+  volatility?: string;
+  mechanics?: string[];
+  tags?: string[];
   description: string;
   feature?: string;
 }) {
@@ -86,12 +88,12 @@ export function buildCatalogSearchText(input: {
       input.name,
       input.provider,
       "rtp ртп волатильность механика особенность",
-      input.year,
-      input.field,
-      input.rtp,
-      input.volatility,
-      ...input.mechanics,
-      ...input.tags,
+      input.year ?? "",
+      input.field || "",
+      input.rtp || "",
+      input.volatility || "",
+      ...(input.mechanics || []),
+      ...(input.tags || []),
       input.description,
       input.feature || "",
     ].join(" "),
@@ -128,7 +130,8 @@ export function filterCatalogItems(items: CatalogItem[], filters: CatalogFilters
 
 export function sortCatalogItems(items: CatalogItem[], sort: string) {
   if (sort === "name") return [...items].sort((a, b) => a.name.localeCompare(b.name, "ru"));
-  if (sort === "new") return [...items].sort((a, b) => b.year - a.year);
+  if (sort === "new")
+    return [...items].sort((a, b) => (b.year ?? Number.NEGATIVE_INFINITY) - (a.year ?? Number.NEGATIVE_INFINITY));
   if (sort === "rtp")
     return [...items].sort((a, b) => (b.rtpValue ?? -1) - (a.rtpValue ?? -1));
   return items;

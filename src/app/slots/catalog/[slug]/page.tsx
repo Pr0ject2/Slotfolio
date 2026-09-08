@@ -22,6 +22,7 @@ export async function generateMetadata({
       title: "Игра не найдена",
       description: "Такой записи нет в текущем каталоге Slotfolio.",
       path: "/slots",
+      image: "/images/unavailable.svg",
       noIndex: true,
     });
   }
@@ -30,6 +31,7 @@ export async function generateMetadata({
     title: `${slot.name} от ${slot.provider}`,
     description: `${slot.name} подтверждён в официальном каталоге ${slot.provider}. Подробное досье Slotfolio находится в очереди на редакционную проверку.`,
     path: `/slots/catalog/${slot.slug}`,
+    image: "/images/unavailable.svg",
     noIndex: true,
   });
 }

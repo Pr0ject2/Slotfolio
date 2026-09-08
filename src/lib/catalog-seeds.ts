@@ -23,6 +23,7 @@ const trustedProviderHosts: Record<string, string[]> = {
   Onlyplay: ["onlyplay.com", "onlyplay.net"],
   "Mancala Gaming": ["mancalagaming.com"],
   Clawbuster: ["clawbuster.com"],
+  Wazdan: ["wazdan.com"],
 };
 
 function normalizedKey(provider: string, name: string) {

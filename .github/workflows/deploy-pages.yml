@@ -43,8 +43,8 @@ jobs:
       - name: Install dependencies
         run: npm ci --no-audit --no-fund
 
-      - name: Localize new slot artwork
-        run: npm run assets:localize
+      - name: Localize slot artwork for preview
+        run: npm run assets:localize -- --soft
 
       - name: Build static site
         shell: bash
@@ -54,9 +54,13 @@ jobs:
           export NEXT_PUBLIC_SITE_URL="https://${GITHUB_REPOSITORY_OWNER}.github.io/${REPO_NAME}"
           export NEXT_PUBLIC_INDEXABLE="${{ vars.NEXT_PUBLIC_INDEXABLE }}"
 
+          # GitHub Pages is static hosting. The server-side affiliate redirect
+          # remains in the source project, but is omitted from this preview build.
           rm -f 'src/app/go/[operator]/route.ts'
 
-          npm run build
+          # Preview deployment is intentionally tolerant of temporary provider-CDN
+          # artwork failures. The project's regular npm run build remains strict.
+          npx next build
           touch out/.nojekyll
 
       - name: Upload Pages artifact

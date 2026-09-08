@@ -7,7 +7,8 @@
     "local": "/images/slots/777-coins.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official 3 Oaks game page confirmed. A game-specific cover URL must be visually reviewed before it is pinned; do not substitute generic provider metadata."
+    "image": "https://3oaks.com/media/public/games/777_coins/gallery/img_rhbra.jpg",
+    "note": "Visually reviewed game-specific screenshot from the official 3 Oaks game gallery."
   },
   {
     "slug": "3-hot-chillies",
@@ -17,7 +18,8 @@
     "local": "/images/slots/3-hot-chillies.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official 3 Oaks game page confirmed. A game-specific cover URL must be visually reviewed before it is pinned; do not substitute generic provider metadata."
+    "image": "https://3oaks.com/media/public/games/3_hot_chillies/gallery/img_ljqpc.png",
+    "note": "Visually reviewed game-specific bonus screenshot from the official 3 Oaks game gallery."
   },
   {
     "slug": "egypt-fire",
@@ -27,6 +29,7 @@
     "local": "/images/slots/egypt-fire.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official 3 Oaks game page confirmed. A game-specific cover URL must be visually reviewed before it is pinned; do not substitute generic provider metadata."
+    "image": "https://3oaks.com/media/public/games/egypt_fire/gallery/img_dybix.png",
+    "note": "Visually reviewed game-specific screenshot from the official 3 Oaks game gallery."
   }
 ]

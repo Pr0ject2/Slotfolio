@@ -14,7 +14,7 @@ import {
 
 function frequency(values: string[]) {
   const counts = new Map<string, number>();
-  for (const value of values) counts.set(value, (counts.get(value) || 0) + 1);
+  for (const value of values.filter(Boolean)) counts.set(value, (counts.get(value) || 0) + 1);
   return Array.from(counts, ([name, count]) => ({ name, count })).sort(
     (a, b) => b.count - a.count || a.name.localeCompare(b.name, "ru"),
   );
@@ -38,6 +38,8 @@ export function createCatalogModel(): CatalogModel {
       volatility: slot.volatility,
       image: slot.image,
       description: slot.description,
+      coverage: "dossier",
+      source: slot.source,
       searchText: buildCatalogSearchText({
         name: slot.name,
         provider: slot.provider,

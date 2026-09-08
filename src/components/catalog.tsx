@@ -261,28 +261,44 @@ export function Catalog({
           ) : (
             <>
               <div className={"catalog-results " + view}>
-                {visibleResults.map((item) => (
-                  <article key={item.slug} className="catalog-game">
-                    <Link className="catalog-game-art" href={"/slots/" + item.slug}>
-                      <GameImage slot={item} />
-                    </Link>
-                    <div className="catalog-game-copy">
-                      <span className="eyebrow">{item.provider} / {item.year}</span>
-                      <h2><Link href={"/slots/" + item.slug}>{item.name}</Link></h2>
-                      <p>{item.description}</p>
-                      <div className="catalog-game-tags" aria-label="Особенности игры">
-                        {item.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}
+                {visibleResults.map((item) => {
+                  const href = item.coverage === "dossier" ? `/slots/${item.slug}` : `/slots/catalog/${item.slug}`;
+                  return (
+                    <article key={item.slug} className={`catalog-game ${item.coverage === "catalog" ? "catalog-only" : ""}`}>
+                      <Link className="catalog-game-art" href={href}>
+                        <GameImage slot={item} />
+                      </Link>
+                      <div className="catalog-game-copy">
+                        <span className="eyebrow">
+                          {item.provider} / {item.year ?? "каталог"}
+                        </span>
+                        <h2><Link href={href}>{item.name}</Link></h2>
+                        <p>{item.description}</p>
+                        <div className="catalog-game-tags" aria-label="Особенности игры">
+                          {item.coverage === "dossier"
+                            ? item.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)
+                            : <span>Официальный каталог провайдера</span>}
+                        </div>
+                        <div className="catalog-game-data">
+                          {item.coverage === "dossier" ? (
+                            <>
+                              <span>{item.mechanics.join(" · ")}</span>
+                              <span>{item.volatility}</span>
+                              <span>RTP* {item.rtp}</span>
+                              <CompareButton slug={item.slug} name={item.name} />
+                            </>
+                          ) : (
+                            <>
+                              <span>Характеристики проверяются</span>
+                              <span>Источник подтверждён</span>
+                            </>
+                          )}
+                        </div>
                       </div>
-                      <div className="catalog-game-data">
-                        <span>{item.mechanics.join(" · ")}</span>
-                        <span>{item.volatility}</span>
-                        <span>RTP* {item.rtp}</span>
-                        <CompareButton slug={item.slug} name={item.name} />
-                      </div>
-                    </div>
-                    <Link className="catalog-open" href={"/slots/" + item.slug} aria-label={`Открыть ${item.name}`}>↗</Link>
-                  </article>
-                ))}
+                      <Link className="catalog-open" href={href} aria-label={`Открыть ${item.name}`}>↗</Link>
+                    </article>
+                  );
+                })}
               </div>
 
               {remaining > 0 && (
@@ -297,7 +313,7 @@ export function Catalog({
           )}
 
           <p className="data-note">
-            * Указана справочная версия RTP. Значение в конкретной игре у оператора может отличаться.{" "}
+            * RTP показывается только там, где у Slotfolio уже есть проверенное досье. Значение у конкретного оператора может отличаться.{" "}
             <Link href="/journal/understanding-rtp">Как читать RTP ↗</Link>
           </p>
           <div className="catalog-end">

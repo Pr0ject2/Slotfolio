@@ -40,33 +40,36 @@ const candidates = (rawSeeds as unknown[])
   .filter((item) => !fullKeys.has(normalizedKey(item.provider, item.name)) && !fullSlugs.has(item.slug));
 
 const byProvider = new Map<string, CatalogSeed[]>();
+const seenCandidateKeys = new Set<string>();
+const seenCandidateSlugs = new Set<string>();
 for (const item of candidates) {
+  const key = normalizedKey(item.provider, item.name);
+  if (seenCandidateKeys.has(key) || seenCandidateSlugs.has(item.slug)) continue;
+  seenCandidateKeys.add(key);
+  seenCandidateSlugs.add(item.slug);
   const bucket = byProvider.get(item.provider) || [];
-  if (!bucket.some((existing) => normalizedKey(existing.provider, existing.name) === normalizedKey(item.provider, item.name))) {
-    bucket.push(item);
-    byProvider.set(item.provider, bucket);
-  }
+  bucket.push(item);
+  byProvider.set(item.provider, bucket);
 }
 for (const bucket of byProvider.values()) bucket.sort((a, b) => a.name.localeCompare(b.name, "en"));
 
 const wanted = Math.max(0, CATALOG_TARGET - slots.length);
 const selected: CatalogSeed[] = [];
-const usedSlugs = new Set<string>();
 const providerNames = Array.from(byProvider.keys()).sort((a, b) => a.localeCompare(b, "en"));
-let cursor = 0;
+const offsets = new Map(providerNames.map((provider) => [provider, 0]));
+
 while (selected.length < wanted && providerNames.length) {
   let pickedThisRound = false;
   for (const provider of providerNames) {
     const bucket = byProvider.get(provider)!;
-    while (cursor < bucket.length && usedSlugs.has(bucket[cursor].slug)) cursor += 1;
-    const candidate = bucket[cursor];
+    const index = offsets.get(provider) || 0;
+    const candidate = bucket[index];
     if (!candidate) continue;
     selected.push(candidate);
-    usedSlugs.add(candidate.slug);
+    offsets.set(provider, index + 1);
     pickedThisRound = true;
     if (selected.length >= wanted) break;
   }
-  cursor += 1;
   if (!pickedThisRound) break;
 }
 

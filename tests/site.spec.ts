@@ -144,14 +144,21 @@ test("all public routes, local navigation targets, images and headings", async (
       .evaluateAll((as) => as.map((a) => a.getAttribute("href")!)))
       links.add(href.split("#")[0]);
 
-    // Give hydrated SlotArtwork a chance to replace a missing reviewed cover
-    // with the local fallback before validating the final runtime image URLs.
-    await page.waitForLoadState("networkidle");
-    for (const src of await page
-      .locator("img")
-      .evaluateAll((imgs) => imgs.map((i) => i.getAttribute("src")!))) {
+    const images = page.locator("img");
+    for (let index = 0; index < (await images.count()); index += 1) {
+      const image = images.nth(index);
+      // Lazy images must actually enter the viewport before a failed source can
+      // fire onError and SlotArtwork can swap it to the local fallback.
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(async () => {
+          const src = await image.getAttribute("src");
+          if (!src || /^https?:\/\//.test(src)) return 0;
+          return (await request.get(src)).status();
+        })
+        .toBe(200);
+      const src = await image.getAttribute("src");
       expect(src, `external runtime image on ${route}`).not.toMatch(/^https?:\/\//);
-      expect((await request.get(src)).status(), src).toBe(200);
     }
   }
   for (const href of links) {

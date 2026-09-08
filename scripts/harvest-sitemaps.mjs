@@ -6,13 +6,6 @@ const sitemapConcurrency = 20;
 
 const providers = [
   { provider: "Pragmatic Play", origin: "https://www.pragmaticplay.com", match: /^\/en\/games\/[^/?#]+\/?$/i },
-  { provider: "Play’n GO", origin: "https://www.playngo.com", match: /^\/games\/[^/?#]+\/?$/i },
-  { provider: "Endorphina", origin: "https://endorphina.com", match: /^\/games\/[^/?#]+\/?$/i },
-  { provider: "Hacksaw Gaming", origin: "https://www.hacksawgaming.com", match: /^\/games\/[^/?#]+\/?$/i, reject: /^\/games\/(?:slots|instant-win-games|scratchcards)\/?$/i },
-  { provider: "Nolimit City", origin: "https://nolimitcity.com", match: /^\/(?:game|games)\/[^/?#]+\/?$/i },
-  { provider: "Push Gaming", origin: "https://www.pushgaming.com", match: /^\/(?:game|games)\/[^/?#]+\/?$/i },
-  { provider: "3 Oaks Gaming", origin: "https://3oaks.com", match: /^\/game\/[^/?#]+\/?$/i },
-  { provider: "Onlyplay", origin: "https://onlyplay.com", match: /^\/games\/[^/?#]+\/?$/i },
 ];
 
 function decodeHtml(value = "") {
@@ -77,7 +70,7 @@ async function fetchText(url) {
         headers: {
           accept: "application/xml,text/xml,text/plain;q=0.9,*/*;q=0.5",
           "accept-language": "en-US,en;q=0.8",
-          "user-agent": "Mozilla/5.0 SlotfolioCatalogResearch/1.3",
+          "user-agent": "Mozilla/5.0 SlotfolioCatalogResearch/1.4",
         },
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -159,7 +152,7 @@ async function discoverUrls(config) {
           if (!/\.gz$/i.test(url.pathname) && !visited.has(url.toString())) next.add(url.toString());
           continue;
         }
-        if (config.match.test(url.pathname) && !(config.reject?.test(url.pathname))) pages.add(url.toString());
+        if (config.match.test(url.pathname)) pages.add(url.toString());
       }
     }
     frontier = Array.from(next);

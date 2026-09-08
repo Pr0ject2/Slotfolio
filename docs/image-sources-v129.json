@@ -1,0 +1,263 @@
+[
+  {
+    "slug": "zeus-claws",
+    "title": "Zeus Claws",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/zeus-claws.html",
+    "local": "/images/slots/zeus-claws.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/Zeus-Claws/webp/Game_Info_Block_1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "panda-claw-jackpot",
+    "title": "Panda Claw Jackpot",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/panda-claw-jackpot.html",
+    "local": "/images/slots/panda-claw-jackpot.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/Panda-Claw-Jackpot/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "wolf-hunt-claw-and-win",
+    "title": "Wolf Hunt: Claw and Win",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/wolf-hunt-claw-and-win.html",
+    "local": "/images/slots/wolf-hunt-claw-and-win.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/Wolf-Hunt-Claw-and-Win/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "claw-bonanza-gold-rush",
+    "title": "Claw Bonanza: Gold Rush",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/claw-bonanza-gold-rush.html",
+    "local": "/images/slots/claw-bonanza-gold-rush.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/Claw-Bonanza-Gold-Rush/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "double-triple-burning-wilds",
+    "title": "Double Triple Burning Wilds",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/double-triple-burning-wilds.html",
+    "local": "/images/slots/double-triple-burning-wilds.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/Double-Triple-Burning-Wilds/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "clawbass-bonanza",
+    "title": "ClawBass Bonanza",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/clawbass-bonanza.html",
+    "local": "/images/slots/clawbass-bonanza.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/ClawBass-Bonanza/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "clawbass-bonanza-free-rush",
+    "title": "ClawBass Bonanza: Free Rush",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/clawbass-bonanza-free-rush.html",
+    "local": "/images/slots/clawbass-bonanza-free-rush.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/ClawBass-Bonanza-Free-Rush/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "3-claws-of-aztec-fire",
+    "title": "3 Claws of Aztec Fire",
+    "provider": "Clawbuster",
+    "page": "https://clawbuster.com/games/3-claws-of-aztec-fire.html",
+    "local": "/images/slots/3-claws-of-aztec-fire.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://clawbuster.com/games/assets/img/3-Claws-of-Aztec-Fire-Hold-Win/webp/game-info-block-1054x1172-1.webp",
+    "note": "Pinned game-specific artwork from the official Clawbuster page."
+  },
+  {
+    "slug": "great-clawsby-deluxe",
+    "title": "The Great Clawsby Deluxe: Hold and Win",
+    "provider": "Clawbuster",
+    "page": "https://great-clawsby-deluxe-iframe-dev.clawbuster.com/",
+    "local": "/images/slots/great-clawsby-deluxe.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "No reviewed game-specific cover URL pinned yet; do not substitute generic page metadata."
+  },
+  {
+    "slug": "fruit-train-express-hold-win",
+    "title": "Fruit Train Express: Hold & Win",
+    "provider": "Onlyplay",
+    "page": "https://onlyplay.com/games/fruit-train-express-hold-win",
+    "local": "/images/slots/fruit-train-express-hold-win.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "hot-and-spicy-jackpot",
+    "title": "Hot And Spicy Jackpot",
+    "provider": "Onlyplay",
+    "page": "https://onlyplay.com/games/hot-and-spicy-jackpot",
+    "local": "/images/slots/hot-and-spicy-jackpot.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "wild-west-girls",
+    "title": "Wild West Girls",
+    "provider": "Onlyplay",
+    "page": "https://onlyplay.com/games/wild-west-girls",
+    "local": "/images/slots/wild-west-girls.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "caramelo-jackpot",
+    "title": "Caramelo Jackpot",
+    "provider": "Onlyplay",
+    "page": "https://onlyplay.net/games/caramelo-jackpot",
+    "local": "/images/slots/caramelo-jackpot.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "coin-flynn",
+    "title": "Coin Flynn",
+    "provider": "Onlyplay",
+    "page": "https://onlyplay.com/games/coin-flynn",
+    "local": "/images/slots/coin-flynn.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "coin-craze-jackpot",
+    "title": "Coin Craze Jackpot",
+    "provider": "Mancala Gaming",
+    "page": "https://mancalagaming.com/coin-craze-jackpot",
+    "local": "/images/slots/coin-craze-jackpot.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "caishen-gold-infinity-dragon",
+    "title": "Caishen Gold: Infinity Dragon",
+    "provider": "Mancala Gaming",
+    "page": "https://mancalagaming.com/caishen-gold-infinity-dragon",
+    "local": "/images/slots/caishen-gold-infinity-dragon.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "money-booster",
+    "title": "Money Booster",
+    "provider": "Mancala Gaming",
+    "page": "https://mancalagaming.com/money-booster",
+    "local": "/images/slots/money-booster.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "midas-hand-of-fortune",
+    "title": "Midas: Hand of Fortune",
+    "provider": "Mancala Gaming",
+    "page": "https://mancalagaming.com/midas-hand-of-fortune",
+    "local": "/images/slots/midas-hand-of-fortune.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "mustang-rush",
+    "title": "Mustang Rush",
+    "provider": "Mancala Gaming",
+    "page": "https://mancalagaming.com/mustang-rush",
+    "local": "/images/slots/mustang-rush.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "power-of-zeus-mancala",
+    "title": "Power of Zeus",
+    "provider": "Mancala Gaming",
+    "page": "https://mancalagaming.com/power-of-zeus",
+    "local": "/images/slots/power-of-zeus-mancala.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+  },
+  {
+    "slug": "rip-city",
+    "title": "RIP City",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/rip-city",
+    "local": "/images/slots/rip-city.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1233_hero_RipCity_Devices_Desktop.png",
+    "note": "Pinned official Hacksaw game screenshot."
+  },
+  {
+    "slug": "hand-of-anubis",
+    "title": "Hand of Anubis",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/news/new-game-release-april-summary",
+    "local": "/images/slots/hand-of-anubis.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider release page confirmed; explicit game image still requires visual review."
+  },
+  {
+    "slug": "life-and-death",
+    "title": "Life and Death",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/life-and-death",
+    "local": "/images/slots/life-and-death.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1460_hero_LifeandDeath_Devices_Desktop%20%283%29.png",
+    "note": "Pinned official Hacksaw game screenshot."
+  },
+  {
+    "slug": "rad-maxx",
+    "title": "Rad Maxx",
+    "provider": "Hacksaw Gaming",
+    "page": "https://www.hacksawgaming.com/games/rad-maxx",
+    "local": "/images/slots/rad-maxx.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1732_hero_Device_Desktop16x9.png",
+    "note": "Pinned official Hacksaw game screenshot."
+  },
+  {
+    "slug": "mahjong-wins-super-scatter",
+    "title": "Mahjong Wins Super Scatter",
+    "provider": "Pragmatic Play",
+    "page": "https://www.pragmaticplay.com/en/games/mahjong-wins-super-scatter/",
+    "local": "/images/slots/mahjong-wins-super-scatter.webp",
+    "localize": "build-time",
+    "requireExplicitImage": true,
+    "note": "Official provider page confirmed; explicit cover URL still requires visual review."
+  }
+]

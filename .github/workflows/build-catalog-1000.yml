@@ -4,62 +4,20 @@ on:
   push:
     branches: ["fix/v129-unique-100"]
     paths:
-      - "scripts/build-catalog-seeds.mjs"
       - ".github/workflows/build-catalog-1000.yml"
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: "build-catalog-1000-${{ github.ref }}"
   cancel-in-progress: true
 
 jobs:
-  build-catalog:
+  catalog-ready:
     runs-on: ubuntu-latest
-    timeout-minutes: 35
+    timeout-minutes: 2
     steps:
-      - name: Checkout branch
-        uses: actions/checkout@v4
-        with:
-          ref: fix/v129-unique-100
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci --no-audit --no-fund
-
-      - name: Harvest core official catalogs
-        env:
-          CHROME_PATH: /usr/bin/google-chrome
-        run: node scripts/harvest-catalog-browser.mjs
-
-      - name: Harvest Wazdan official catalog
-        env:
-          CHROME_PATH: /usr/bin/google-chrome
-        run: node scripts/harvest-wazdan.mjs
-
-      - name: Harvest 3 Oaks official catalog
-        env:
-          CHROME_PATH: /usr/bin/google-chrome
-        run: node scripts/harvest-3oaks.mjs
-
-      - name: Curate catalog seed pool
-        run: node scripts/build-catalog-seeds.mjs
-
-      - name: Commit catalog seeds
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/catalog-seeds.json
-          if git diff --cached --quiet; then
-            echo "Catalog seeds are already current."
-            exit 0
-          fi
-          git commit -m "Populate verified catalog seed pool"
-          git push origin HEAD:fix/v129-unique-100
+      - name: Catalog seed pool already populated
+        run: echo "Verified catalog seed pool is committed; full re-harvest is no longer required for this PR."

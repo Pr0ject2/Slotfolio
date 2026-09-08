@@ -14,7 +14,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,6 +24,17 @@ jobs:
         with:
           node-version: 22
           cache: npm
+
+      - name: Cache localized slot images
+        uses: actions/cache@v4
+        with:
+          path: |
+            .asset-cache/slot-images
+            public/images/slots
+          key: ci-slot-images-${{ runner.os }}-${{ hashFiles('docs/image-sources.json', 'docs/image-sources-v128.json', 'docs/image-sources-v129.json', 'docs/image-sources-v130.json', 'scripts/localize-slot-images.mjs') }}
+          restore-keys: |
+            ci-slot-images-${{ runner.os }}-
+            slot-images-${{ runner.os }}-
 
       - name: Install dependencies
         run: npm ci --no-audit --no-fund

@@ -1,0 +1,50 @@
+name: Apply neutral Slotfolio palette
+
+on:
+  push:
+    branches:
+      - fix/neutral-palette-20260909
+    paths:
+      - scripts/apply-neutral-palette.mjs
+
+jobs:
+  apply:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: fix/neutral-palette-20260909
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Apply palette
+        run: node scripts/apply-neutral-palette.mjs
+      - name: Validate diff
+        run: |
+          git diff --check
+          grep -q 'slotfolio-neutral-palette-20260909' src/app/globals.css
+          grep -q -- '--paper: #f4f5f4' src/app/globals.css
+          grep -q -- '--olive: #e8ebe9' src/app/globals.css
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Build
+        run: npm run build
+      - name: Playwright
+        run: npx playwright test
+      - name: Commit production CSS
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/app/globals.css
+          if git diff --cached --quiet; then
+            echo "No production changes"
+          else
+            git commit -m "Neutralize Slotfolio background palette"
+            git push origin HEAD:fix/neutral-palette-20260909
+          fi

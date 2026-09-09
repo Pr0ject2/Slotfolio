@@ -3813,7 +3813,8 @@ summary {
 .comparison-selection article img {
   width: 105px;
   height: 62px;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--olive);
 }
 .comparison-selection article h3 {
   font-size: 16px;

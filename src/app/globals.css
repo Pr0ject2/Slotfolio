@@ -4652,3 +4652,45 @@ summary {
   .simple-heading h1 { font-size: clamp(34px, 9vw, 43px); }
   .catalog-only .catalog-game-data a { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* slotfolio-neutral-palette-20260909 */
+:root {
+  --paper: #f4f5f4;
+  --muted: #666866;
+  --line: #c8cbc9;
+  --olive: #e8ebe9;
+}
+
+/* Keep the existing editorial red/ink system, but remove the yellow-beige cast from large surfaces. */
+.feature-band {
+  background: #ecefed;
+  border-color: #cdd1cf;
+}
+.collection-teaser {
+  background: #eef0ee;
+  border-color: #cfd2d0;
+}
+.collection-teaser p {
+  color: #686b69;
+}
+.filters select {
+  background: #f0f2f0;
+  border-color: #c0c4c2;
+}
+.view-controls button[aria-pressed="true"] {
+  background: #e9ecea;
+}
+.comparison-table tr:nth-child(even),
+.comparison .comparison-table tr:nth-child(even) {
+  background: #eff1ef;
+}
+.comparison-summary {
+  background: #edf0ee;
+  border-color: #d2d6d4;
+}
+.comparison-summary > div + div {
+  border-color: #d2d6d4;
+}
+.comparison-selection-empty {
+  color: #a6aaa8;
+}

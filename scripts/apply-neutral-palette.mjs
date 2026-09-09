@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 
+// One-time neutral palette patch; validation mirrors the static Pages/CI build.
 const file = 'src/app/globals.css';
 let css = fs.readFileSync(file, 'utf8');
 const marker = '/* slotfolio-neutral-palette-20260909 */';

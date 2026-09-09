@@ -40,7 +40,7 @@ export default async function Page({
       <Breadcrumbs items={[{ label: data.eyebrow }]} />
       <div className="simple-heading">
         <span className="eyebrow accent">{data.eyebrow}</span>
-        <h1>{data.title}</h1>
+        <h1>{data.title.replace("Конфиденциальность", "Конфиденци\u00adальность")}</h1>
         <p>{data.intro}</p>
       </div>
       <div className="article-layout">

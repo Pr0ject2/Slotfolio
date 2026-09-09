@@ -230,9 +230,10 @@ test("catalog search, filters and pagination operate on all 1000 records", async
 
   await page.getByRole("button", { name: /Сбросить фильтры|Сбросить всё/ }).first().click();
   await expect(page.locator(".catalog-game")).toHaveCount(18);
-  for (const expected of [36, 54, 72]) {
-    await page.getByRole("button", { name: /Показать ещё/ }).click();
-    await expect(page.locator(".catalog-game")).toHaveCount(expected);
+  for (const expected of [2, 3, 4]) {
+    await page.getByRole("button", { name: "Следующая страница" }).click();
+    await expect(page.getByRole("combobox", { name: "Страница каталога" })).toHaveValue(String(expected));
+    await expect(page.locator(".catalog-game")).toHaveCount(18);
   }
 
   await page.getByRole("radio", { name: "Каскады" }).check();
@@ -283,9 +284,9 @@ test("catalog-only pages disclose limited coverage and stay noindex", async ({ p
   for (const seed of samples) {
     await page.goto(`/slots/catalog/${seed.slug}`);
     await expect(page.locator("h1")).toHaveText(seed.name);
-    await expect(page.getByText("Каталожная запись", { exact: true })).toBeVisible();
+    await expect(page.getByText("Базовая запись", { exact: true })).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-    await expect(page.getByRole("link", { name: /Официальный источник провайдера/ })).toHaveAttribute("href", seed.source);
+    await expect(page.getByRole("link", { name: /Официальный каталог/ })).toHaveAttribute("href", seed.source);
   }
 });
 
@@ -376,4 +377,63 @@ test("no viewport overflow across mobile, tablet and desktop", async ({ page }) 
       ).toBe(true);
     }
   }
+});
+
+test("catalog page and view survive reload, detail navigation and history", async ({ page }) => {
+  await page.goto("/slots?page=56");
+  await expect(page.locator(".catalog-game")).toHaveCount(10);
+  await expect(page.getByRole("button", { name: "Следующая страница" })).toBeDisabled();
+  await expect(page.locator(".catalog-pagination")).toContainText("991–1000");
+  await page.getByRole("combobox", { name: "Страница каталога" }).selectOption("2");
+  await expect(page).toHaveURL(/page=2/);
+  const title = await page.locator(".catalog-game h2").first().innerText();
+  await page.locator(".catalog-game h2 a").first().click();
+  await expect(page).toHaveURL(/\/slots\/[^?]+$/);
+  await page.goBack();
+  await expect(page.getByRole("combobox", { name: "Страница каталога" })).toHaveValue("2");
+  await expect(page.locator(".catalog-game h2").first()).toHaveText(title);
+  await page.getByRole("button", { name: "Обложки", exact: true }).click();
+  await page.reload();
+  await expect(page.locator(".catalog-results")).toHaveClass(/covers/);
+  await expect(page.getByRole("combobox", { name: "Страница каталога" })).toHaveValue("2");
+  await page.getByRole("button", { name: "Следующая страница" }).click();
+  await expect(page.getByRole("combobox", { name: "Страница каталога" })).toHaveValue("3");
+  await page.goBack();
+  await expect(page.getByRole("combobox", { name: "Страница каталога" })).toHaveValue("2");
+  await page.getByRole("searchbox").fill("bonanza");
+  await expect(page).not.toHaveURL(/page=/);
+  await expect(page.locator(".catalog-game")).not.toHaveCount(0);
+});
+test("pagination visits all 1000 games once without accumulating DOM rows", async ({ page }) => {
+  test.setTimeout(120000);
+  await page.goto("/slots");
+  const seen = new Set<string>();
+  const count = Math.ceil(catalogModel.items.length / 18);
+  for (let current = 1; current <= count; current += 1) {
+    await expect(page.getByRole("combobox", { name: "Страница каталога" })).toHaveValue(String(current));
+    await expect(page.locator(".catalog-game")).toHaveCount(Math.min(18, catalogModel.items.length - (current - 1) * 18));
+    for (const href of await page.locator(".catalog-game h2 a").evaluateAll(links => links.map(link => link.getAttribute("href")!))) {
+      expect(seen.has(href), href).toBe(false);
+      seen.add(href);
+    }
+    if (current < count) await page.getByRole("button", { name: "Следующая страница" }).click();
+  }
+  expect(seen.size).toBe(1000);
+  await expect(page.getByRole("button", { name: "Следующая страница" })).toBeDisabled();
+});
+
+test("mobile filter apply returns to results and basic records remain actionable", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/slots?page=56");
+  await page.getByRole("button", { name: /^Фильтры/ }).click();
+  await page.locator("#provider").selectOption("clawbuster");
+  await page.getByRole("button", { name: /К результатам/ }).click();
+  await expect(page.locator("#provider")).not.toBeVisible();
+  await expect(page).not.toHaveURL(/page=/);
+  await expect(page.getByRole("status")).toContainText("9");
+  await page.goto("/slots?page=56");
+  await page.getByRole("link", { name: "Открыть запись ↗", exact: true }).first().click();
+  await expect(page).toHaveURL(/\/slots\/catalog\//);
+  await expect(page.locator("main")).toHaveCount(1);
+  await expect(page.locator(".compare-button")).toHaveCount(0);
 });

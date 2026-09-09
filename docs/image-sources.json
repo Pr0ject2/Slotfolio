@@ -163,20 +163,22 @@
     "title": "Fat Rabbit",
     "provider": "Push Gaming",
     "page": "https://www.pushgaming.com/games/fat-rabbit.html",
-    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "note": "Exact game preview linked in the official Push Gaming games catalog; visually checked 2026-09-09. Replaces decorative page background.",
     "local": "/images/slots/fat-rabbit.webp",
     "localize": "checked-in",
-    "image": "https://www.pushgaming.com/uploads/fat-rabbit-page-bg.jpg"
+    "image": "https://www.pushgaming.com/uploads/Fat-Rabbit_preview2020.jpg",
+    "requireExplicitImage": true
   },
   {
     "slug": "retro-tapes",
     "title": "Retro Tapes",
     "provider": "Push Gaming",
     "page": "https://www.pushgaming.com/games/retro-tapes.html",
-    "note": "Local game artwork. Source page and source URL retained for editorial verification; no runtime remote requests.",
+    "note": "Exact game preview linked in the official Push Gaming games catalog; visually checked 2026-09-09. Replaces decorative page background.",
     "local": "/images/slots/retro-tapes.webp",
     "localize": "checked-in",
-    "image": "https://www.pushgaming.com/uploads/Retro%20Tapes/Retro-Tapes_Home-Page_Background.jpg"
+    "image": "https://www.pushgaming.com/uploads/Retro%20Tapes/Retro-Tapes_preview.jpg",
+    "requireExplicitImage": true
   },
   {
     "slug": "chaos-crew",
@@ -325,54 +327,66 @@
     "slug": "hand-of-anubis",
     "title": "Hand of Anubis",
     "provider": "Hacksaw Gaming",
-    "page": "https://www.hacksawgaming.com/games/hand-of-anubis",
-    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "page": "https://www.hacksawgaming.com/games",
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
     "local": "/images/slots/hand-of-anubis.webp",
-    "localize": "build-time"
+    "localize": "build-time",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1164.jpg",
+    "requireExplicitImage": true
   },
   {
     "slug": "rip-city",
     "title": "RIP City",
     "provider": "Hacksaw Gaming",
     "page": "https://www.hacksawgaming.com/games/rip-city",
-    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "note": "Pinned official Hacksaw game screenshot.",
     "local": "/images/slots/rip-city.webp",
-    "localize": "build-time"
+    "localize": "build-time",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1233_hero_RipCity_Devices_Desktop.png",
+    "requireExplicitImage": true
   },
   {
     "slug": "hell-hot-100",
     "title": "Hell Hot 100",
     "provider": "Endorphina",
     "page": "https://endorphina.com/games/hell-hot-100",
-    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
     "local": "/images/slots/hell-hot-100.webp",
-    "localize": "build-time"
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/h100-loader-95d3121758.jpg",
+    "requireExplicitImage": true
   },
   {
     "slug": "joker-stoker",
     "title": "Joker Stoker",
     "provider": "Endorphina",
     "page": "https://endorphina.com/games/joker-stoker",
-    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
     "local": "/images/slots/joker-stoker.webp",
-    "localize": "build-time"
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/loader-dff7364f83.jpg",
+    "requireExplicitImage": true
   },
   {
     "slug": "lucky-streak-1",
     "title": "Lucky Streak 1",
     "provider": "Endorphina",
     "page": "https://endorphina.com/games/lucky-streak-1",
-    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
     "local": "/images/slots/lucky-streak-1.webp",
-    "localize": "build-time"
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/luckystreak1-209c6b2991.jpg",
+    "requireExplicitImage": true
   },
   {
     "slug": "3-coin-towers",
     "title": "3 Coin Towers",
     "provider": "Endorphina",
     "page": "https://endorphina.com/games/3-coin-towers",
-    "note": "Build-time source. GitHub Actions localizes official artwork to WebP; runtime never requests the provider CDN.",
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
     "local": "/images/slots/3-coin-towers.webp",
-    "localize": "build-time"
+    "localize": "build-time",
+    "image": "https://endorphina.com/uploads/photos/preloader-d0c9fbcf86.png",
+    "requireExplicitImage": true
   }
 ]

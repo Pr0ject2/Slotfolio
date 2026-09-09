@@ -4573,3 +4573,81 @@ summary {
   color: var(--muted);
   font-size: 11px;
 }
+
+/* Visual QA: readable catalog controls and deliberate basic-record layouts. */
+.catalog .results { scroll-margin-top: 20px; }
+.catalog-coverage-note { font-size: 12px; line-height: 1.65; color: var(--muted); margin: 14px 0 18px; max-width: 66ch; }
+.catalog-coverage { display: block; font-size: 11px; line-height: 1.6; color: var(--muted); margin: 0 0 10px; }
+.catalog-game-art img, .slot-figure .game-image { object-fit: contain; background: var(--olive); }
+.list .catalog-only { grid-template-columns: minmax(0, 1fr) 22px; padding: 22px 0; }
+.list .catalog-only .catalog-game-art { display: none; }
+.catalog-only .catalog-game-data { margin-top: 8px; }
+.catalog-art-pending { display: grid; place-items: center; aspect-ratio: 16 / 9; width: 100%; padding: 20px; background: var(--olive); color: var(--muted); font-size: 12px; text-align: center; }
+.covers .catalog-game-art img { aspect-ratio: 16 / 9; }
+.covers .catalog-game-copy { min-width: 0; }
+.catalog-pagination { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.catalog-range { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.catalog-page-controls { display: flex; align-items: center; gap: 16px; }
+.catalog-page-controls button, .catalog-page-controls select { min-height: 44px; padding: 8px 12px; font-size: 13px; color: var(--ink); }
+.catalog-page-controls select { border: 1px solid var(--line); background: transparent; }
+.catalog-page-controls button:hover:not(:disabled) { color: var(--red); }
+.catalog-page-controls button:disabled { opacity: .4; cursor: default; }
+.filter-apply { display: none; }
+.catalog-record-page { max-width: 1080px; margin: 50px auto 0; }
+.catalog-record-heading { max-width: 820px; }
+.catalog-record-heading h1 { font: 400 clamp(38px, 5vw, 66px)/1.1 var(--serif); letter-spacing: -.035em; margin: 18px 0 14px; overflow-wrap: anywhere; }
+.catalog-record-deck { font-size: 18px; line-height: 1.7; max-width: 58ch; margin: 28px 0 42px; }
+.catalog-record-body { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 64px; border-top: 2px solid var(--ink); padding-top: 30px; }
+.catalog-record-body h2 { font: 400 28px/1.2 var(--serif); margin: 0 0 22px; }
+.catalog-record-facts { margin: 0; }
+.catalog-record-facts > div { display: grid; grid-template-columns: 110px minmax(0, 1fr); gap: 18px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.6; }
+.catalog-record-facts dt { color: var(--muted); }
+.catalog-record-facts dd { margin: 0; overflow-wrap: anywhere; }
+.catalog-record-facts a { text-decoration: underline; text-underline-offset: 4px; }
+.catalog-record-status .eyebrow { display: block; margin-bottom: 12px; }
+.catalog-record-status p { font-size: 14px; line-height: 1.85; color: var(--muted); margin-bottom: 16px; }
+.catalog-record-next { display: flex; flex-wrap: wrap; gap: 20px 40px; border-top: 1px solid var(--line); margin-top: 42px; padding-top: 26px; }
+@media (max-width: 900px) {
+  .catalog-record-body { gap: 32px; }
+}
+@media (max-width: 600px) {
+  .slot-heading { flex-wrap: wrap; }
+  .catalog-search input { font-size: 16px; min-height: 44px; }
+  .filter-toggle, .filters select, .view-controls button { min-height: 44px; }
+  .filter-toggle { font-size: 13px; }
+  .view-controls button { min-width: 38px; }
+  .results-toolbar { flex-wrap: wrap; gap: 8px; font-size: 12px; }
+  .results-toolbar select { font-size: 12px; min-height: 44px; }
+  .results-toolbar > span { flex: 1 0 100%; }
+  .results-toolbar > label { flex: 1; }
+  .catalog-game .eyebrow { font-size: 10px; letter-spacing: .035em; line-height: 1.6; }
+  .catalog-game-data, .catalog-game-data .compare-button { font-size: 11px; line-height: 1.65; }
+  .catalog-game-data .compare-button { min-height: 40px; }
+  .catalog-coverage { font-size: 11px; }
+  .catalog-game-tags { display: none; }
+  .catalog-game-art img { aspect-ratio: 4 / 3; }
+  .list .catalog-only { padding: 20px 0; }
+  .list .catalog-only .catalog-game-copy { grid-column: 1 / -1; }
+  .covers .catalog-game h2 { font-size: 19px; line-height: 1.2; }
+  .catalog-art-pending { font-size: 11px; padding: 14px 8px; }
+  .catalog-pagination { display: block; padding: 22px 0; }
+  .catalog-range { display: block; margin-bottom: 12px; }
+  .catalog-page-controls { justify-content: space-between; gap: 4px; }
+  .catalog-page-controls button, .catalog-page-controls select { padding: 8px; font-size: 12px; }
+  .filter-apply { display: block; width: 100%; min-height: 46px; margin-top: 22px; background: var(--ink); color: var(--paper); font-size: 14px; padding: 12px; }
+  .catalog-record-page { margin-top: 34px; }
+  .catalog-record-deck { font-size: 16px; margin: 24px 0 32px; }
+  .catalog-record-body { display: block; padding-top: 24px; }
+  .catalog-record-body h2 { font-size: 26px; }
+  .catalog-record-facts > div { grid-template-columns: 86px minmax(0, 1fr); gap: 14px; }
+  .catalog-record-status { margin-top: 36px; }
+  .catalog-record-next { display: grid; gap: 12px; margin-top: 28px; }
+  .catalog-record-next a { min-height: 44px; display: flex; align-items: center; }
+}@media (max-width: 600px) {
+  .slot-heading .compare-control { margin-top: 0; }
+  .slot-heading .compare-button { min-height: 44px; font-size: 13px; }
+  .catalog-game-data .compare-button { min-height: 44px; font-size: 12px; }
+}@media (max-width: 600px) {
+  .simple-heading h1 { font-size: clamp(34px, 9vw, 43px); }
+  .catalog-only .catalog-game-data a { display: inline-flex; align-items: center; min-height: 44px; }
+}

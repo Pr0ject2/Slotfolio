@@ -52,39 +52,34 @@ export default async function CatalogSlotPage({
           { label: slot.name },
         ]}
       />
-      <main className="prose catalog-record-page">
-        <span className="eyebrow accent">Каталожная запись</span>
+      <article className="catalog-record-page">
+        <header className="catalog-record-heading">
+        <span className="eyebrow accent">Базовая запись</span>
         <h1>{slot.name}</h1>
-        <p className="slot-deck">{slot.provider}</p>
-
-        <section>
-          <h2>Что уже подтверждено</h2>
-          <p>
-            Название игры и принадлежность к {slot.provider} взяты из официального каталога провайдера.
-            Запись добавлена в общий указатель Slotfolio, чтобы каталог мог расти быстрее, не заполняя
-            неизвестные характеристики догадками.
-          </p>
-          <p>
-            RTP, волатильность, год выпуска, механики и игровая графика появятся здесь только после
-            отдельной проверки. До этого мы намеренно не показываем приблизительные значения.
-          </p>
-          <a className="text-link" href={slot.source} rel="noreferrer">
-            Официальный источник провайдера ↗
-          </a>
-        </section>
-
-        <section>
-          <h2>Статус досье</h2>
-          <p>
-            Сейчас это проверенная каталожная запись, а не полное редакционное досье. По мере обработки
-            игр она будет заменена полноценной страницей с механикой, RTP-конфигурациями, особенностями,
-            источниками и сравнением.
-          </p>
-          <Link className="text-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>
-            Другие игры {slot.provider} ↗
-          </Link>
-        </section>
-      </main>
+        <Link className="provider-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>{slot.provider} ↗</Link>
+        <p className="catalog-record-deck">Игра из официального каталога провайдера. Здесь собраны подтверждённые сведения; подробного разбора пока нет.</p>
+        </header>
+        <div className="catalog-record-body">
+          <section aria-labelledby="record-facts">
+            <h2 id="record-facts">Проверенные сведения</h2>
+            <dl className="catalog-record-facts">
+              <div><dt>Название</dt><dd>{slot.name}</dd></div>
+              <div><dt>Провайдер</dt><dd>{slot.provider}</dd></div>
+              <div><dt>Источник</dt><dd><a href={slot.source} rel="noreferrer">Официальный каталог ↗</a></dd></div>
+            </dl>
+          </section>
+          <aside className="catalog-record-status">
+            <span className="eyebrow">До подробного досье</span>
+            <h2>Что ещё не проверено</h2>
+            <p>RTP, волатильность, механики, год выпуска и обложка требуют отдельной проверки. До проверки этих данных игру нельзя корректно сравнить с другими.</p>
+            <p>Наличие игры в каталоге разработчика не подтверждает её доступность у конкретного оператора.</p>
+          </aside>
+        </div>
+        <nav className="catalog-record-next" aria-label="Продолжить изучение">
+          <Link className="text-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>Другие игры {slot.provider} ↗</Link>
+          <Link className="text-link" href="/slots">Весь каталог ↗</Link>
+        </nav>
+      </article>
     </>
   );
 }

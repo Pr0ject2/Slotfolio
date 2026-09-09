@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
   <title id="title">House of Sins</title>
-  <desc id="desc">Temporary editorial placeholder. Official artwork not yet verified.</desc>
+  <desc id="desc">Название игры приведено как текстовая подпись. Проверенная официальная обложка пока недоступна; эта иллюстрация не является игровой графикой.</desc>
   <rect width="960" height="540" fill="#171512"/>
-  <rect x="28" y="28" width="904" height="484" fill="none" stroke="#d9b06f" stroke-width="2" opacity="0.75"/>
-  <text x="480" y="246" text-anchor="middle" fill="#f4efe6" font-family="Arial, sans-serif" font-size="54" font-weight="700">House of Sins</text>
-  <text x="480" y="306" text-anchor="middle" fill="#d9b06f" font-family="Arial, sans-serif" font-size="22" letter-spacing="3">ARTWORK NOT VERIFIED</text>
-  <text x="480" y="356" text-anchor="middle" fill="#b7b1a8" font-family="Arial, sans-serif" font-size="18">Temporary Slotfolio editorial placeholder</text>
+  <text x="480" y="246" text-anchor="middle" fill="#252820" font-family="Arial, sans-serif" font-size="54" font-weight="700">House of Sins</text>
+  <text x="480" y="306" text-anchor="middle" fill="#d9b06f" font-family="Arial, sans-serif" font-size="22" letter-spacing="0">Обложка пока не проверена</text>
+  <text x="480" y="356" text-anchor="middle" fill="#62645a" font-family="Arial, sans-serif" font-size="18">Публикуем только подтверждённую игровую графику</text>
 <!-- Slotfolio editorial placeholder: deliberately local and non-official artwork. This marker also keeps the asset above the minimum integrity-size threshold used by the asset verifier. -->
 </svg>

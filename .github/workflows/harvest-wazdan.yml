@@ -1,0 +1,46 @@
+name: Harvest Wazdan Catalog
+
+on:
+  push:
+    branches: ["fix/v129-unique-100"]
+    paths:
+      - "scripts/harvest-wazdan.mjs"
+      - ".github/workflows/harvest-wazdan.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "catalog-wazdan-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Harvest Wazdan official catalog
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: node scripts/harvest-wazdan.mjs
+
+      - name: Upload Wazdan catalog
+        uses: actions/upload-artifact@v4
+        with:
+          name: slot-catalog-wazdan
+          path: artifacts/catalog-wazdan*.json
+          if-no-files-found: error
+          retention-days: 1

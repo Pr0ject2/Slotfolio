@@ -7,8 +7,8 @@
     "local": "/images/slots/zeus-claws.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Zeus-Claws/webp/Game_Info_Block_1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Zeus-Claws/webp/Game_Card_784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "panda-claw-jackpot",
@@ -18,8 +18,8 @@
     "local": "/images/slots/panda-claw-jackpot.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Panda-Claw-Jackpot/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://drive.google.com/uc?export=download&id=1qY4psagV_6Pl-eaw9zWYVQ40kHTm1Rgj",
+    "note": "Official Clawbuster promo kit linked on the game page, Thumbnails/PANDA_CLAW_JACKPOT_1win_600x450.png. Exact game cover, not live lobby evidence."
   },
   {
     "slug": "wolf-hunt-claw-and-win",
@@ -29,8 +29,8 @@
     "local": "/images/slots/wolf-hunt-claw-and-win.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Wolf-Hunt-Claw-and-Win/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Wolf-Hunt-Claw-and-Win/webp/Game_Card_784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "claw-bonanza-gold-rush",
@@ -40,8 +40,8 @@
     "local": "/images/slots/claw-bonanza-gold-rush.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Claw-Bonanza-Gold-Rush/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Claw-Bonanza-Gold-Rush/webp/Game_Card_784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "double-triple-burning-wilds",
@@ -51,8 +51,8 @@
     "local": "/images/slots/double-triple-burning-wilds.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/Double-Triple-Burning-Wilds/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/Double-Triple-Burning-Wilds/webp/Game_Card_784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "clawbass-bonanza",
@@ -62,8 +62,8 @@
     "local": "/images/slots/clawbass-bonanza.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/ClawBass-Bonanza/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/ClawBass-Bonanza/webp/game-card-784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "clawbass-bonanza-free-rush",
@@ -73,8 +73,8 @@
     "local": "/images/slots/clawbass-bonanza-free-rush.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/ClawBass-Bonanza-Free-Rush/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/ClawBass-Bonanza-Free-Rush/webp/game-card-784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "3-claws-of-aztec-fire",
@@ -84,28 +84,30 @@
     "local": "/images/slots/3-claws-of-aztec-fire.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "image": "https://clawbuster.com/games/assets/img/3-Claws-of-Aztec-Fire-Hold-Win/webp/game-info-block-1054x1172-1.webp",
-    "note": "Pinned game-specific artwork from the official Clawbuster page."
+    "image": "https://clawbuster.com/assets/img/3-Claws-of-Aztec-Fire-Hold-Win/webp/Game_Card_784x464.webp",
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09."
   },
   {
     "slug": "great-clawsby-deluxe",
     "title": "The Great Clawsby Deluxe: Hold and Win",
     "provider": "Clawbuster",
-    "page": "https://great-clawsby-deluxe-iframe-dev.clawbuster.com/",
+    "page": "https://clawbuster.com/games/the-great-clawsby-deluxe-hold-and-win.html",
     "local": "/images/slots/great-clawsby-deluxe.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "No reviewed game-specific cover URL pinned yet; do not substitute generic page metadata."
+    "note": "Exact title-matched artwork from the official Clawbuster games catalogue; visually reviewed 2026-09-09.",
+    "image": "https://clawbuster.com/assets/img/The-Great-Clawsby-Deluxe-Hold-and-Win/webp/Game_Card_784x464.webp"
   },
   {
     "slug": "fruit-train-express-hold-win",
     "title": "Fruit Train Express: Hold & Win",
     "provider": "Onlyplay",
-    "page": "https://onlyplay.com/games/fruit-train-express-hold-win",
+    "page": "https://onlyplay.com/games/fruit-train-express",
     "local": "/images/slots/fruit-train-express-hold-win.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+    "note": "Game-specific official source; visually reviewed 2026-09-09. Published /api/common/get_games_list record matched by exact slug.",
+    "image": "https://img.onlyplay.net/site-assets/games/fruittrainexpress/iconPreview_65ab9a843cdd737c9245b53ebc4e53385b199f974f57dce3c37d967287db384e.png"
   },
   {
     "slug": "hot-and-spicy-jackpot",
@@ -115,7 +117,8 @@
     "local": "/images/slots/hot-and-spicy-jackpot.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+    "note": "Game-specific official source; visually reviewed 2026-09-09. Published /api/common/get_games_list record matched by exact slug.",
+    "image": "https://img.onlyplay.net/site-assets/games/hotandspicyjackpot/iconPreview.png"
   },
   {
     "slug": "wild-west-girls",
@@ -125,17 +128,19 @@
     "local": "/images/slots/wild-west-girls.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+    "note": "Game-specific official source; visually reviewed 2026-09-09. Published /api/common/get_games_list record matched by exact slug.",
+    "image": "https://img.onlyplay.net/site-assets/games/wildwestgirls/iconPreview_cb65a640738689f149568df7af82a108222c4e63551a8b1c15b69f58a09177b8.png"
   },
   {
     "slug": "caramelo-jackpot",
     "title": "Caramelo Jackpot",
     "provider": "Onlyplay",
-    "page": "https://onlyplay.net/games/caramelo-jackpot",
+    "page": "https://onlyplay.com/games/caramelo-jackpot",
     "local": "/images/slots/caramelo-jackpot.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+    "note": "Game-specific official source; visually reviewed 2026-09-09. Published /api/common/get_games_list record matched by exact slug.",
+    "image": "https://img.onlyplay.net/site-assets/games/caramelojackpot/iconPreview_dd1302e8aab4c797e50676e7dd2211163b7d1d86525e936dbf9f942b3feab1e6.png"
   },
   {
     "slug": "coin-flynn",
@@ -145,7 +150,8 @@
     "local": "/images/slots/coin-flynn.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official SPA page confirmed; explicit cover URL still requires visual review."
+    "note": "Game-specific official source; visually reviewed 2026-09-09. Published /api/common/get_games_list record matched by exact slug.",
+    "image": "https://img.onlyplay.net/site-assets/games/coinflynn/iconPreview_30b3b3511a86075f7953c2f6f270755c25a4247dfc893529ee4331c338de1e80.png"
   },
   {
     "slug": "coin-craze-jackpot",
@@ -155,7 +161,8 @@
     "local": "/images/slots/coin-craze-jackpot.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://prod.mancaka4ch.com/1771250581_ab58a1576c13464718b2.webp"
   },
   {
     "slug": "caishen-gold-infinity-dragon",
@@ -165,7 +172,8 @@
     "local": "/images/slots/caishen-gold-infinity-dragon.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://prod.mancaka4ch.com/1771250525_6e1ad841cbde09396a95.webp"
   },
   {
     "slug": "money-booster",
@@ -175,7 +183,8 @@
     "local": "/images/slots/money-booster.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://prod.mancaka4ch.com/1771250259_0fd275b62bb7c1f68e9f.webp"
   },
   {
     "slug": "midas-hand-of-fortune",
@@ -185,7 +194,8 @@
     "local": "/images/slots/midas-hand-of-fortune.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://prod.mancaka4ch.com/1771251068_448ddb29cddf1a235ccb.webp"
   },
   {
     "slug": "mustang-rush",
@@ -195,7 +205,8 @@
     "local": "/images/slots/mustang-rush.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://prod.mancaka4ch.com/1771251121_9a4b483a56fc1ce52a35.webp"
   },
   {
     "slug": "power-of-zeus-mancala",
@@ -205,7 +216,8 @@
     "local": "/images/slots/power-of-zeus-mancala.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider page pinned; explicit cover URL still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://prod.mancaka4ch.com/1771497152_b968d550e860a08afbef.webp"
   },
   {
     "slug": "rip-city",
@@ -222,11 +234,12 @@
     "slug": "hand-of-anubis",
     "title": "Hand of Anubis",
     "provider": "Hacksaw Gaming",
-    "page": "https://www.hacksawgaming.com/news/new-game-release-april-summary",
+    "page": "https://www.hacksawgaming.com/games",
     "local": "/images/slots/hand-of-anubis.webp",
     "localize": "build-time",
     "requireExplicitImage": true,
-    "note": "Official provider release page confirmed; explicit game image still requires visual review."
+    "note": "Exact game asset extracted from official source during 2026-09-08 QA; visually reviewed 2026-09-09.",
+    "image": "https://www-live.hacksawgaming.com/casino_thumbnails/1164.jpg"
   },
   {
     "slug": "life-and-death",

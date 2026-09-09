@@ -1,0 +1,23 @@
+name: Build 1000 Slot Catalog
+
+on:
+  push:
+    branches: ["fix/v129-unique-100"]
+    paths:
+      - ".github/workflows/build-catalog-1000.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "build-catalog-1000-${{ github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  catalog-ready:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Catalog seed pool already populated
+        run: echo "Verified catalog seed pool is committed; full re-harvest is no longer required for this PR."

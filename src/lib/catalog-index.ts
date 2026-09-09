@@ -5,6 +5,7 @@ import {
   slotMechanics,
   slotRtpValue,
 } from "./data-v128";
+import { catalogSeeds } from "./catalog-seeds";
 import { getVerifiedSlotMetrics } from "./dossier";
 import {
   buildCatalogSearchText,
@@ -14,14 +15,14 @@ import {
 
 function frequency(values: string[]) {
   const counts = new Map<string, number>();
-  for (const value of values) counts.set(value, (counts.get(value) || 0) + 1);
+  for (const value of values.filter(Boolean)) counts.set(value, (counts.get(value) || 0) + 1);
   return Array.from(counts, ([name, count]) => ({ name, count })).sort(
     (a, b) => b.count - a.count || a.name.localeCompare(b.name, "ru"),
   );
 }
 
 export function createCatalogModel(): CatalogModel {
-  const items: CatalogItem[] = slots.map((slot) => {
+  const dossierItems: CatalogItem[] = slots.map((slot) => {
     const mechanicNames = slotMechanics(slot);
     const value = slotRtpValue(slot);
     return {
@@ -38,6 +39,8 @@ export function createCatalogModel(): CatalogModel {
       volatility: slot.volatility,
       image: slot.image,
       description: slot.description,
+      coverage: "dossier",
+      source: slot.source,
       searchText: buildCatalogSearchText({
         name: slot.name,
         provider: slot.provider,
@@ -53,6 +56,33 @@ export function createCatalogModel(): CatalogModel {
     };
   });
 
+  const catalogItems: CatalogItem[] = catalogSeeds.map((seed) => {
+    const description = `${seed.name} от ${seed.provider}. Название подтверждено в официальном каталоге провайдера; подробные характеристики проходят редакционную проверку.`;
+    return {
+      slug: seed.slug,
+      name: seed.name,
+      provider: seed.provider,
+      providerSlug: providerSlug(seed.provider),
+      year: null,
+      mechanics: [],
+      tags: [],
+      field: "",
+      rtp: "",
+      rtpValue: null,
+      volatility: "",
+      image: "/images/unavailable.svg",
+      description,
+      coverage: "catalog",
+      source: seed.source,
+      searchText: buildCatalogSearchText({
+        name: seed.name,
+        provider: seed.provider,
+        description,
+      }),
+    };
+  });
+
+  const items = [...dossierItems, ...catalogItems];
   const providerCounts = frequency(items.map((item) => item.provider));
   const providerCountMap = new Map(providerCounts.map((item) => [item.name, item.count]));
   const mechanicCounts = frequency(items.flatMap((item) => [...new Set(item.mechanics)]));

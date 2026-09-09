@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useDeferredValue, useEffect, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { CompareButton } from "./compare-button";
 import { GameImage } from "./editorial-client";
@@ -19,7 +19,9 @@ function useUrlFilter(name: string, initial: string) {
     const url = new URL(window.location.href);
     if (next && !(name === "sort" && next === "editorial")) url.searchParams.set(name, next);
     else url.searchParams.delete(name);
-    window.history.replaceState(null, "", url.pathname + url.search + url.hash);
+    if (name !== "page" && name !== "view") url.searchParams.delete("page");
+    const method = name === "page" ? "pushState" : "replaceState";
+    window.history[method](null, "", url.pathname + url.search + url.hash);
   }
   return [value, update] as const;
 }
@@ -36,6 +38,8 @@ export function CatalogFromUrl({ model }: { model: CatalogModel }) {
       initialRtp={params.get("rtp") || ""}
       initialFeature={params.get("feature") || ""}
       initialSort={params.get("sort") || "editorial"}
+      initialPage={params.get("page") || "1"}
+      initialView={params.get("view") || "list"}
     />
   );
 }
@@ -49,6 +53,8 @@ export function Catalog({
   initialRtp = "",
   initialFeature = "",
   initialSort = "editorial",
+  initialPage = "1",
+  initialView = "list",
 }: {
   model: CatalogModel;
   initialQ?: string;
@@ -58,6 +64,8 @@ export function Catalog({
   initialRtp?: string;
   initialFeature?: string;
   initialSort?: string;
+  initialPage?: string;
+  initialView?: string;
 }) {
   const PAGE_SIZE = 18;
   const [q, setQ] = useUrlFilter("q", initialQ);
@@ -67,14 +75,12 @@ export function Catalog({
   const [rtp, setRtp] = useUrlFilter("rtp", initialRtp);
   const [feature, setFeature] = useUrlFilter("feature", initialFeature);
   const [sort, setSort] = useUrlFilter("sort", initialSort);
-  const [view, setView] = useState("list");
+  const [viewValue, setView] = useUrlFilter("view", initialView);
+  const view = viewValue === "covers" ? "covers" : "list";
+  const [pageValue, setPage] = useUrlFilter("page", initialPage);
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const deferredQ = useDeferredValue(q);
-
-  useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
-  }, [q, provider, mechanic, volatility, rtp, feature, sort]);
 
   const results = useMemo(
     () =>
@@ -92,8 +98,16 @@ export function Catalog({
     [model.items, deferredQ, provider, mechanic, volatility, rtp, feature, sort],
   );
 
-  const visibleResults = results.slice(0, visibleCount);
-  const remaining = Math.max(0, results.length - visibleResults.length);
+  const pageCount = Math.max(1, Math.ceil(results.length / PAGE_SIZE));
+  const requestedPage = /^\d+$/.test(pageValue) ? Number(pageValue) : 1;
+  const page = Math.max(1, Math.min(pageCount, Number.isSafeInteger(requestedPage) ? requestedPage : 1));
+  const offset = (page - 1) * PAGE_SIZE;
+  const visibleResults = results.slice(offset, offset + PAGE_SIZE);
+  const dossierCount = results.filter((item) => item.coverage === "dossier").length;
+  function showPage(next: number) {
+    setPage(String(next));
+    resultsRef.current?.scrollIntoView({ block: "start" });
+  }
   const selectedProvider = model.facets.providers.find((item) => item.slug === provider);
   const hasFilters = Boolean(q.trim() || provider || mechanic || volatility || rtp || feature);
 
@@ -209,10 +223,14 @@ export function Catalog({
               <br />
               <Link href="/collections/beyond-lines">Посмотрите подборку редакции ↗</Link>
             </p>
+            <button className="filter-apply" onClick={() => {
+              setFiltersOpen(false);
+              resultsRef.current?.scrollIntoView({ block: "start" });
+            }}>К результатам · {results.length} ↗</button>
           </div>
         </aside>
 
-        <div className="results">
+        <div className="results" ref={resultsRef}>
           <div className="results-toolbar">
             <span role="status" aria-live="polite">
               {results.length === model.facets.total
@@ -237,6 +255,10 @@ export function Catalog({
               </button>
             </div>
           </div>
+          <p className="catalog-coverage-note">
+            {dossierCount} с подробным досье · {results.length - dossierCount} базовых записей.
+            {results.length > dossierCount && " Фильтры по характеристикам учитывают только изученные игры."}
+          </p>
 
           {hasFilters && (
             <div className="active-filters" aria-label="Активные фильтры">
@@ -261,50 +283,70 @@ export function Catalog({
           ) : (
             <>
               <div className={"catalog-results " + view}>
-                {visibleResults.map((item) => (
-                  <article key={item.slug} className="catalog-game">
-                    <Link className="catalog-game-art" href={"/slots/" + item.slug}>
-                      <GameImage slot={item} />
-                    </Link>
-                    <div className="catalog-game-copy">
-                      <span className="eyebrow">{item.provider} / {item.year}</span>
-                      <h2><Link href={"/slots/" + item.slug}>{item.name}</Link></h2>
-                      <p>{item.description}</p>
-                      <div className="catalog-game-tags" aria-label="Особенности игры">
-                        {item.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}
+                {visibleResults.map((item) => {
+                  const href = item.coverage === "dossier" ? `/slots/${item.slug}` : `/slots/catalog/${item.slug}`;
+                  return (
+                    <article key={item.slug} className={`catalog-game ${item.coverage === "catalog" ? "catalog-only" : ""}`}>
+                      <Link className="catalog-game-art" href={href}>
+                        {item.coverage === "dossier" ? <GameImage slot={item} /> : <span className="catalog-art-pending">Обложка не проверена</span>}
+                      </Link>
+                      <div className="catalog-game-copy">
+                        <span className="eyebrow">
+                          {item.provider}{item.year ? ` / ${item.year}` : ""}
+                        </span>
+                        <h2><Link href={href}>{item.name}</Link></h2>
+                        <span className="catalog-coverage">{item.coverage === "dossier" ? "Досье · механика и характеристики" : "Базовая запись · название и провайдер"}</span>
+                        {item.coverage === "dossier" && <>
+                          <p>{item.description}</p>
+                          <div className="catalog-game-tags" aria-label="Особенности игры">
+                            {item.tags.slice(0, 3).map((tag) => <span key={tag}>{tag}</span>)}
+                          </div>
+                        </>}
+                        <div className="catalog-game-data">
+                          {item.coverage === "dossier" ? (
+                            <>
+                              <span>{item.mechanics.join(" · ")}</span>
+                              <span>{item.volatility}</span>
+                              <span>RTP* {item.rtp}</span>
+                              <CompareButton slug={item.slug} name={item.name} />
+                            </>
+                          ) : (
+                            <>
+                              <Link href={href}>Открыть запись ↗</Link>
+                            </>
+                          )}
+                        </div>
                       </div>
-                      <div className="catalog-game-data">
-                        <span>{item.mechanics.join(" · ")}</span>
-                        <span>{item.volatility}</span>
-                        <span>RTP* {item.rtp}</span>
-                        <CompareButton slug={item.slug} name={item.name} />
-                      </div>
-                    </div>
-                    <Link className="catalog-open" href={"/slots/" + item.slug} aria-label={`Открыть ${item.name}`}>↗</Link>
-                  </article>
-                ))}
+                      <Link className="catalog-open" href={href} aria-label={`Открыть ${item.name}`}>↗</Link>
+                    </article>
+                  );
+                })}
               </div>
 
-              {remaining > 0 && (
-                <div className="catalog-more">
-                  <span>Показано {visibleResults.length} из {results.length}</span>
-                  <button onClick={() => setVisibleCount((count) => count + PAGE_SIZE)}>
-                    Показать ещё {Math.min(PAGE_SIZE, remaining)} ↓
-                  </button>
-                </div>
+              {pageCount > 1 && (
+                <nav className="catalog-pagination" aria-label="Страницы каталога">
+                  <span className="catalog-range">{offset + 1}–{offset + visibleResults.length} из {results.length}</span>
+                  <div className="catalog-page-controls">
+                    <button disabled={page === 1} onClick={() => showPage(page - 1)} aria-label="Предыдущая страница">← Назад</button>
+                    <label><span className="sr-only">Страница каталога</span>
+                      <select value={page} onChange={(event) => showPage(Number(event.target.value))}>
+                        {Array.from({ length: pageCount }, (_, index) => <option key={index} value={index + 1}>{index + 1} из {pageCount}</option>)}
+                      </select>
+                    </label>
+                    <button disabled={page === pageCount} onClick={() => showPage(page + 1)} aria-label="Следующая страница">Далее →</button>
+                  </div>
+                </nav>
               )}
             </>
           )}
 
           <p className="data-note">
-            * Указана справочная версия RTP. Значение в конкретной игре у оператора может отличаться.{" "}
+            * RTP показывается только там, где у Slotfolio уже есть проверенное досье. Значение у конкретного оператора может отличаться.{" "}
             <Link href="/journal/understanding-rtp">Как читать RTP ↗</Link>
           </p>
           <div className="catalog-end">
             <span>
-              {remaining
-                ? `На странице ${visibleResults.length} из ${results.length} подходящих игр.`
-                : "Показаны все игры, подходящие под текущие фильтры."}
+              {pageCount > 1 ? `Страница ${page} из ${pageCount}.` : "Показаны все игры, подходящие под текущие фильтры."}
             </span>
             <Link href="/compare">Перейти к сравнению ↗</Link>
           </div>

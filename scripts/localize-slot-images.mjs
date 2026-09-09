@@ -8,6 +8,7 @@ const manifestFiles = [
   path.join(projectRoot, "docs", "image-sources.json"),
   path.join(projectRoot, "docs", "image-sources-v128.json"),
   path.join(projectRoot, "docs", "image-sources-v129.json"),
+  path.join(projectRoot, "docs", "image-sources-v130.json"),
 ];
 const cacheDir = path.join(projectRoot, ".asset-cache", "slot-images");
 const soft = process.argv.includes("--soft");

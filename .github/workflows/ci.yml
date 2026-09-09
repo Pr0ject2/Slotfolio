@@ -1,0 +1,71 @@
+name: Slotfolio CI
+
+on:
+  pull_request:
+    branches: ["main", "master"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "ci-${{ github.event.pull_request.number || github.ref }}"
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Cache localized slot images
+        uses: actions/cache@v4
+        with:
+          path: |
+            .asset-cache/slot-images
+            public/images/slots
+          key: ci-slot-images-${{ runner.os }}-${{ hashFiles('docs/image-sources.json', 'docs/image-sources-v128.json', 'docs/image-sources-v129.json', 'docs/image-sources-v130.json', 'scripts/localize-slot-images.mjs') }}
+          restore-keys: |
+            ci-slot-images-${{ runner.os }}-
+            slot-images-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Typecheck source and tests
+        run: npm run typecheck
+
+      - name: Localize reviewed artwork where available
+        run: npm run assets:localize -- --soft
+
+      - name: Build static production site
+        env:
+          NEXT_PUBLIC_SITE_URL: https://example.invalid
+          NEXT_PUBLIC_INDEXABLE: "false"
+          NEXT_PUBLIC_BASE_PATH: ""
+        run: |
+          rm -f 'src/app/go/[operator]/route.ts'
+          npx next build
+
+      - name: Start static site
+        run: |
+          python3 -m http.server 3000 --directory out > /tmp/slotfolio-http.log 2>&1 &
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:3000/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/slotfolio-http.log
+          exit 1
+
+      - name: Run Playwright
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+          SLOTFOLIO_STATIC_PREVIEW: "true"
+        run: npm test

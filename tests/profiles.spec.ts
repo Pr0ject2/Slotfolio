@@ -37,7 +37,7 @@ test("pair comparison derived data stays consistent without combinatorial testin
 
 test("compact catalog model handles a 5000-item synthetic catalogue", () => {
   const model = createCatalogModel();
-  expect(model.items.length).toBe(slots.length);
+  expect(model.items.length).toBe(1000);
   const source = model.items[0];
   const synthetic = Array.from({ length: 5000 }, (_, index) => ({
     ...source,

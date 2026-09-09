@@ -36,7 +36,7 @@ jobs:
           path: |
             .asset-cache/slot-images
             public/images/slots
-          key: slot-images-${{ runner.os }}-${{ hashFiles('docs/image-sources.json', 'docs/image-sources-v128.json', 'docs/image-sources-v129.json', 'scripts/localize-slot-images.mjs') }}
+          key: slot-images-${{ runner.os }}-${{ hashFiles('docs/image-sources.json', 'docs/image-sources-v128.json', 'docs/image-sources-v129.json', 'docs/image-sources-v130.json', 'scripts/localize-slot-images.mjs') }}
           restore-keys: |
             slot-images-${{ runner.os }}-
 

@@ -39,6 +39,23 @@ const rejectedSeedNames = new Set([
   "show more",
 ]);
 
+// Provider catalog pages can contain table/speciality games and video poker alongside slots.
+// Keep this exact and evidence-based instead of rejecting broad name patterns.
+const rejectedSeedSlugs = new Set([
+  "playn-go-casino-holdem",
+  "playn-go-deuces-wild-mh",
+  "playn-go-go-craps",
+  "playn-go-money-wheel",
+  "wazdan-black-jack",
+  "wazdan-sic-bo-dragons",
+]);
+
+// Some provider pages leak a badge/CTA into the harvested title. Correct only entries
+// whose canonical title was checked on the same official provider page.
+const seedNameOverrides: Record<string, string> = {
+  "wazdan-throne-of-elements-platinum": "Throne of Elements: Platinum",
+};
+
 function normalizedKey(provider: string, name: string) {
   return `${provider}\u0000${name}`
     .normalize("NFKC")
@@ -74,11 +91,12 @@ function sanitizeSeed(value: unknown): CatalogSeed | null {
   if (!value || typeof value !== "object") return null;
   const item = value as Record<string, unknown>;
   const slug = typeof item.slug === "string" ? item.slug.trim() : "";
-  const name = typeof item.name === "string" ? item.name.trim() : "";
+  const rawName = typeof item.name === "string" ? item.name.trim() : "";
   const provider = typeof item.provider === "string" ? item.provider.trim() : "";
   const source = typeof item.source === "string" ? item.source.trim() : "";
-  if (!slug || !name || !provider || !trustedSource(provider, source)) return null;
-  if (rejectedSeedNames.has(normalizedName(name))) return null;
+  if (!slug || !rawName || !provider || !trustedSource(provider, source)) return null;
+  if (rejectedSeedNames.has(normalizedName(rawName)) || rejectedSeedSlugs.has(slug)) return null;
+  const name = seedNameOverrides[slug] ?? rawName;
   return { slug, name, provider, source, verifiedBy: "official-provider-catalog" };
 }
 

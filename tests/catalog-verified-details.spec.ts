@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
 import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-lookup";
 
-const providers = ["Wazdan", "BGaming", "Endorphina", "Push Gaming", "3 Oaks Gaming", "Play’n GO"];
+const providers = ["Wazdan", "BGaming", "Endorphina", "Push Gaming", "3 Oaks Gaming", "Play’n GO", "Hacksaw Gaming", "Nolimit City"];
 const detailedSeeds = providers.map((provider) =>
   catalogSeeds.find((seed) => seed.provider === provider && getVerifiedCatalogDetails(seed.slug)),
 );
@@ -17,7 +17,7 @@ test("verified catalog details render without promoting records to dossiers", as
 
     await page.goto(`/slots/catalog/${seed!.slug}`);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
-    await expect(page.getByText("Базовая запись", { exact: true })).toBeVisible();
+    await expect(page.locator(".catalog-record-heading").getByText("Базовая запись", { exact: true })).toBeVisible();
     await expect(page.getByText("Технические данные проверены", { exact: true })).toBeVisible();
     if (details.field) await expect(page.getByText(details.field, { exact: true })).toBeVisible();
     if (details.rtp) await expect(page.getByText(details.rtp, { exact: true })).toBeVisible();

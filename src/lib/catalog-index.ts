@@ -6,8 +6,7 @@ import {
   slotRtpValue,
 } from "./data-v128";
 import { catalogSeeds } from "./catalog-seeds";
-import { getCatalogResearch } from "./catalog-research";
-import { getCatalogResearchMore } from "./catalog-research-more";
+import { getVerifiedCatalogResearch } from "./catalog-research-lookup";
 import { getVerifiedSlotMetrics } from "./dossier";
 import {
   buildCatalogSearchText,
@@ -59,7 +58,7 @@ export function createCatalogModel(): CatalogModel {
   });
 
   const catalogItems: CatalogItem[] = catalogSeeds.map((seed) => {
-    const research = getCatalogResearch(seed.slug) ?? getCatalogResearchMore(seed.slug);
+    const research = getVerifiedCatalogResearch(seed.slug);
     const mechanicNames = research?.mechanics ?? [];
     const description = `${seed.name} от ${seed.provider}. Название подтверждено в официальном каталоге провайдера; подробные характеристики проходят редакционную проверку.`;
     return {

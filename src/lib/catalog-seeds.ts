@@ -39,9 +39,10 @@ const rejectedSeedNames = new Set([
   "show more",
 ]);
 
-// Provider catalog pages can contain table/speciality games and video poker alongside slots.
+// Provider catalog pages can contain table/speciality/instant-win games and video poker alongside slots.
 // Keep this exact and evidence-based instead of rejecting broad name patterns.
 const rejectedSeedSlugs = new Set([
+  "hacksaw-gaming-blocks",
   "playn-go-casino-holdem",
   "playn-go-deuces-wild-mh",
   "playn-go-go-craps",

@@ -99,6 +99,17 @@ const playngoWave16Slugs = [
   "playn-go-forge-of-gems",
 ];
 
+const playngoWave17Slugs = [
+  "playn-go-fortune-teller",
+  "playn-go-fortunes-of-ali-baba",
+  "playn-go-fox-mayhem",
+  "playn-go-free-reelin-joker",
+  "playn-go-free-reelin-joker-1000",
+  "playn-go-frozen-gems",
+  "playn-go-fu-er-dai",
+  "playn-go-fulong-88",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -136,6 +147,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoWave14Slugs,
     ...playngoWave15Slugs,
     ...playngoWave16Slugs,
+    ...playngoWave17Slugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

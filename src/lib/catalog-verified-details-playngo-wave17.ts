@@ -3,18 +3,6 @@ import type { CatalogVerifiedDetails } from "./catalog-verified-details";
 const verifiedAt = "2026-09-11";
 
 const details: Record<string, CatalogVerifiedDetails> = {
-  "playn-go-forge-of-fortunes": {
-    field: "3×1",
-    releaseDate: "2022-08-11",
-    source: "https://www.playngo.com/games/forge-of-fortunes",
-    verifiedAt,
-  },
-  "playn-go-forge-of-gems": {
-    field: "5×3 · до 36 288 способов",
-    releaseDate: "2022-04-14",
-    source: "https://www.playngo.com/games/forge-of-gems",
-    verifiedAt,
-  },
   "playn-go-fortune-teller": {
     releaseDate: "2012-11-29",
     source: "https://www.playngo.com/games/fortune-teller",

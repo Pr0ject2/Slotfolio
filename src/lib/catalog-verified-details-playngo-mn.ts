@@ -38,6 +38,11 @@ const details: Record<string, CatalogVerifiedDetails> = {
   "playn-go-mystery-egg-surprise": { releaseDate: "2025-03-20", source: "https://www.playngo.com/games/mystery-egg-surprise", verifiedAt },
   "playn-go-mystery-genie-fortunes-of-the-lamp": { field: "5×4", releaseDate: "2024-04-04", source: "https://www.playngo.com/games/mystery-genie--fortunes-of-the-lamp", verifiedAt },
   "playn-go-mystery-joker": { field: "3 барабана", releaseDate: "2014-09-09", source: "https://www.playngo.com/games/mystery-joker", verifiedAt },
+  "playn-go-myth": { releaseDate: "2012-11-29", source: "https://www.playngo.com/games/myth", verifiedAt },
+  "playn-go-myth-of-dead": { field: "5×3 · 10 линий", releaseDate: "2025-02-20", source: "https://www.playngo.com/games/myth-of-dead", verifiedAt },
+  "playn-go-naughty-nicks-book": { releaseDate: "2022-12-08", source: "https://www.playngo.com/games/naughty-nick's-book", verifiedAt },
+  "playn-go-new-year-riches": { releaseDate: "2020-11-26", source: "https://www.playngo.com/games/new-year-riches", verifiedAt },
+  "playn-go-ninja-fruits": { releaseDate: "2013-06-19", source: "https://www.playngo.com/games/ninja-fruits", verifiedAt },
 };
 
 export function getCatalogVerifiedDetailsPlayngoMN(slug: string) {

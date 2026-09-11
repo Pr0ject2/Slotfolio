@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
 import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-lookup";
 
-const providers = ["Wazdan", "BGaming", "Endorphina", "Push Gaming", "3 Oaks Gaming", "Play’n GO"];
+const providers = ["Wazdan", "BGaming", "Endorphina", "Push Gaming", "3 Oaks Gaming", "Play’n GO", "Hacksaw Gaming", "Nolimit City"];
 const detailedSeeds = providers.map((provider) =>
   catalogSeeds.find((seed) => seed.provider === provider && getVerifiedCatalogDetails(seed.slug)),
 );

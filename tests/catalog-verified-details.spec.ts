@@ -231,6 +231,11 @@ const playngoMNSlugs = [
   "playn-go-mystery-egg-surprise",
   "playn-go-mystery-genie-fortunes-of-the-lamp",
   "playn-go-mystery-joker",
+  "playn-go-myth",
+  "playn-go-myth-of-dead",
+  "playn-go-naughty-nicks-book",
+  "playn-go-new-year-riches",
+  "playn-go-ninja-fruits",
 ];
 
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {

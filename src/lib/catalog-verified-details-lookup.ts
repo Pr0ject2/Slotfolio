@@ -8,6 +8,7 @@ import { getCatalogVerifiedDetailsEndorphina } from "./catalog-verified-details-
 import { getCatalogVerifiedDetailsPush } from "./catalog-verified-details-push";
 import { getCatalogVerifiedDetailsPlayngo } from "./catalog-verified-details-playngo";
 import { getCatalogVerifiedDetailsHacksaw } from "./catalog-verified-details-hacksaw";
+import { getCatalogVerifiedDetailsNolimit } from "./catalog-verified-details-nolimit";
 
 export function getVerifiedCatalogDetails(slug: string) {
   return (
@@ -20,6 +21,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsEndorphina(slug) ??
     getCatalogVerifiedDetailsPush(slug) ??
     getCatalogVerifiedDetailsPlayngo(slug) ??
-    getCatalogVerifiedDetailsHacksaw(slug)
+    getCatalogVerifiedDetailsHacksaw(slug) ??
+    getCatalogVerifiedDetailsNolimit(slug)
   );
 }

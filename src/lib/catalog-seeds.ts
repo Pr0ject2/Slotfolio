@@ -26,8 +26,31 @@ const trustedProviderHosts: Record<string, string[]> = {
   Wazdan: ["wazdan.com"],
 };
 
+const rejectedSeedNames = new Set([
+  "banner button",
+  "banner image",
+  "copy demo link",
+  "details",
+  "learn more",
+  "load more",
+  "play demo",
+  "promo pack",
+  "rules",
+  "show more",
+]);
+
 function normalizedKey(provider: string, name: string) {
   return `${provider}\u0000${name}`
+    .normalize("NFKC")
+    .toLowerCase()
+    .replace(/[’']/g, "")
+    .replace(/[^a-zа-я0-9]+/gi, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function normalizedName(name: string) {
+  return name
     .normalize("NFKC")
     .toLowerCase()
     .replace(/[’']/g, "")
@@ -55,6 +78,7 @@ function sanitizeSeed(value: unknown): CatalogSeed | null {
   const provider = typeof item.provider === "string" ? item.provider.trim() : "";
   const source = typeof item.source === "string" ? item.source.trim() : "";
   if (!slug || !name || !provider || !trustedSource(provider, source)) return null;
+  if (rejectedSeedNames.has(normalizedName(name))) return null;
   return { slug, name, provider, source, verifiedBy: "official-provider-catalog" };
 }
 

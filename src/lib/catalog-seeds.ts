@@ -39,6 +39,16 @@ const rejectedSeedNames = new Set([
   "show more",
 ]);
 
+// Provider catalog pages can contain table games/video poker alongside slots.
+// Keep this exact and evidence-based instead of rejecting broad name patterns.
+const rejectedSeedSlugs = new Set([
+  "playn-go-casino-holdem",
+  "playn-go-deuces-wild-mh",
+  "playn-go-go-craps",
+  "playn-go-money-wheel",
+  "wazdan-black-jack",
+]);
+
 function normalizedKey(provider: string, name: string) {
   return `${provider}\u0000${name}`
     .normalize("NFKC")
@@ -78,7 +88,7 @@ function sanitizeSeed(value: unknown): CatalogSeed | null {
   const provider = typeof item.provider === "string" ? item.provider.trim() : "";
   const source = typeof item.source === "string" ? item.source.trim() : "";
   if (!slug || !name || !provider || !trustedSource(provider, source)) return null;
-  if (rejectedSeedNames.has(normalizedName(name))) return null;
+  if (rejectedSeedNames.has(normalizedName(name)) || rejectedSeedSlugs.has(slug)) return null;
   return { slug, name, provider, source, verifiedBy: "official-provider-catalog" };
 }
 

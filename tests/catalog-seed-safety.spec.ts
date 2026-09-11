@@ -4,10 +4,12 @@ import { getVerifiedCatalogResearch } from "../src/lib/catalog-research-lookup";
 
 const verifiedNonSlotSlugs = [
   "hacksaw-gaming-blocks",
+  "playn-go-3-hand-casino-holdem",
   "playn-go-casino-holdem",
   "playn-go-deuces-wild-mh",
   "playn-go-go-craps",
   "playn-go-money-wheel",
+  "playn-go-super-wheel",
   "wazdan-black-jack",
   "wazdan-sic-bo-dragons",
 ];

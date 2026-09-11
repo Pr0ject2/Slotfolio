@@ -1,13 +1,16 @@
 import { test, expect } from "@playwright/test";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
-import { getCatalogVerifiedDetails } from "../src/lib/catalog-verified-details";
+import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-lookup";
 
-const detailedSeeds = catalogSeeds.filter((seed) => getCatalogVerifiedDetails(seed.slug)).slice(0, 4);
+const detailedSeeds = [
+  catalogSeeds.find((seed) => seed.provider === "Wazdan" && getVerifiedCatalogDetails(seed.slug)),
+  catalogSeeds.find((seed) => seed.provider === "BGaming" && getVerifiedCatalogDetails(seed.slug)),
+].filter(Boolean) as typeof catalogSeeds;
 
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
-  expect(detailedSeeds.length).toBeGreaterThan(0);
+  expect(detailedSeeds).toHaveLength(2);
   for (const seed of detailedSeeds) {
-    const details = getCatalogVerifiedDetails(seed.slug)!;
+    const details = getVerifiedCatalogDetails(seed.slug)!;
     expect(details.source).toBe(seed.source);
     await page.goto(`/slots/catalog/${seed.slug}`);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
@@ -19,6 +22,6 @@ test("verified catalog details render without promoting records to dossiers", as
     if (details.releaseDate) {
       await expect(page.getByText(details.releaseDate.split("-").reverse().join("."), { exact: true })).toBeVisible();
     }
-    await expect(page.getByRole("link", { name: /Официальная страница/ })).toHaveAttribute("href", seed.source);
+    await expect(page.getByRole("link", { name: /Официальный каталог/ })).toHaveAttribute("href", seed.source);
   }
 });

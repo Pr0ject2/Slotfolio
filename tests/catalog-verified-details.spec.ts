@@ -195,6 +195,49 @@ const playngoKLSlugs = [
   "playn-go-legion-gold-unleashed",
 ];
 
+const playngoMNSlugs = [
+  "playn-go-madame-ink",
+  "playn-go-mafia-gold",
+  "playn-go-mahjong-88",
+  "playn-go-manta-mayhem",
+  "playn-go-matsuri",
+  "playn-go-medusas-madness",
+  "playn-go-mega-don",
+  "playn-go-mega-don-triple-threat",
+  "playn-go-mega-don-feeding-frenzy",
+  "playn-go-merlin-and-the-ice-queen-morgana",
+  "playn-go-merlin-realm-of-charm",
+  "playn-go-merlin-journey-of-flame",
+  "playn-go-merlins-grimoire",
+  "playn-go-mermaids-diamond",
+  "playn-go-merry-xmas",
+  "playn-go-midnight-gold",
+  "playn-go-miner-donkey-trouble",
+  "playn-go-mirror-joker",
+  "playn-go-mission-cash",
+  "playn-go-monkey-battle-for-the-scrolls",
+  "playn-go-moon-princess",
+  "playn-go-moon-princess-100",
+  "playn-go-moon-princess-extreme",
+  "playn-go-moon-princess-origins",
+  "playn-go-moon-princess-power-of-love",
+  "playn-go-moon-princess-stargazing",
+  "playn-go-moon-princess-trinity",
+  "playn-go-moon-princess-christmas-kingdom",
+  "playn-go-motley-crue",
+  "playn-go-mount-m",
+  "playn-go-muerto-en-mictlan",
+  "playn-go-multifruit-81",
+  "playn-go-mystery-egg-surprise",
+  "playn-go-mystery-genie-fortunes-of-the-lamp",
+  "playn-go-mystery-joker",
+  "playn-go-myth",
+  "playn-go-myth-of-dead",
+  "playn-go-naughty-nicks-book",
+  "playn-go-new-year-riches",
+  "playn-go-ninja-fruits",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -234,6 +277,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoGoldHSlugs,
     ...playngoIJSlugs,
     ...playngoKLSlugs,
+    ...playngoMNSlugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

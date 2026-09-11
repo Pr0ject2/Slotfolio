@@ -2,6 +2,7 @@ import { getCatalogResearch } from "./catalog-research";
 import { getCatalogResearchMore } from "./catalog-research-more";
 import { getCatalogResearchEndorphina } from "./catalog-research-endorphina";
 import { getCatalogResearchHacksaw } from "./catalog-research-hacksaw";
+import { getCatalogResearchHacksawMore } from "./catalog-research-hacksaw-more";
 import { getCatalogResearchPlayngo } from "./catalog-research-playngo";
 import { getCatalogResearchPlayngoMore } from "./catalog-research-playngo-more";
 import { getCatalogResearchPlayngoThird } from "./catalog-research-playngo-third";
@@ -15,6 +16,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchMore(slug) ??
     getCatalogResearchEndorphina(slug) ??
     getCatalogResearchHacksaw(slug) ??
+    getCatalogResearchHacksawMore(slug) ??
     getCatalogResearchPlayngo(slug) ??
     getCatalogResearchPlayngoMore(slug) ??
     getCatalogResearchPlayngoThird(slug) ??

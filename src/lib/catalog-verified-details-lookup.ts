@@ -14,6 +14,7 @@ import { getCatalogVerifiedDetailsPlayngoWave12 } from "./catalog-verified-detai
 import { getCatalogVerifiedDetailsPlayngoWave13 } from "./catalog-verified-details-playngo-wave13";
 import { getCatalogVerifiedDetailsPlayngoWave14 } from "./catalog-verified-details-playngo-wave14";
 import { getCatalogVerifiedDetailsPlayngoWave15 } from "./catalog-verified-details-playngo-wave15";
+import { getCatalogVerifiedDetailsPlayngoWave16 } from "./catalog-verified-details-playngo-wave16";
 import { getCatalogVerifiedDetailsHacksaw } from "./catalog-verified-details-hacksaw";
 import { getCatalogVerifiedDetailsNolimit } from "./catalog-verified-details-nolimit";
 
@@ -35,6 +36,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsPlayngoWave13(slug) ??
     getCatalogVerifiedDetailsPlayngoWave14(slug) ??
     getCatalogVerifiedDetailsPlayngoWave15(slug) ??
+    getCatalogVerifiedDetailsPlayngoWave16(slug) ??
     getCatalogVerifiedDetailsHacksaw(slug) ??
     getCatalogVerifiedDetailsNolimit(slug)
   );

@@ -3,6 +3,7 @@ import { getCatalogVerifiedDetailsBgaming } from "./catalog-verified-details-bga
 import { getCatalogVerifiedDetailsBgamingMore } from "./catalog-verified-details-bgaming-more";
 import { getCatalogVerifiedDetailsBgamingThird } from "./catalog-verified-details-bgaming-third";
 import { getCatalogVerifiedDetailsBgamingFourth } from "./catalog-verified-details-bgaming-fourth";
+import { getCatalogVerifiedDetailsEndorphina } from "./catalog-verified-details-endorphina";
 
 export function getVerifiedCatalogDetails(slug: string) {
   return (
@@ -10,6 +11,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsBgaming(slug) ??
     getCatalogVerifiedDetailsBgamingMore(slug) ??
     getCatalogVerifiedDetailsBgamingThird(slug) ??
-    getCatalogVerifiedDetailsBgamingFourth(slug)
+    getCatalogVerifiedDetailsBgamingFourth(slug) ??
+    getCatalogVerifiedDetailsEndorphina(slug)
   );
 }

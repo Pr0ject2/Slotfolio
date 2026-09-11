@@ -1,3 +1,5 @@
+import { getVerifiedCatalogGameTypePlayngoWave15To18 } from "./catalog-verified-game-type-playngo-wave15-18";
+
 const verifiedAt = "2026-09-11";
 
 export type CatalogVerifiedGameType = {
@@ -69,5 +71,5 @@ const gameTypes: Record<string, CatalogVerifiedGameType> = {
 };
 
 export function getVerifiedCatalogGameType(slug: string) {
-  return gameTypes[slug];
+  return gameTypes[slug] ?? getVerifiedCatalogGameTypePlayngoWave15To18(slug);
 }

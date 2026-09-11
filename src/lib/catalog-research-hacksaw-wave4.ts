@@ -51,6 +51,18 @@ export const catalogResearchHacksawWave4: Record<string, CatalogResearch> = {
     verifiedAt,
     evidence: "Official page explicitly defines Super Cascades and states the Revolver Reveal starts from a winning Cluster before all wins and cascades settle.",
   },
+  "hacksaw-gaming-le-hooligan": {
+    mechanics: ["Кластеры"],
+    source: "https://www.hacksawgaming.com/games/le-hooligan",
+    verifiedAt,
+    evidence: "Official GAME DATA lists Wintype: Cluster.",
+  },
+  "hacksaw-gaming-le-sortudo": {
+    mechanics: ["Линии"],
+    source: "https://www.hacksawgaming.com/games/le-sortudo",
+    verifiedAt,
+    evidence: "Official GAME DATA lists Wintype: Paylines.",
+  },
 };
 
 export function getCatalogResearchHacksawWave4(slug: string) {

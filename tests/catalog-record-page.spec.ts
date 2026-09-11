@@ -15,7 +15,7 @@ test("catalog-only pages are useful records instead of thin placeholders", async
     await expect(page.getByRole("heading", { name: `Ещё у ${seed.provider}` })).toBeVisible();
     await expect.poll(() => page.locator(".game-row").count()).toBeGreaterThanOrEqual(6);
     await expect(page.getByRole("link", { name: new RegExp(`Все игры ${seed.provider.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`) })).toBeVisible();
-    await expect(page.getByRole("link", { name: /Официальная страница/ })).toHaveAttribute("href", seed.source);
+    await expect(page.getByRole("link", { name: /Официальный каталог/ })).toHaveAttribute("href", seed.source);
     await expect(page.locator("body")).not.toContainText("undefined");
     await expect(page.locator("body")).not.toContainText("NaN");
   }
@@ -24,7 +24,7 @@ test("catalog-only pages are useful records instead of thin placeholders", async
 test("researched catalog page exposes mechanics and a second related path", async ({ page }) => {
   const research = getVerifiedCatalogResearch(researched.slug)!;
   await page.goto(`/slots/catalog/${researched.slug}`);
-  await expect(page.getByText("Механика проверена", { exact: true })).toBeVisible();
+  await expect(page.locator(".catalog-record-facts dd").filter({ hasText: /^Механика проверена$/ })).toHaveCount(1);
   for (const mechanic of research.mechanics) {
     await expect(page.getByRole("link", { name: mechanic, exact: true }).first()).toHaveAttribute(
       "href",

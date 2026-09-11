@@ -47,6 +47,19 @@ const playngoWave12Slugs = [
   "playn-go-contact",
 ];
 
+const playngoWave13Slugs = [
+  "playn-go-cops-n-robbers",
+  "playn-go-count-jokula",
+  "playn-go-coywolf-cash",
+  "playn-go-crabbys-gold",
+  "playn-go-crabbys-gold-ii",
+  "playn-go-crystal-hall",
+  "playn-go-crystal-sun",
+  "playn-go-dawn-of-egypt",
+  "playn-go-def-leppard-hysteria",
+  "playn-go-demon",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -76,7 +89,7 @@ test("verified catalog details render without promoting records to dossiers", as
 test("new Play’n GO technical records stay selected and keep exact official sources", () => {
   const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
 
-  for (const slug of [...playngoWave10Slugs, ...playngoWave11Slugs, ...playngoWave12Slugs]) {
+  for (const slug of [...playngoWave10Slugs, ...playngoWave11Slugs, ...playngoWave12Slugs, ...playngoWave13Slugs]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();
     expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);

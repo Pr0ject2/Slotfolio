@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
+import { slots } from "../src/lib/data";
 import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-lookup";
 import { getVerifiedCatalogGameType } from "../src/lib/catalog-verified-game-type";
 
@@ -270,6 +271,15 @@ const playngoOPSlugs = [
   "playn-go-puebla-parade",
 ];
 
+const playngoQRSlugs = [
+  "playn-go-queens-day-tilt",
+  "playn-go-rabbit-hole-riches",
+  "playn-go-rabbit-hole-riches-court-of-hearts",
+  "playn-go-rage-to-riches",
+  "playn-go-raging-rex",
+  "playn-go-raging-rex-2",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -311,14 +321,21 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoKLSlugs,
     ...playngoMNSlugs,
     ...playngoOPSlugs,
+    ...playngoQRSlugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
     expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
     expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
     if (playngoOPSlugs.includes(slug)) {
       expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe(
         slug === "playn-go-odin-protector-of-realms" ? "Grid Slot" : "Video Slot",
+      );
+    }
+    if (playngoQRSlugs.includes(slug)) {
+      expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe(
+        slug === "playn-go-queens-day-tilt" ? "Grid Slot" : "Video Slot",
       );
     }
   }

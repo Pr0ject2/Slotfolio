@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/editorial";
 import { catalogSeeds, getCatalogSeed } from "@/lib/catalog-seeds";
 import { getCatalogResearch } from "@/lib/catalog-research";
+import { getCatalogResearchMore } from "@/lib/catalog-research-more";
 import { providerSlug } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 
@@ -44,7 +45,7 @@ export default async function CatalogSlotPage({
 }) {
   const slot = getCatalogSeed((await params).slug);
   if (!slot) notFound();
-  const research = getCatalogResearch(slot.slug);
+  const research = getCatalogResearch(slot.slug) ?? getCatalogResearchMore(slot.slug);
 
   return (
     <>

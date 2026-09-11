@@ -55,7 +55,7 @@ export const catalogResearchHacksaw: Record<string, CatalogResearch> = {
     mechanics: ["Линии"],
     source: "https://www.hacksawgaming.com/games/chaos-crew",
     verifiedAt,
-    evidence: "Official page describes 15 paylines and Game Data lists Wintype: 19 paylines.",
+    evidence: "Official page describes payline play and Game Data lists Wintype: 19 paylines.",
   },
   "hacksaw-gaming-cloud-princess": {
     mechanics: ["Каскады"],
@@ -98,6 +98,24 @@ export const catalogResearchHacksaw: Record<string, CatalogResearch> = {
     source: "https://www.hacksawgaming.com/games/deal-with-death",
     verifiedAt,
     evidence: "Official page says Classic Mode uses typical reels and paylines.",
+  },
+  "hacksaw-gaming-densho": {
+    mechanics: ["Линии"],
+    source: "https://www.hacksawgaming.com/games/densho",
+    verifiedAt,
+    evidence: "Official Game Data lists Wintype: 10 Paylines.",
+  },
+  "hacksaw-gaming-dropem": {
+    mechanics: ["Способы"],
+    source: "https://www.hacksawgaming.com/games/drop-em",
+    verifiedAt,
+    evidence: "Official Game Data lists Wintype: 7,776 Ways.",
+  },
+  "hacksaw-gaming-eye-of-the-panda": {
+    mechanics: ["Линии", "Каскады"],
+    source: "https://www.hacksawgaming.com/games/eye-of-the-panda",
+    verifiedAt,
+    evidence: "Official Game Data lists 27 Paylines and the game description explicitly identifies Super Cascades.",
   },
 };
 

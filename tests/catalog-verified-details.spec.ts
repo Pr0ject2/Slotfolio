@@ -171,6 +171,30 @@ const playngoIJSlugs = [
   "playn-go-journey-to-paris",
 ];
 
+const playngoKLSlugs = [
+  "playn-go-king-of-sweets",
+  "playn-go-kings-mask",
+  "playn-go-kings-mask-eclipse-of-gods",
+  "playn-go-kingdom-below",
+  "playn-go-kiss-reels-of-rock",
+  "playn-go-lab-of-madness-its-a-wild",
+  "playn-go-lady-of-fortune",
+  "playn-go-lady-of-fortune-destiny-spins",
+  "playn-go-lady-of-fortune-remastered",
+  "playn-go-lawn-n-disorder",
+  "playn-go-legacy-of-dynasties",
+  "playn-go-legacy-of-egypt",
+  "playn-go-legacy-of-gems-blitzways",
+  "playn-go-legacy-of-inca",
+  "playn-go-legacy-of-undead-dragon-abyssways",
+  "playn-go-legend-of-the-ice-dragon",
+  "playn-go-legion-gold",
+  "playn-go-legion-gold-and-the-sphinx-of-dead",
+  "playn-go-legion-gold-and-the-throne-of-dead",
+  "playn-go-legion-gold-reckoning",
+  "playn-go-legion-gold-unleashed",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -209,6 +233,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoWave15To18Slugs,
     ...playngoGoldHSlugs,
     ...playngoIJSlugs,
+    ...playngoKLSlugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

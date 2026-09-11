@@ -13,7 +13,6 @@ const details: Record<string, CatalogVerifiedDetails> = {
   "playn-go-lady-of-fortune-destiny-spins": { releaseDate: "2025-08-07", source: "https://www.playngo.com/games/lady-of-fortune-destiny-spins", verifiedAt },
   "playn-go-lady-of-fortune-remastered": { field: "5×3 · 15 линий", releaseDate: "2024-10-03", source: "https://www.playngo.com/games/lady-of-fortune-remastered", verifiedAt },
   "playn-go-lawn-n-disorder": { field: "5×3 · 243 способа", releaseDate: "2025-11-06", source: "https://www.playngo.com/games/lawn-n'-disorder", verifiedAt },
-  "playn-go-legacy-of-dead": { releaseDate: "2020-01-02", source: "https://www.playngo.com/games/legacy-of-dead", verifiedAt },
   "playn-go-legacy-of-dynasties": { field: "5×3", releaseDate: "2023-11-09", source: "https://www.playngo.com/games/legacy-of-dynasties", verifiedAt },
   "playn-go-legacy-of-egypt": { releaseDate: "2018-04-24", source: "https://www.playngo.com/games/legacy-of-egypt", verifiedAt },
   "playn-go-legacy-of-gems-blitzways": { field: "5×3 · до 16 807 способов", releaseDate: "2025-01-23", source: "https://www.playngo.com/games/legacy-of-gems-blitzways", verifiedAt },

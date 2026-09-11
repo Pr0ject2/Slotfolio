@@ -13,7 +13,6 @@ const gameTypes: Record<string, CatalogVerifiedGameType> = {
   "playn-go-lady-of-fortune-destiny-spins": { gameType: "Video Slot", source: "https://www.playngo.com/games/lady-of-fortune-destiny-spins", verifiedAt },
   "playn-go-lady-of-fortune-remastered": { gameType: "Video Slot", source: "https://www.playngo.com/games/lady-of-fortune-remastered", verifiedAt },
   "playn-go-lawn-n-disorder": { gameType: "Video Slot", source: "https://www.playngo.com/games/lawn-n'-disorder", verifiedAt },
-  "playn-go-legacy-of-dead": { gameType: "Video Slot", source: "https://www.playngo.com/games/legacy-of-dead", verifiedAt },
   "playn-go-legacy-of-dynasties": { gameType: "Video Slot", source: "https://www.playngo.com/games/legacy-of-dynasties", verifiedAt },
   "playn-go-legacy-of-egypt": { gameType: "Video Slot", source: "https://www.playngo.com/games/legacy-of-egypt", verifiedAt },
   "playn-go-legacy-of-gems-blitzways": { gameType: "Video Slot", source: "https://www.playngo.com/games/legacy-of-gems-blitzways", verifiedAt },

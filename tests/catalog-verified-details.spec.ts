@@ -5,10 +5,11 @@ import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-l
 const detailedSeeds = [
   catalogSeeds.find((seed) => seed.provider === "Wazdan" && getVerifiedCatalogDetails(seed.slug)),
   catalogSeeds.find((seed) => seed.provider === "BGaming" && getVerifiedCatalogDetails(seed.slug)),
+  catalogSeeds.find((seed) => seed.provider === "Endorphina" && getVerifiedCatalogDetails(seed.slug)),
 ].filter(Boolean) as typeof catalogSeeds;
 
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
-  expect(detailedSeeds).toHaveLength(2);
+  expect(detailedSeeds).toHaveLength(3);
   for (const seed of detailedSeeds) {
     const details = getVerifiedCatalogDetails(seed.slug)!;
     expect(details.source).toBe(seed.source);

@@ -80,6 +80,13 @@ export function Catalog({
   const [pageValue, setPage] = useUrlFilter("page", initialPage);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const scrollAfterCollapse = useRef(false);
+  useEffect(() => {
+    if (!filtersOpen && scrollAfterCollapse.current) {
+      scrollAfterCollapse.current = false;
+      resultsRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, [filtersOpen]);
   const deferredQ = useDeferredValue(q);
 
   const results = useMemo(
@@ -224,8 +231,8 @@ export function Catalog({
               <Link href="/collections/beyond-lines">Посмотрите подборку редакции ↗</Link>
             </p>
             <button className="filter-apply" onClick={() => {
+              scrollAfterCollapse.current = true;
               setFiltersOpen(false);
-              resultsRef.current?.scrollIntoView({ block: "start" });
             }}>К результатам · {results.length} ↗</button>
           </div>
         </aside>

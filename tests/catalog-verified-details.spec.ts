@@ -73,6 +73,19 @@ const playngoWave14Slugs = [
   "playn-go-dragonfates-favor",
 ];
 
+const playngoWave15Slugs = [
+  "playn-go-easter-eggs",
+  "playn-go-easter-eggspedition",
+  "playn-go-enchanted-crystals",
+  "playn-go-enchanted-meadow",
+  "playn-go-energoonz",
+  "playn-go-eye-of-atum",
+  "playn-go-eye-of-the-kraken",
+  "playn-go-fangs-and-fire",
+  "playn-go-fat-frankies",
+  "playn-go-fate-of-dead-blitzways",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -108,6 +121,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoWave12Slugs,
     ...playngoWave13Slugs,
     ...playngoWave14Slugs,
+    ...playngoWave15Slugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

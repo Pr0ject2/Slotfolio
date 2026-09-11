@@ -182,7 +182,6 @@ const playngoKLSlugs = [
   "playn-go-lady-of-fortune-destiny-spins",
   "playn-go-lady-of-fortune-remastered",
   "playn-go-lawn-n-disorder",
-  "playn-go-legacy-of-dead",
   "playn-go-legacy-of-dynasties",
   "playn-go-legacy-of-egypt",
   "playn-go-legacy-of-gems-blitzways",

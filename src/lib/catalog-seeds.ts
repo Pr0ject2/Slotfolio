@@ -43,10 +43,12 @@ const rejectedSeedNames = new Set([
 // Keep this exact and evidence-based instead of rejecting broad name patterns.
 const rejectedSeedSlugs = new Set([
   "hacksaw-gaming-blocks",
+  "playn-go-3-hand-casino-holdem",
   "playn-go-casino-holdem",
   "playn-go-deuces-wild-mh",
   "playn-go-go-craps",
   "playn-go-money-wheel",
+  "playn-go-super-wheel",
   "wazdan-black-jack",
   "wazdan-sic-bo-dragons",
 ]);

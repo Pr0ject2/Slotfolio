@@ -6,6 +6,7 @@ import { getCatalogResearchPlayngo } from "./catalog-research-playngo";
 import { getCatalogResearchPlayngoMore } from "./catalog-research-playngo-more";
 import { getCatalogResearchWazdan } from "./catalog-research-wazdan";
 import { getCatalogResearchPush } from "./catalog-research-push";
+import { getCatalogResearchNolimit } from "./catalog-research-nolimit";
 
 export function getVerifiedCatalogResearch(slug: string) {
   return (
@@ -16,6 +17,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchPlayngo(slug) ??
     getCatalogResearchPlayngoMore(slug) ??
     getCatalogResearchWazdan(slug) ??
-    getCatalogResearchPush(slug)
+    getCatalogResearchPush(slug) ??
+    getCatalogResearchNolimit(slug)
   );
 }

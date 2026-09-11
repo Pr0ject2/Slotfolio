@@ -3,12 +3,6 @@ import type { CatalogResearch } from "./catalog-research";
 const verifiedAt = "2026-09-11";
 
 export const catalogResearchHacksawMore: Record<string, CatalogResearch> = {
-  "hacksaw-gaming-blocks": {
-    mechanics: ["Кластеры"],
-    source: "https://www.hacksawgaming.com/games/blocks",
-    verifiedAt,
-    evidence: "Official page calls BLOCKS a cluster slot and defines winning clusters of matching colors on the 3x3 grid.",
-  },
   "hacksaw-gaming-red-rascal": {
     mechanics: ["Линии"],
     source: "https://www.hacksawgaming.com/games/red-rascal",

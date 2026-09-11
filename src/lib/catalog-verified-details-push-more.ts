@@ -17,18 +17,18 @@ const details: Record<string, CatalogVerifiedDetails> = {
   "push-gaming-big-bite": { field: "Бонус: 5×6", rtp: "96,33% / 94,24%", maxWin: "10 000x", volatility: "Низкая–средняя", source: "https://www.pushgaming.com/games/big-bite.html", verifiedAt },
   "push-gaming-big-bite-push-ways": { rtp: "96,27% / 94,37%", maxWin: "4 941x", volatility: "Низкая", source: "https://www.pushgaming.com/games/big-bite-push-ways.html", verifiedAt },
   "push-gaming-bison-battle": { rtp: "96,40% / 94,18%", maxWin: "50 000x", volatility: "Высокая", source: "https://www.pushgaming.com/games/bison-battle.html", verifiedAt },
-  "push-gaming-candy-blast": { field: "Каскады", rtp: "96,34% / 94,30%", maxWin: "10 000x", volatility: "Высокая", source: "https://www.pushgaming.com/games/candy-blast.html", verifiedAt },
+  "push-gaming-candy-blast": { rtp: "96,34% / 94,30%", maxWin: "10 000x", volatility: "Высокая", source: "https://www.pushgaming.com/games/candy-blast.html", verifiedAt },
   "push-gaming-cats-of-olympuss": { rtp: "96,31% / 94,26%", maxWin: "13 194x", volatility: "Средняя", source: "https://www.pushgaming.com/games/cats-olympuss.html", verifiedAt },
-  "push-gaming-crystal-catcher": { field: "Кластеры", rtp: "96,30% / 94,30%", maxWin: "5 000x", volatility: "Средняя", source: "https://www.pushgaming.com/games/crystal-catcher.html", verifiedAt },
+  "push-gaming-crystal-catcher": { rtp: "96,30% / 94,30%", maxWin: "5 000x", volatility: "Средняя", source: "https://www.pushgaming.com/games/crystal-catcher.html", verifiedAt },
   "push-gaming-deadly-5": { rtp: "96,39% / 94,35%", maxWin: "5 000x", volatility: "Средняя", source: "https://www.pushgaming.com/games/deadly-5.html", verifiedAt },
   "push-gaming-dj-cat": { rtp: "96,32% / 94,03%", maxWin: "10 000x", volatility: "Высокая", source: "https://www.pushgaming.com/games/dj-cat.html", verifiedAt },
   "push-gaming-dj-fox": { rtp: "96,28% / 94,31%", maxWin: "10 000x", volatility: "Высокая", source: "https://www.pushgaming.com/games/dj-fox.html", verifiedAt },
-  "push-gaming-dragon-hopper": { field: "Кластеры · каскады", rtp: "96,33% / 94,39%", maxWin: "10 000x", volatility: "Средняя–высокая", source: "https://www.pushgaming.com/games/dragon-hopper.html", verifiedAt },
+  "push-gaming-dragon-hopper": { rtp: "96,33% / 94,39%", maxWin: "10 000x", volatility: "Средняя–высокая", source: "https://www.pushgaming.com/games/dragon-hopper.html", verifiedAt },
   "push-gaming-fang-city": { rtp: "96,33% / 94,37%", maxWin: "10 000x", source: "https://www.pushgaming.com/games/fang-city.html", verifiedAt },
   "push-gaming-fat-rabbit": { field: "5×5 · 50 линий", rtp: "96,45% / 94,15%", maxWin: "3 844x", volatility: "Высокая", source: "https://www.pushgaming.com/games/fat-rabbit.html", verifiedAt },
   "push-gaming-fat-santa": { field: "5×5 · 50 линий", rtp: "96,45% / 94,15%", maxWin: "3 844x", volatility: "Средняя–высокая", source: "https://www.pushgaming.com/games/fat-santa.html", verifiedAt },
   "push-gaming-fish-n-nudge": { rtp: "96,40% / 94,38%", maxWin: "10 000x", volatility: "Средняя", source: "https://www.pushgaming.com/games/fish-n-nudge.html", verifiedAt },
-  "push-gaming-fish-n-nudge-big-catch": { field: "Линии", rtp: "96,46% / 94,27%", maxWin: "3 094x", volatility: "Низкая", source: "https://www.pushgaming.com/games/fish-n-nudge-big-catch.html", verifiedAt },
+  "push-gaming-fish-n-nudge-big-catch": { rtp: "96,46% / 94,27%", maxWin: "3 094x", volatility: "Низкая", source: "https://www.pushgaming.com/games/fish-n-nudge-big-catch.html", verifiedAt },
 };
 
 export function getCatalogVerifiedDetailsPushMore(slug: string) {

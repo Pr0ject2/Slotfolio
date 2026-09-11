@@ -15,6 +15,11 @@ import { getCatalogResearchPlayngoThird } from "./catalog-research-playngo-third
 import { getCatalogResearchWazdan } from "./catalog-research-wazdan";
 import { getCatalogResearchWazdanWave4 } from "./catalog-research-wazdan-wave4";
 import { getCatalogResearchWazdanWave5 } from "./catalog-research-wazdan-wave5";
+import { getCatalogResearchWazdanWave6 } from "./catalog-research-wazdan-wave6";
+import { getCatalogResearchWazdanWave6b } from "./catalog-research-wazdan-wave6b";
+import { getCatalogResearchWazdanWave6c } from "./catalog-research-wazdan-wave6c";
+import { getCatalogResearchWazdanWave6d } from "./catalog-research-wazdan-wave6d";
+import { getCatalogResearchWazdanWave6e } from "./catalog-research-wazdan-wave6e";
 import { getCatalogResearchPush } from "./catalog-research-push";
 import { getCatalogResearchNolimit } from "./catalog-research-nolimit";
 
@@ -37,6 +42,11 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchWazdan(slug) ??
     getCatalogResearchWazdanWave4(slug) ??
     getCatalogResearchWazdanWave5(slug) ??
+    getCatalogResearchWazdanWave6(slug) ??
+    getCatalogResearchWazdanWave6b(slug) ??
+    getCatalogResearchWazdanWave6c(slug) ??
+    getCatalogResearchWazdanWave6d(slug) ??
+    getCatalogResearchWazdanWave6e(slug) ??
     getCatalogResearchPush(slug) ??
     getCatalogResearchNolimit(slug)
   );

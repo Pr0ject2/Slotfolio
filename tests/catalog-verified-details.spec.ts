@@ -73,6 +73,47 @@ const playngoWave14Slugs = [
   "playn-go-dragonfates-favor",
 ];
 
+const playngoWave15To18Slugs = [
+  "playn-go-easter-eggs",
+  "playn-go-easter-eggspedition",
+  "playn-go-enchanted-crystals",
+  "playn-go-enchanted-meadow",
+  "playn-go-energoonz",
+  "playn-go-eye-of-atum",
+  "playn-go-eye-of-the-kraken",
+  "playn-go-fangs-and-fire",
+  "playn-go-fat-frankies",
+  "playn-go-fate-of-dead-blitzways",
+  "playn-go-fates-fortune",
+  "playn-go-feline-fury",
+  "playn-go-fire-joker-100",
+  "playn-go-fire-joker-blitz",
+  "playn-go-fire-joker-freeze",
+  "playn-go-fire-toad",
+  "playn-go-fire-toad-2",
+  "playn-go-firefly-frenzy",
+  "playn-go-forge-of-fortunes",
+  "playn-go-forge-of-gems",
+  "playn-go-fortune-teller",
+  "playn-go-fortunes-of-ali-baba",
+  "playn-go-fox-mayhem",
+  "playn-go-free-reelin-joker",
+  "playn-go-free-reelin-joker-1000",
+  "playn-go-frozen-gems",
+  "playn-go-fu-er-dai",
+  "playn-go-fulong-88",
+  "playn-go-game-of-gladiators",
+  "playn-go-game-of-gladiators-uprising",
+  "playn-go-gargantoonz",
+  "playn-go-gates-of-troy",
+  "playn-go-gemix-2",
+  "playn-go-gerards-gambit",
+  "playn-go-ghost-of-dead",
+  "playn-go-gigantoonz",
+  "playn-go-gnawn-gold",
+  "playn-go-gold-king",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -108,6 +149,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoWave12Slugs,
     ...playngoWave13Slugs,
     ...playngoWave14Slugs,
+    ...playngoWave15To18Slugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

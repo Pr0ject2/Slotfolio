@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/editorial";
 import { catalogSeeds, getCatalogSeed } from "@/lib/catalog-seeds";
 import { getVerifiedCatalogResearch } from "@/lib/catalog-research-lookup";
-import { getCatalogVerifiedDetails } from "@/lib/catalog-verified-details";
+import { getVerifiedCatalogDetails } from "@/lib/catalog-verified-details-lookup";
 import { createCatalogModel } from "@/lib/catalog-index";
 import type { CatalogItem } from "@/lib/catalog-query";
 import { providerSlug } from "@/lib/data";
@@ -75,7 +75,7 @@ export async function generateMetadata({
   }
 
   const research = getVerifiedCatalogResearch(slot.slug);
-  const details = getCatalogVerifiedDetails(slot.slug);
+  const details = getVerifiedCatalogDetails(slot.slug);
   const mechanicsText = research?.mechanics.length
     ? ` Подтверждённые механики: ${research.mechanics.join(", ")}.`
     : "";
@@ -100,7 +100,7 @@ export default async function CatalogSlotPage({
   const slot = getCatalogSeed((await params).slug);
   if (!slot) notFound();
   const research = getVerifiedCatalogResearch(slot.slug);
-  const details = getCatalogVerifiedDetails(slot.slug);
+  const details = getVerifiedCatalogDetails(slot.slug);
   const knownMechanics = research?.mechanics ?? [];
   const verifiedAt = displayDate(details?.verifiedAt ?? research?.verifiedAt);
   const releaseDate = displayDate(details?.releaseDate);
@@ -157,7 +157,7 @@ export default async function CatalogSlotPage({
       />
       <article className="catalog-record-page">
         <header className="catalog-record-heading">
-          <span className="eyebrow accent">{knownMechanics.length || hasVerifiedTechnicalData ? "Проверенная запись" : "Базовая запись"}</span>
+          <span className="eyebrow accent">Базовая запись</span>
           <h1>{slot.name}</h1>
           <Link className="provider-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>{slot.provider} ↗</Link>
           <p className="catalog-record-deck">
@@ -195,7 +195,7 @@ export default async function CatalogSlotPage({
               {details?.volatility ? <div><dt>Волатильность</dt><dd>{details.volatility}</dd></div> : null}
               {releaseDate ? <div><dt>Дата релиза</dt><dd>{releaseDate}</dd></div> : null}
               {verifiedAt ? <div><dt>Проверено</dt><dd>{verifiedAt}</dd></div> : null}
-              <div><dt>Источник</dt><dd><a href={details?.source ?? slot.source} rel="noreferrer">Официальная страница {slot.provider} ↗</a></dd></div>
+              <div><dt>Источник</dt><dd><a href={details?.source ?? slot.source} rel="noreferrer">Официальный каталог ↗</a></dd></div>
             </dl>
           </section>
 

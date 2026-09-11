@@ -5,10 +5,15 @@ import { getCatalogResearchEndorphina } from "./catalog-research-endorphina";
 import { getCatalogResearchHacksaw } from "./catalog-research-hacksaw";
 import { getCatalogResearchHacksawMore } from "./catalog-research-hacksaw-more";
 import { getCatalogResearchHacksawWave3 } from "./catalog-research-hacksaw-wave3";
+import { getCatalogResearchHacksawWave4 } from "./catalog-research-hacksaw-wave4";
+import { getCatalogResearchHacksawWave4b } from "./catalog-research-hacksaw-wave4b";
+import { getCatalogResearchHacksawWave4c } from "./catalog-research-hacksaw-wave4c";
+import { getCatalogResearchHacksawWave4d } from "./catalog-research-hacksaw-wave4d";
 import { getCatalogResearchPlayngo } from "./catalog-research-playngo";
 import { getCatalogResearchPlayngoMore } from "./catalog-research-playngo-more";
 import { getCatalogResearchPlayngoThird } from "./catalog-research-playngo-third";
 import { getCatalogResearchWazdan } from "./catalog-research-wazdan";
+import { getCatalogResearchWazdanWave4 } from "./catalog-research-wazdan-wave4";
 import { getCatalogResearchPush } from "./catalog-research-push";
 import { getCatalogResearchNolimit } from "./catalog-research-nolimit";
 
@@ -21,10 +26,15 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchHacksaw(slug) ??
     getCatalogResearchHacksawMore(slug) ??
     getCatalogResearchHacksawWave3(slug) ??
+    getCatalogResearchHacksawWave4(slug) ??
+    getCatalogResearchHacksawWave4b(slug) ??
+    getCatalogResearchHacksawWave4c(slug) ??
+    getCatalogResearchHacksawWave4d(slug) ??
     getCatalogResearchPlayngo(slug) ??
     getCatalogResearchPlayngoMore(slug) ??
     getCatalogResearchPlayngoThird(slug) ??
     getCatalogResearchWazdan(slug) ??
+    getCatalogResearchWazdanWave4(slug) ??
     getCatalogResearchPush(slug) ??
     getCatalogResearchNolimit(slug)
   );

@@ -48,6 +48,7 @@ const rejectedSeedSlugs = new Set([
   "playn-go-deuces-wild-mh",
   "playn-go-flying-pigs",
   "playn-go-go-craps",
+  "playn-go-jacks-or-better-mh",
   "playn-go-money-wheel",
   "playn-go-super-wheel",
   "wazdan-black-jack",

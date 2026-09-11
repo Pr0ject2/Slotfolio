@@ -151,6 +151,26 @@ const playngoGoldHSlugs = [
   "playn-go-idol-of-fortune",
 ];
 
+const playngoIJSlugs = [
+  "playn-go-immortails-of-egypt",
+  "playn-go-imperial-opera",
+  "playn-go-infernal-trinity-go-guaranteed",
+  "playn-go-inferno-joker",
+  "playn-go-inferno-star",
+  "playn-go-invading-vegas",
+  "playn-go-invading-vegas-revenge-on-mars",
+  "playn-go-invading-vegas-las-christmas",
+  "playn-go-irish-gold",
+  "playn-go-iron-girl",
+  "playn-go-jade-magician",
+  "playn-go-jewel-box",
+  "playn-go-joker-flip",
+  "playn-go-jolly-roger",
+  "playn-go-jolly-roger-2",
+  "playn-go-jolly-roger-wild-kraken",
+  "playn-go-journey-to-paris",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -188,6 +208,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoWave14Slugs,
     ...playngoWave15To18Slugs,
     ...playngoGoldHSlugs,
+    ...playngoIJSlugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

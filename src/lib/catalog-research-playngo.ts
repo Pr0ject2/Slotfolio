@@ -57,6 +57,60 @@ export const catalogResearchPlayngo: Record<string, CatalogResearch> = {
     verifiedAt,
     evidence: "Official page describes a 5x3 video slot with fifty paylines.",
   },
+  "playn-go-gemix": {
+    mechanics: ["Кластеры", "Каскады"],
+    source: "https://www.playngo.com/games/gemix",
+    verifiedAt,
+    evidence: "Official page describes connected cluster wins on a 7x7 grid and states that winning symbols are removed so new symbols can cascade in.",
+  },
+  "playn-go-gemix-100": {
+    mechanics: ["Кластеры"],
+    source: "https://www.playngo.com/games/gemix-100",
+    verifiedAt,
+    evidence: "Official page describes winning clusters of five or more gemstones on a 7x7 grid.",
+  },
+  "playn-go-gemix-2": {
+    mechanics: ["Кластеры", "Каскады"],
+    source: "https://www.playngo.com/games/gemix-2",
+    verifiedAt,
+    evidence: "Official page says five or more symbols form a cluster and explicitly states that cascades continue until no more wins are created.",
+  },
+  "playn-go-gigantoonz": {
+    mechanics: ["Кластеры"],
+    source: "https://www.playngo.com/games/gigantoonz",
+    verifiedAt,
+    evidence: "Official game and release text describe cluster wins, including clusters of five or more symbols.",
+  },
+  "playn-go-honey-rush": {
+    mechanics: ["Кластеры", "Каскады"],
+    source: "https://www.playngo.com/games/honey-rush",
+    verifiedAt,
+    evidence: "Official page describes clusters of five or more symbols; winning clusters disappear and new symbols drop to create further wins.",
+  },
+  "playn-go-honey-rush-100": {
+    mechanics: ["Кластеры"],
+    source: "https://www.playngo.com/games/honey-rush-100",
+    verifiedAt,
+    evidence: "Official page describes clearing clusters of five or more symbols on the hexagonal grid.",
+  },
+  "playn-go-honey-rush-black-and-yellow": {
+    mechanics: ["Кластеры", "Каскады"],
+    source: "https://www.playngo.com/games/honey-rush-black-and-yellow",
+    verifiedAt,
+    evidence: "Official page explicitly identifies cluster pays and states winning symbols clear before new symbols drop in for chain-reaction cascades.",
+  },
+  "playn-go-hotel-yeti-way": {
+    mechanics: ["Способы"],
+    source: "https://www.playngo.com/games/hotel-yeti-way",
+    verifiedAt,
+    evidence: "Official page describes a dynamic payways game with 4096 payways in the base game and up to 262144 payways.",
+  },
+  "playn-go-inferno-joker": {
+    mechanics: ["Линии"],
+    source: "https://www.playngo.com/games/inferno-joker",
+    verifiedAt,
+    evidence: "Official page explicitly describes completing winning paylines with the Inferno Joker Wild.",
+  },
 };
 
 export function getCatalogResearchPlayngo(slug: string) {

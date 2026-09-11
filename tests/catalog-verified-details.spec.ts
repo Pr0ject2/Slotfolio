@@ -114,6 +114,43 @@ const playngoWave15To18Slugs = [
   "playn-go-gold-king",
 ];
 
+const playngoGoldHSlugs = [
+  "playn-go-gold-of-fortune-god",
+  "playn-go-gold-trophy-2",
+  "playn-go-gold-volcano",
+  "playn-go-golden-caravan",
+  "playn-go-golden-colts",
+  "playn-go-golden-legend",
+  "playn-go-golden-osiris",
+  "playn-go-golden-ticket",
+  "playn-go-golden-ticket-2",
+  "playn-go-grannys-wild",
+  "playn-go-hammerfall",
+  "playn-go-happy-halloween",
+  "playn-go-helloween",
+  "playn-go-highway-legends",
+  "playn-go-holiday-season",
+  "playn-go-holiday-spirits",
+  "playn-go-holy-moo-extreme-power",
+  "playn-go-honey-rush",
+  "playn-go-honey-rush-100",
+  "playn-go-honey-rush-black-and-yellow",
+  "playn-go-hooligan-hustle",
+  "playn-go-hope-unleashed-fortune-rises",
+  "playn-go-hot-dog-heist",
+  "playn-go-hotel-yeti-way",
+  "playn-go-house-of-doom",
+  "playn-go-house-of-doom-2-the-crypt",
+  "playn-go-hugo",
+  "playn-go-hugo-2",
+  "playn-go-hugo-carts",
+  "playn-go-hugo-goal",
+  "playn-go-hugo-legacy",
+  "playn-go-hugos-adventure",
+  "playn-go-ice-joker",
+  "playn-go-idol-of-fortune",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -150,6 +187,7 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoWave13Slugs,
     ...playngoWave14Slugs,
     ...playngoWave15To18Slugs,
+    ...playngoGoldHSlugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();

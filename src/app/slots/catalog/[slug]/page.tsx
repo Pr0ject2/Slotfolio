@@ -4,6 +4,7 @@ import { Breadcrumbs } from "@/components/editorial";
 import { catalogSeeds, getCatalogSeed } from "@/lib/catalog-seeds";
 import { getVerifiedCatalogResearch } from "@/lib/catalog-research-lookup";
 import { getVerifiedCatalogDetails } from "@/lib/catalog-verified-details-lookup";
+import { getVerifiedCatalogGameType } from "@/lib/catalog-verified-game-type";
 import { createCatalogModel } from "@/lib/catalog-index";
 import type { CatalogItem } from "@/lib/catalog-query";
 import { providerSlug } from "@/lib/data";
@@ -76,16 +77,18 @@ export async function generateMetadata({
 
   const research = getVerifiedCatalogResearch(slot.slug);
   const details = getVerifiedCatalogDetails(slot.slug);
+  const gameType = getVerifiedCatalogGameType(slot.slug);
   const mechanicsText = research?.mechanics.length
     ? ` Подтверждённые механики: ${research.mechanics.join(", ")}.`
     : "";
+  const gameTypeText = gameType ? ` Тип игры: ${gameType.gameType}.` : "";
   const technicalText = details
     ? ` RTP ${details.rtp ?? "не указан"}${details.maxWin ? `, максимум ${details.maxWin}` : ""}${details.releaseDate ? `, релиз ${displayDate(details.releaseDate)}` : ""}.`
     : "";
 
   return pageMetadata({
     title: `${slot.name} от ${slot.provider}`,
-    description: `${slot.name} подтверждён в официальном каталоге ${slot.provider}.${mechanicsText}${technicalText} Неисследованные характеристики не заполняются без источника.`,
+    description: `${slot.name} подтверждён в официальном каталоге ${slot.provider}.${mechanicsText}${gameTypeText}${technicalText} Неисследованные характеристики не заполняются без источника.`,
     path: `/slots/catalog/${slot.slug}`,
     image: "/images/unavailable.svg",
     noIndex: true,
@@ -101,14 +104,16 @@ export default async function CatalogSlotPage({
   if (!slot) notFound();
   const research = getVerifiedCatalogResearch(slot.slug);
   const details = getVerifiedCatalogDetails(slot.slug);
+  const gameType = getVerifiedCatalogGameType(slot.slug);
   const knownMechanics = research?.mechanics ?? [];
-  const verifiedAt = displayDate(details?.verifiedAt ?? research?.verifiedAt);
+  const verifiedAt = displayDate(details?.verifiedAt ?? gameType?.verifiedAt ?? research?.verifiedAt);
   const releaseDate = displayDate(details?.releaseDate);
-  const hasVerifiedTechnicalData = Boolean(details?.rtp || details?.volatility || details?.field || details?.maxWin || details?.releaseDate);
+  const hasVerifiedTechnicalData = Boolean(gameType || details?.rtp || details?.volatility || details?.field || details?.maxWin || details?.releaseDate);
 
   const confirmed = [
     "название",
     "провайдер",
+    gameType ? "тип игры" : null,
     knownMechanics.length ? "механика" : null,
     details?.field ? "формат поля" : null,
     details?.rtp ? "RTP" : null,
@@ -176,6 +181,7 @@ export default async function CatalogSlotPage({
               <div><dt>Название</dt><dd>{slot.name}</dd></div>
               <div><dt>Провайдер</dt><dd><Link href={`/slots?provider=${providerSlug(slot.provider)}`}>{slot.provider}</Link></dd></div>
               <div><dt>Статус</dt><dd>{hasVerifiedTechnicalData ? "Технические данные проверены" : knownMechanics.length ? "Механика проверена" : "Проверены название и провайдер"}</dd></div>
+              {gameType ? <div><dt>Тип игры</dt><dd>{gameType.gameType}</dd></div> : null}
               {knownMechanics.length ? (
                 <div>
                   <dt>Механика</dt>
@@ -195,7 +201,7 @@ export default async function CatalogSlotPage({
               {details?.volatility ? <div><dt>Волатильность</dt><dd>{details.volatility}</dd></div> : null}
               {releaseDate ? <div><dt>Дата релиза</dt><dd>{releaseDate}</dd></div> : null}
               {verifiedAt ? <div><dt>Проверено</dt><dd>{verifiedAt}</dd></div> : null}
-              <div><dt>Источник</dt><dd><a href={details?.source ?? slot.source} rel="noreferrer">Официальный каталог ↗</a></dd></div>
+              <div><dt>Источник</dt><dd><a href={details?.source ?? gameType?.source ?? slot.source} rel="noreferrer">Официальный каталог ↗</a></dd></div>
             </dl>
           </section>
 

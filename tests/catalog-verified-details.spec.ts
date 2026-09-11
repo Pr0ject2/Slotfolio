@@ -1,11 +1,25 @@
 import { test, expect } from "@playwright/test";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
 import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-lookup";
+import { getVerifiedCatalogGameType } from "../src/lib/catalog-verified-game-type";
 
 const providers = ["Wazdan", "BGaming", "Endorphina", "Push Gaming", "3 Oaks Gaming", "Play’n GO", "Hacksaw Gaming", "Nolimit City"];
 const detailedSeeds = providers.map((provider) =>
   catalogSeeds.find((seed) => seed.provider === provider && getVerifiedCatalogDetails(seed.slug)),
 );
+
+const playngoWave10Slugs = [
+  "playn-go-5x-magic",
+  "playn-go-7-sins",
+  "playn-go-agent-destiny",
+  "playn-go-agent-of-hearts",
+  "playn-go-alice-cooper-and-the-tome-of-madness",
+  "playn-go-ankh-of-anubis",
+  "playn-go-ankh-of-anubis-awakening",
+  "playn-go-athena-ascending",
+  "playn-go-aztec-idols",
+  "playn-go-aztec-warrior-princess",
+];
 
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
@@ -13,12 +27,15 @@ test("verified catalog details render without promoting records to dossiers", as
   for (const seed of detailedSeeds) {
     expect(seed).toBeTruthy();
     const details = getVerifiedCatalogDetails(seed!.slug)!;
+    const gameType = getVerifiedCatalogGameType(seed!.slug);
     expect(details.source).toBe(seed!.source);
+    if (gameType) expect(gameType.source).toBe(seed!.source);
 
     await page.goto(`/slots/catalog/${seed!.slug}`);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await expect(page.locator(".catalog-record-heading").getByText("Базовая запись", { exact: true })).toBeVisible();
     await expect(page.getByText("Технические данные проверены", { exact: true })).toBeVisible();
+    if (gameType) await expect(page.locator(".catalog-record-facts").getByText(gameType.gameType, { exact: true })).toBeVisible();
     if (details.field) await expect(page.getByText(details.field, { exact: true })).toBeVisible();
     if (details.rtp) await expect(page.getByText(details.rtp, { exact: true })).toBeVisible();
     if (details.maxWin) await expect(page.getByText(details.maxWin, { exact: true })).toBeVisible();
@@ -27,5 +44,16 @@ test("verified catalog details render without promoting records to dossiers", as
       await expect(page.getByText(details.releaseDate.split("-").reverse().join("."), { exact: true })).toBeVisible();
     }
     await expect(page.getByRole("link", { name: /Официальный каталог/ })).toHaveAttribute("href", seed!.source);
+  }
+});
+
+test("new Play’n GO technical records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of playngoWave10Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
   }
 });

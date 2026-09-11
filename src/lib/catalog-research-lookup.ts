@@ -3,6 +3,7 @@ import { getCatalogResearchMore } from "./catalog-research-more";
 import { getCatalogResearchEndorphina } from "./catalog-research-endorphina";
 import { getCatalogResearchHacksaw } from "./catalog-research-hacksaw";
 import { getCatalogResearchPlayngo } from "./catalog-research-playngo";
+import { getCatalogResearchWazdan } from "./catalog-research-wazdan";
 
 export function getVerifiedCatalogResearch(slug: string) {
   return (
@@ -10,6 +11,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchMore(slug) ??
     getCatalogResearchEndorphina(slug) ??
     getCatalogResearchHacksaw(slug) ??
-    getCatalogResearchPlayngo(slug)
+    getCatalogResearchPlayngo(slug) ??
+    getCatalogResearchWazdan(slug)
   );
 }

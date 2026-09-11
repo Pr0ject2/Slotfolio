@@ -29,7 +29,7 @@ export const catalogResearchPlayngoKL: Record<string, CatalogResearch> = {
   },
   "playn-go-lawn-n-disorder": {
     mechanics: ["Способы"],
-    source: "https://www.playngo.com/games/lawn-n%27-disorder",
+    source: "https://www.playngo.com/games/lawn-n'-disorder",
     verifiedAt,
     evidence: "Official Play'n GO release describes a 5x3 video slot with 243 ways to win.",
   },

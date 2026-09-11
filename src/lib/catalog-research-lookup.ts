@@ -6,6 +6,7 @@ import { getCatalogResearchHacksaw } from "./catalog-research-hacksaw";
 import { getCatalogResearchHacksawMore } from "./catalog-research-hacksaw-more";
 import { getCatalogResearchHacksawWave3 } from "./catalog-research-hacksaw-wave3";
 import { getCatalogResearchHacksawWave4 } from "./catalog-research-hacksaw-wave4";
+import { getCatalogResearchHacksawWave4b } from "./catalog-research-hacksaw-wave4b";
 import { getCatalogResearchPlayngo } from "./catalog-research-playngo";
 import { getCatalogResearchPlayngoMore } from "./catalog-research-playngo-more";
 import { getCatalogResearchPlayngoThird } from "./catalog-research-playngo-third";
@@ -23,6 +24,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchHacksawMore(slug) ??
     getCatalogResearchHacksawWave3(slug) ??
     getCatalogResearchHacksawWave4(slug) ??
+    getCatalogResearchHacksawWave4b(slug) ??
     getCatalogResearchPlayngo(slug) ??
     getCatalogResearchPlayngoMore(slug) ??
     getCatalogResearchPlayngoThird(slug) ??

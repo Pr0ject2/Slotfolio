@@ -7,6 +7,7 @@ const verifiedNonSlotSlugs = [
   "playn-go-3-hand-casino-holdem",
   "playn-go-casino-holdem",
   "playn-go-deuces-wild-mh",
+  "playn-go-flying-pigs",
   "playn-go-go-craps",
   "playn-go-money-wheel",
   "playn-go-super-wheel",

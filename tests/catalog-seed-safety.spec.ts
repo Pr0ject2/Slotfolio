@@ -1,7 +1,9 @@
 import { test, expect } from "@playwright/test";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
+import { getVerifiedCatalogResearch } from "../src/lib/catalog-research-lookup";
 
 const verifiedNonSlotSlugs = [
+  "hacksaw-gaming-blocks",
   "playn-go-casino-holdem",
   "playn-go-deuces-wild-mh",
   "playn-go-go-craps",
@@ -14,6 +16,10 @@ test("catalog seed selection excludes provider entries verified as non-slots", (
   expect(catalogSeeds).toHaveLength(900);
   const selected = new Set(catalogSeeds.map((seed) => seed.slug));
   for (const slug of verifiedNonSlotSlugs) expect(selected.has(slug), slug).toBe(false);
+});
+
+test("confirmed non-slot products are not exposed as verified slot research", () => {
+  expect(getVerifiedCatalogResearch("hacksaw-gaming-blocks")).toBeUndefined();
 });
 
 test("catalog seed selection repairs verified provider-title parser artifacts", () => {

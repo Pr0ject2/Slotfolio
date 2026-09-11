@@ -393,7 +393,8 @@ select {
 }
 .row-image .game-image {
   aspect-ratio: 1.8;
-  object-fit: cover;
+  object-fit: contain;
+  background: var(--olive);
   width: 100%;
   height: auto;
 }

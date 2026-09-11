@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { GameImage } from "./editorial-client";
 import {
@@ -34,6 +34,14 @@ export function Comparison({ items }: { items: ComparisonItem[] }) {
   const selected = useSelection();
   const [seedMessage, setSeedMessage] = useState("");
   const [picker, setPicker] = useState("");
+  const selectionRef = useRef<HTMLDivElement>(null);
+  const [presetRequest, setPresetRequest] = useState(0);
+
+  useEffect(() => {
+    if (!presetRequest) return;
+    selectionRef.current?.focus({ preventScroll: true });
+    selectionRef.current?.scrollIntoView({ block: "start" });
+  }, [presetRequest]);
   const seed = useSearchParams().get("seed");
   const itemBySlug = useMemo(() => new Map(items.map((item) => [item.slug, item])), [items]);
   const validSelected = selected.filter((slug) => itemBySlug.has(slug)).slice(0, MAX_COMPARE);
@@ -84,6 +92,7 @@ export function Comparison({ items }: { items: ComparisonItem[] }) {
   function setPreset(slugs: string[]) {
     saveSelection(slugs.slice(0, MAX_COMPARE));
     setPicker("");
+    setPresetRequest((request) => request + 1);
   }
 
   const selectedMechanics = new Set(games.flatMap((game) => game.mechanics.map((item) => item.name)));
@@ -126,7 +135,7 @@ export function Comparison({ items }: { items: ComparisonItem[] }) {
       </section>
 
       {games.length > 0 && (
-        <div className="comparison-selection" aria-label="Выбранные игры">
+        <div className="comparison-selection" ref={selectionRef} tabIndex={-1} aria-label="Выбранные игры">
           {games.map((game, index) => (
             <article key={game.slug}>
               <span className="comparison-selection-index">{String(index + 1).padStart(2, "0")}</span>

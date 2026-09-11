@@ -105,6 +105,12 @@ export const catalogResearchPlayngoMN: Record<string, CatalogResearch> = {
     verifiedAt,
     evidence: "Official game page explicitly states 81 ways to win.",
   },
+  "playn-go-myth-of-dead": {
+    mechanics: ["Линии"],
+    source: "https://www.playngo.com/games/myth-of-dead",
+    verifiedAt,
+    evidence: "Official Play'n GO material describes Myth of Dead as a 5x3 video slot with 10 paylines.",
+  },
 };
 
 export function getCatalogResearchPlayngoMN(slug: string) {

@@ -2,12 +2,14 @@ import { getCatalogVerifiedDetails } from "./catalog-verified-details";
 import { getCatalogVerifiedDetailsBgaming } from "./catalog-verified-details-bgaming";
 import { getCatalogVerifiedDetailsBgamingMore } from "./catalog-verified-details-bgaming-more";
 import { getCatalogVerifiedDetailsBgamingThird } from "./catalog-verified-details-bgaming-third";
+import { getCatalogVerifiedDetailsBgamingFourth } from "./catalog-verified-details-bgaming-fourth";
 
 export function getVerifiedCatalogDetails(slug: string) {
   return (
     getCatalogVerifiedDetails(slug) ??
     getCatalogVerifiedDetailsBgaming(slug) ??
     getCatalogVerifiedDetailsBgamingMore(slug) ??
-    getCatalogVerifiedDetailsBgamingThird(slug)
+    getCatalogVerifiedDetailsBgamingThird(slug) ??
+    getCatalogVerifiedDetailsBgamingFourth(slug)
   );
 }

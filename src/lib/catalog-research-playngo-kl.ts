@@ -51,6 +51,18 @@ export const catalogResearchPlayngoKL: Record<string, CatalogResearch> = {
     verifiedAt,
     evidence: "Official game page explicitly identifies Legend of the Ice Dragon as a cascading grid slot.",
   },
+  "playn-go-leprechaun-goes-egypt": {
+    mechanics: ["Линии"],
+    source: "https://www.playngo.com/games/leprechaun-goes-egypt",
+    verifiedAt,
+    evidence: "Official game page states that players can activate up to 20 lines and that Wilds multiply winning lines.",
+  },
+  "playn-go-leprechaun-goes-wild": {
+    mechanics: ["Линии"],
+    source: "https://www.playngo.com/games/leprechaun-goes-wild",
+    verifiedAt,
+    evidence: "Official game page states that winning combinations are formed along twenty paylines.",
+  },
 };
 
 export function getCatalogResearchPlayngoKL(slug: string) {

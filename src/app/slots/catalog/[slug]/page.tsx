@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/editorial";
 import { catalogSeeds, getCatalogSeed } from "@/lib/catalog-seeds";
 import { getVerifiedCatalogResearch } from "@/lib/catalog-research-lookup";
+import { getCatalogVerifiedDetails } from "@/lib/catalog-verified-details";
 import { createCatalogModel } from "@/lib/catalog-index";
 import type { CatalogItem } from "@/lib/catalog-query";
 import { providerSlug } from "@/lib/data";
@@ -49,6 +50,10 @@ function RelatedGames({ items }: { items: CatalogItem[] }) {
   );
 }
 
+function displayDate(value?: string) {
+  return value ? value.split("-").reverse().join(".") : null;
+}
+
 export function generateStaticParams() {
   return catalogSeeds.map((slot) => ({ slug: slot.slug }));
 }
@@ -70,13 +75,17 @@ export async function generateMetadata({
   }
 
   const research = getVerifiedCatalogResearch(slot.slug);
+  const details = getCatalogVerifiedDetails(slot.slug);
   const mechanicsText = research?.mechanics.length
     ? ` Подтверждённые механики: ${research.mechanics.join(", ")}.`
+    : "";
+  const technicalText = details
+    ? ` RTP ${details.rtp ?? "не указан"}${details.maxWin ? `, максимум ${details.maxWin}` : ""}${details.releaseDate ? `, релиз ${displayDate(details.releaseDate)}` : ""}.`
     : "";
 
   return pageMetadata({
     title: `${slot.name} от ${slot.provider}`,
-    description: `${slot.name} подтверждён в официальном каталоге ${slot.provider}.${mechanicsText} Неисследованные характеристики не заполняются без источника.`,
+    description: `${slot.name} подтверждён в официальном каталоге ${slot.provider}.${mechanicsText}${technicalText} Неисследованные характеристики не заполняются без источника.`,
     path: `/slots/catalog/${slot.slug}`,
     image: "/images/unavailable.svg",
     noIndex: true,
@@ -91,10 +100,31 @@ export default async function CatalogSlotPage({
   const slot = getCatalogSeed((await params).slug);
   if (!slot) notFound();
   const research = getVerifiedCatalogResearch(slot.slug);
+  const details = getCatalogVerifiedDetails(slot.slug);
   const knownMechanics = research?.mechanics ?? [];
-  const verifiedAt = research?.verifiedAt
-    ? research.verifiedAt.split("-").reverse().join(".")
-    : null;
+  const verifiedAt = displayDate(details?.verifiedAt ?? research?.verifiedAt);
+  const releaseDate = displayDate(details?.releaseDate);
+  const hasVerifiedTechnicalData = Boolean(details?.rtp || details?.volatility || details?.field || details?.maxWin || details?.releaseDate);
+
+  const confirmed = [
+    "название",
+    "провайдер",
+    knownMechanics.length ? "механика" : null,
+    details?.field ? "формат поля" : null,
+    details?.rtp ? "RTP" : null,
+    details?.maxWin ? "макс. выигрыш" : null,
+    details?.volatility ? "волатильность" : null,
+    details?.releaseDate ? "дата релиза" : null,
+  ].filter(Boolean) as string[];
+  const pending = [
+    knownMechanics.length ? null : "механика",
+    details?.field ? null : "формат поля",
+    details?.rtp ? null : "RTP",
+    details?.maxWin ? null : "макс. выигрыш",
+    details?.volatility ? null : "волатильность",
+    details?.releaseDate ? null : "дата релиза",
+    "обложка",
+  ].filter(Boolean) as string[];
 
   const providerItems = catalogModel.items
     .filter((item) => item.slug !== slot.slug && item.provider === slot.provider)
@@ -127,13 +157,15 @@ export default async function CatalogSlotPage({
       />
       <article className="catalog-record-page">
         <header className="catalog-record-heading">
-          <span className="eyebrow accent">{knownMechanics.length ? "Проверенная запись" : "Базовая запись"}</span>
+          <span className="eyebrow accent">{knownMechanics.length || hasVerifiedTechnicalData ? "Проверенная запись" : "Базовая запись"}</span>
           <h1>{slot.name}</h1>
           <Link className="provider-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>{slot.provider} ↗</Link>
           <p className="catalog-record-deck">
-            {knownMechanics.length
-              ? `Игра подтверждена в официальном каталоге ${slot.provider}. Механика уже проверена по источнику; остальные характеристики добавляются только после отдельной верификации.`
-              : `Игра подтверждена в официальном каталоге ${slot.provider}. Страница остаётся в каталоге, пока технические характеристики проходят отдельную проверку.`}
+            {hasVerifiedTechnicalData
+              ? `Игра подтверждена в официальном каталоге ${slot.provider}. Основные технические параметры ниже уже сверены с источником; неподтверждённые поля остаются пустыми.`
+              : knownMechanics.length
+                ? `Игра подтверждена в официальном каталоге ${slot.provider}. Механика уже проверена по источнику; остальные характеристики добавляются только после отдельной верификации.`
+                : `Игра подтверждена в официальном каталоге ${slot.provider}. Страница остаётся в каталоге, пока технические характеристики проходят отдельную проверку.`}
           </p>
         </header>
 
@@ -143,7 +175,7 @@ export default async function CatalogSlotPage({
             <dl className="catalog-record-facts">
               <div><dt>Название</dt><dd>{slot.name}</dd></div>
               <div><dt>Провайдер</dt><dd><Link href={`/slots?provider=${providerSlug(slot.provider)}`}>{slot.provider}</Link></dd></div>
-              <div><dt>Статус</dt><dd>{knownMechanics.length ? "Механика проверена" : "Проверены название и провайдер"}</dd></div>
+              <div><dt>Статус</dt><dd>{hasVerifiedTechnicalData ? "Технические данные проверены" : knownMechanics.length ? "Механика проверена" : "Проверены название и провайдер"}</dd></div>
               {knownMechanics.length ? (
                 <div>
                   <dt>Механика</dt>
@@ -157,20 +189,21 @@ export default async function CatalogSlotPage({
                   </dd>
                 </div>
               ) : null}
+              {details?.field ? <div><dt>Поле</dt><dd>{details.field}</dd></div> : null}
+              {details?.rtp ? <div><dt>RTP</dt><dd>{details.rtp}</dd></div> : null}
+              {details?.maxWin ? <div><dt>Макс. выигрыш</dt><dd>{details.maxWin}</dd></div> : null}
+              {details?.volatility ? <div><dt>Волатильность</dt><dd>{details.volatility}</dd></div> : null}
+              {releaseDate ? <div><dt>Дата релиза</dt><dd>{releaseDate}</dd></div> : null}
               {verifiedAt ? <div><dt>Проверено</dt><dd>{verifiedAt}</dd></div> : null}
-              <div><dt>Источник</dt><dd><a href={slot.source} rel="noreferrer">Официальная страница {slot.provider} ↗</a></dd></div>
+              <div><dt>Источник</dt><dd><a href={details?.source ?? slot.source} rel="noreferrer">Официальная страница {slot.provider} ↗</a></dd></div>
             </dl>
           </section>
 
           <aside className="catalog-record-status">
             <span className="eyebrow">Покрытие данных</span>
-            <h2>{knownMechanics.length ? "Основа уже проверена" : "Запись в очереди на исследование"}</h2>
-            <p>
-              <strong>Подтверждено:</strong> название, провайдер{knownMechanics.length ? `, ${knownMechanics.join(" и ").toLowerCase()}` : ""}.
-            </p>
-            <p>
-              <strong>Ещё не подтверждено:</strong> RTP, волатильность, год выпуска и обложка{knownMechanics.length ? "" : ", механика"}. Эти поля намеренно не заполняются догадками.
-            </p>
+            <h2>{hasVerifiedTechnicalData ? "Техническая карточка уже заполнена" : knownMechanics.length ? "Основа уже проверена" : "Запись в очереди на исследование"}</h2>
+            <p><strong>Подтверждено:</strong> {confirmed.join(", ")}.</p>
+            <p><strong>Ещё не подтверждено:</strong> {pending.join(", ")}. Эти поля намеренно не заполняются догадками.</p>
             <p>Наличие игры у разработчика не считается доказательством её доступности у конкретного оператора. Полное сравнение включается только после отдельного досье.</p>
           </aside>
         </div>

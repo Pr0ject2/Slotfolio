@@ -117,6 +117,42 @@ export const catalogResearchHacksaw: Record<string, CatalogResearch> = {
     verifiedAt,
     evidence: "Official Game Data lists 27 Paylines and the game description explicitly identifies Super Cascades.",
   },
+  "hacksaw-gaming-donny-and-danny": {
+    mechanics: ["Линии"],
+    source: "https://www.hacksawgaming.com/games/donny-and-danny",
+    verifiedAt,
+    evidence: "Official feature description defines LootLines as winning paylines formed by Donny and Danny symbols.",
+  },
+  "hacksaw-gaming-donny-dough": {
+    mechanics: ["Линии"],
+    source: "https://www.hacksawgaming.com/games/donny-dough",
+    verifiedAt,
+    evidence: "Official page describes 14 different paylines and repeatedly defines payline wins.",
+  },
+  "hacksaw-gaming-donut-division": {
+    mechanics: ["Линии"],
+    source: "https://www.hacksawgaming.com/games/donut-division",
+    verifiedAt,
+    evidence: "Official feature text explicitly describes winning paylines with Gooey Wild multipliers.",
+  },
+  "hacksaw-gaming-dragons-domain": {
+    mechanics: ["Каскады"],
+    source: "https://www.hacksawgaming.com/games/dragons-domain",
+    verifiedAt,
+    evidence: "Official page describes all-scatter wins with cascading symbols and repeated symbol cascades.",
+  },
+  "hacksaw-gaming-dusk-princess": {
+    mechanics: ["Кластеры", "Каскады"],
+    source: "https://www.hacksawgaming.com/games/dusk-princess",
+    verifiedAt,
+    evidence: "Official page explicitly describes Cluster wins and a Super Cascades mechanic.",
+  },
+  "hacksaw-gaming-grug-make-fire": {
+    mechanics: ["Линии"],
+    source: "https://www.hacksawgaming.com/games/grug-make-fire",
+    verifiedAt,
+    evidence: "Official Game Data lists Wintype: Paylines.",
+  },
 };
 
 export function getCatalogResearchHacksaw(slug: string) {

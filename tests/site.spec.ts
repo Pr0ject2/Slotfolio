@@ -10,7 +10,7 @@ import {
   slotRtpValue,
 } from "../src/lib/data";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
-import { getCatalogResearch } from "../src/lib/catalog-research";
+import { getVerifiedCatalogResearch } from "../src/lib/catalog-research-lookup";
 import { createCatalogModel } from "../src/lib/catalog-index";
 import {
   catalogItemMatchesSearch,
@@ -100,7 +100,7 @@ test("100 full dossiers remain rich while the public catalog scales to 1000", ()
   const catalogOnly = catalogModel.items.filter((item) => item.coverage === "catalog");
   expect(catalogOnly).toHaveLength(900);
   for (const item of catalogOnly) {
-    const research = getCatalogResearch(item.slug);
+    const research = getVerifiedCatalogResearch(item.slug);
     expect(item.source, `${item.slug} source`).toMatch(/^https:\/\//);
     expect(item.year, `${item.slug} year`).toBeNull();
     expect(item.rtp, `${item.slug} RTP`).toBe("");

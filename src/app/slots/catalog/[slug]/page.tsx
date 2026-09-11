@@ -127,7 +127,7 @@ export default async function CatalogSlotPage({
       />
       <article className="catalog-record-page">
         <header className="catalog-record-heading">
-          <span className="eyebrow accent">{knownMechanics.length ? "Проверенная запись" : "Базовая запись"}</span>
+          <span className="eyebrow accent">Базовая запись</span>
           <h1>{slot.name}</h1>
           <Link className="provider-link" href={`/slots?provider=${providerSlug(slot.provider)}`}>{slot.provider} ↗</Link>
           <p className="catalog-record-deck">
@@ -158,7 +158,7 @@ export default async function CatalogSlotPage({
                 </div>
               ) : null}
               {verifiedAt ? <div><dt>Проверено</dt><dd>{verifiedAt}</dd></div> : null}
-              <div><dt>Источник</dt><dd><a href={slot.source} rel="noreferrer">Официальная страница {slot.provider} ↗</a></dd></div>
+              <div><dt>Источник</dt><dd><a href={slot.source} rel="noreferrer">Официальный каталог ↗</a></dd></div>
             </dl>
           </section>
 

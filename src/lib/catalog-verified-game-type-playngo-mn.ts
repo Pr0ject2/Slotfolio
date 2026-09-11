@@ -34,6 +34,11 @@ const gameTypes: Record<string, CatalogVerifiedGameType> = {
   "playn-go-mystery-egg-surprise": { gameType: "Video Slot", source: "https://www.playngo.com/games/mystery-egg-surprise", verifiedAt },
   "playn-go-mystery-genie-fortunes-of-the-lamp": { gameType: "Video Slot", source: "https://www.playngo.com/games/mystery-genie--fortunes-of-the-lamp", verifiedAt },
   "playn-go-mystery-joker": { gameType: "Video Slot", source: "https://www.playngo.com/games/mystery-joker", verifiedAt },
+  "playn-go-myth": { gameType: "Video Slot", source: "https://www.playngo.com/games/myth", verifiedAt },
+  "playn-go-myth-of-dead": { gameType: "Video Slot", source: "https://www.playngo.com/games/myth-of-dead", verifiedAt },
+  "playn-go-naughty-nicks-book": { gameType: "Video Slot", source: "https://www.playngo.com/games/naughty-nick's-book", verifiedAt },
+  "playn-go-new-year-riches": { gameType: "Video Slot", source: "https://www.playngo.com/games/new-year-riches", verifiedAt },
+  "playn-go-ninja-fruits": { gameType: "Video Slot", source: "https://www.playngo.com/games/ninja-fruits", verifiedAt },
 };
 
 export function getVerifiedCatalogGameTypePlayngoMN(slug: string) {

@@ -10,6 +10,7 @@ import {
   slotRtpValue,
 } from "../src/lib/data";
 import { catalogSeeds } from "../src/lib/catalog-seeds";
+import { getVerifiedCatalogResearch } from "../src/lib/catalog-research-lookup";
 import { createCatalogModel } from "../src/lib/catalog-index";
 import {
   catalogItemMatchesSearch,
@@ -99,13 +100,19 @@ test("100 full dossiers remain rich while the public catalog scales to 1000", ()
   const catalogOnly = catalogModel.items.filter((item) => item.coverage === "catalog");
   expect(catalogOnly).toHaveLength(900);
   for (const item of catalogOnly) {
+    const research = getVerifiedCatalogResearch(item.slug);
     expect(item.source, `${item.slug} source`).toMatch(/^https:\/\//);
     expect(item.year, `${item.slug} year`).toBeNull();
     expect(item.rtp, `${item.slug} RTP`).toBe("");
     expect(item.rtpValue, `${item.slug} RTP value`).toBeNull();
-    expect(item.mechanics, `${item.slug} mechanics`).toEqual([]);
+    expect(item.mechanics, `${item.slug} mechanics`).toEqual(research?.mechanics ?? []);
     expect(item.tags, `${item.slug} tags`).toEqual([]);
     expect(item.volatility, `${item.slug} volatility`).toBe("");
+    if (research) {
+      expect(research.source, `${item.slug} research source`).toBe(item.source);
+      expect(research.verifiedAt, `${item.slug} research date`).toMatch(/^20\d{2}-\d{2}-\d{2}$/);
+      expect(research.evidence.length, `${item.slug} research evidence`).toBeGreaterThan(20);
+    }
   }
 
   expect(slotFeatureOptions.some((item) => item.name === "Множители")).toBe(true);
@@ -237,7 +244,7 @@ test("catalog search, filters and pagination operate on all 1000 records", async
   }
 
   await page.getByRole("radio", { name: "Каскады" }).check();
-  const cascadeCount = slots.filter((slot) => slotMechanics(slot).includes("Каскады")).length;
+  const cascadeCount = catalogModel.items.filter((item) => item.mechanics.includes("Каскады")).length;
   await expect(page.locator(".catalog-game")).toHaveCount(Math.min(18, cascadeCount));
   await page.getByRole("combobox", { name: "Сортировка" }).selectOption("name");
   await page.reload();

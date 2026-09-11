@@ -6,6 +6,7 @@ import { getCatalogVerifiedDetailsBgamingThird } from "./catalog-verified-detail
 import { getCatalogVerifiedDetailsBgamingFourth } from "./catalog-verified-details-bgaming-fourth";
 import { getCatalogVerifiedDetailsEndorphina } from "./catalog-verified-details-endorphina";
 import { getCatalogVerifiedDetailsPush } from "./catalog-verified-details-push";
+import { getCatalogVerifiedDetailsPushMore } from "./catalog-verified-details-push-more";
 import { getCatalogVerifiedDetailsPlayngo } from "./catalog-verified-details-playngo";
 import { getCatalogVerifiedDetailsHacksaw } from "./catalog-verified-details-hacksaw";
 import { getCatalogVerifiedDetailsNolimit } from "./catalog-verified-details-nolimit";
@@ -20,6 +21,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsBgamingFourth(slug) ??
     getCatalogVerifiedDetailsEndorphina(slug) ??
     getCatalogVerifiedDetailsPush(slug) ??
+    getCatalogVerifiedDetailsPushMore(slug) ??
     getCatalogVerifiedDetailsPlayngo(slug) ??
     getCatalogVerifiedDetailsHacksaw(slug) ??
     getCatalogVerifiedDetailsNolimit(slug)

@@ -19,6 +19,7 @@ import { getCatalogResearchWazdanWave6 } from "./catalog-research-wazdan-wave6";
 import { getCatalogResearchWazdanWave6b } from "./catalog-research-wazdan-wave6b";
 import { getCatalogResearchWazdanWave6c } from "./catalog-research-wazdan-wave6c";
 import { getCatalogResearchWazdanWave6d } from "./catalog-research-wazdan-wave6d";
+import { getCatalogResearchWazdanWave6e } from "./catalog-research-wazdan-wave6e";
 import { getCatalogResearchPush } from "./catalog-research-push";
 import { getCatalogResearchNolimit } from "./catalog-research-nolimit";
 
@@ -45,6 +46,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchWazdanWave6b(slug) ??
     getCatalogResearchWazdanWave6c(slug) ??
     getCatalogResearchWazdanWave6d(slug) ??
+    getCatalogResearchWazdanWave6e(slug) ??
     getCatalogResearchPush(slug) ??
     getCatalogResearchNolimit(slug)
   );

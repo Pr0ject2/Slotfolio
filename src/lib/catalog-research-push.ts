@@ -3,6 +3,30 @@ import type { CatalogResearch } from "./catalog-research";
 const verifiedAt = "2026-09-11";
 
 export const catalogResearchPush: Record<string, CatalogResearch> = {
+  "push-gaming-bamboo-ways": {
+    mechanics: ["Каскады"],
+    source: "https://www.pushgaming.com/games/bamboo-ways.html",
+    verifiedAt,
+    evidence: "Official page makes cascades a core progression mechanic: each cascade unlocks an additional row and newly landed symbols continue within the same round.",
+  },
+  "push-gaming-big-bite-push-ways": {
+    mechanics: ["Способы", "Каскады"],
+    source: "https://www.pushgaming.com/games/big-bite-push-ways.html",
+    verifiedAt,
+    evidence: "Official Push Gaming release identifies the Push Ways mechanic with up to 262,144 ways to win, while the official game page states symbols can cascade into Hot Zones and split.",
+  },
+  "push-gaming-candy-blast": {
+    mechanics: ["Каскады"],
+    source: "https://www.pushgaming.com/games/candy-blast.html",
+    verifiedAt,
+    evidence: "Official page explicitly describes cascading wins and a Total Multiplier that doubles for every winning cascade.",
+  },
+  "push-gaming-crystal-catcher": {
+    mechanics: ["Кластеры"],
+    source: "https://www.pushgaming.com/games/crystal-catcher.html",
+    verifiedAt,
+    evidence: "Official page labels the base game as Cluster Pays and states wins require clusters of five or more matching crystal symbols.",
+  },
   "push-gaming-diamond-supernova-5": {
     mechanics: ["Линии"],
     source: "https://www.pushgaming.com/games/diamond-supernova-5.html",
@@ -38,6 +62,12 @@ export const catalogResearchPush: Record<string, CatalogResearch> = {
     source: "https://www.pushgaming.com/games/giga-jar.html",
     verifiedAt,
     evidence: "Official page describes cluster wins of five or more and states winning symbols are removed before new symbols cascade onto the grid.",
+  },
+  "push-gaming-jaguar-drop": {
+    mechanics: ["Кластеры", "Каскады"],
+    source: "https://www.pushgaming.com/games/jaguar-drop.html",
+    verifiedAt,
+    evidence: "Official page labels Cluster Wins, requiring six or more matching symbols anywhere, then states those symbols are destroyed and new symbols cascade in.",
   },
   "push-gaming-jammin-jars-2": {
     mechanics: ["Кластеры"],

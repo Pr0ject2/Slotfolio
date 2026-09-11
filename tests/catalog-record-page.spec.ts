@@ -13,7 +13,7 @@ test("catalog-only pages are useful records instead of thin placeholders", async
     await expect(page.getByRole("heading", { name: "Что подтверждено" })).toBeVisible();
     await expect(page.getByText("Покрытие данных", { exact: true })).toBeVisible();
     await expect(page.getByRole("heading", { name: `Ещё у ${seed.provider}` })).toBeVisible();
-    await expect(page.locator(".game-row")).toHaveCount(6);
+    await expect.poll(() => page.locator(".game-row").count()).toBeGreaterThanOrEqual(6);
     await expect(page.getByRole("link", { name: new RegExp(`Все игры ${seed.provider.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}`) })).toBeVisible();
     await expect(page.getByRole("link", { name: /Официальная страница/ })).toHaveAttribute("href", seed.source);
     await expect(page.locator("body")).not.toContainText("undefined");

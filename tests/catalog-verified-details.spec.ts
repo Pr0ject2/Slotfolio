@@ -238,6 +238,38 @@ const playngoMNSlugs = [
   "playn-go-ninja-fruits",
 ];
 
+const playngoOPSlugs = [
+  "playn-go-oasis-of-dead",
+  "playn-go-octopus-treasure",
+  "playn-go-odin-protector-of-realms",
+  "playn-go-pack-and-cash",
+  "playn-go-pandastic-adventure",
+  "playn-go-pandoras-box-of-evil",
+  "playn-go-pearl-lagoon",
+  "playn-go-pearls-of-india",
+  "playn-go-perfect-gems",
+  "playn-go-phoenix-reborn",
+  "playn-go-photo-safari",
+  "playn-go-piggy-bank-farm",
+  "playn-go-piggy-blitz",
+  "playn-go-piggy-blitz-casino-gold",
+  "playn-go-piggy-blitz-disco-gold",
+  "playn-go-piggy-heist",
+  "playn-go-pilgrim-of-dead",
+  "playn-go-pimped",
+  "playn-go-piranha-pays",
+  "playn-go-planet-fortune",
+  "playn-go-playn-go-buffalo-of-wealth",
+  "playn-go-playn-go-mole-digger",
+  "playn-go-playn-go-wrappin-gold",
+  "playn-go-potion-of-madness",
+  "playn-go-primal-rampage",
+  "playn-go-prism-of-gems",
+  "playn-go-prissy-princess",
+  "playn-go-prosperity-palace",
+  "playn-go-puebla-parade",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -278,10 +310,16 @@ test("new Play’n GO technical records stay selected and keep exact official so
     ...playngoIJSlugs,
     ...playngoKLSlugs,
     ...playngoMNSlugs,
+    ...playngoOPSlugs,
   ]) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();
     expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
     expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
+    if (playngoOPSlugs.includes(slug)) {
+      expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe(
+        slug === "playn-go-odin-protector-of-realms" ? "Grid Slot" : "Video Slot",
+      );
+    }
   }
 });

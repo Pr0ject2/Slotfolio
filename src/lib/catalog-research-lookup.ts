@@ -13,6 +13,7 @@ import { getCatalogResearchPlayngo } from "./catalog-research-playngo";
 import { getCatalogResearchPlayngoMore } from "./catalog-research-playngo-more";
 import { getCatalogResearchPlayngoThird } from "./catalog-research-playngo-third";
 import { getCatalogResearchPlayngoFourth } from "./catalog-research-playngo-fourth";
+import { getCatalogResearchPlayngoFifth } from "./catalog-research-playngo-fifth";
 import { getCatalogResearchWazdan } from "./catalog-research-wazdan";
 import { getCatalogResearchWazdanWave4 } from "./catalog-research-wazdan-wave4";
 import { getCatalogResearchWazdanWave5 } from "./catalog-research-wazdan-wave5";
@@ -41,6 +42,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearchPlayngoMore(slug) ??
     getCatalogResearchPlayngoThird(slug) ??
     getCatalogResearchPlayngoFourth(slug) ??
+    getCatalogResearchPlayngoFifth(slug) ??
     getCatalogResearchWazdan(slug) ??
     getCatalogResearchWazdanWave4(slug) ??
     getCatalogResearchWazdanWave5(slug) ??

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Breadcrumbs } from "@/components/editorial";
 import { catalogSeeds, getCatalogSeed } from "@/lib/catalog-seeds";
+import { getCatalogResearch } from "@/lib/catalog-research";
 import { providerSlug } from "@/lib/data";
 import { pageMetadata } from "@/lib/seo";
 
@@ -43,6 +44,7 @@ export default async function CatalogSlotPage({
 }) {
   const slot = getCatalogSeed((await params).slug);
   if (!slot) notFound();
+  const research = getCatalogResearch(slot.slug);
 
   return (
     <>
@@ -65,13 +67,18 @@ export default async function CatalogSlotPage({
             <dl className="catalog-record-facts">
               <div><dt>Название</dt><dd>{slot.name}</dd></div>
               <div><dt>Провайдер</dt><dd>{slot.provider}</dd></div>
+              {research?.mechanics.length ? <div><dt>Механика</dt><dd>{research.mechanics.join(" · ")}</dd></div> : null}
               <div><dt>Источник</dt><dd><a href={slot.source} rel="noreferrer">Официальный каталог ↗</a></dd></div>
             </dl>
           </section>
           <aside className="catalog-record-status">
             <span className="eyebrow">До подробного досье</span>
             <h2>Что ещё не проверено</h2>
-            <p>RTP, волатильность, механики, год выпуска и обложка требуют отдельной проверки. До проверки этих данных игру нельзя корректно сравнить с другими.</p>
+            <p>
+              {research?.mechanics.length
+                ? "RTP, волатильность, год выпуска и обложка требуют отдельной проверки. Подтверждённая механика уже учитывается в каталоге, но до полного досье игру нельзя корректно сравнить с другими."
+                : "RTP, волатильность, механики, год выпуска и обложка требуют отдельной проверки. До проверки этих данных игру нельзя корректно сравнить с другими."}
+            </p>
             <p>Наличие игры в каталоге разработчика не подтверждает её доступность у конкретного оператора.</p>
           </aside>
         </div>

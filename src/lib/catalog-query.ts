@@ -23,6 +23,7 @@ export type CatalogMechanicFacet = CatalogFacet & { slug: string };
 
 export type CatalogFacets = {
   total: number;
+  mechanicsKnown: number;
   providers: CatalogProviderFacet[];
   mechanics: CatalogMechanicFacet[];
   volatility: CatalogFacet[];

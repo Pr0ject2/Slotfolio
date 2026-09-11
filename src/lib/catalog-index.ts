@@ -6,6 +6,7 @@ import {
   slotRtpValue,
 } from "./data-v128";
 import { catalogSeeds } from "./catalog-seeds";
+import { getCatalogResearch } from "./catalog-research";
 import { getVerifiedSlotMetrics } from "./dossier";
 import {
   buildCatalogSearchText,
@@ -57,6 +58,8 @@ export function createCatalogModel(): CatalogModel {
   });
 
   const catalogItems: CatalogItem[] = catalogSeeds.map((seed) => {
+    const research = getCatalogResearch(seed.slug);
+    const mechanicNames = research?.mechanics ?? [];
     const description = `${seed.name} от ${seed.provider}. Название подтверждено в официальном каталоге провайдера; подробные характеристики проходят редакционную проверку.`;
     return {
       slug: seed.slug,
@@ -64,7 +67,7 @@ export function createCatalogModel(): CatalogModel {
       provider: seed.provider,
       providerSlug: providerSlug(seed.provider),
       year: null,
-      mechanics: [],
+      mechanics: mechanicNames,
       tags: [],
       field: "",
       rtp: "",
@@ -77,6 +80,7 @@ export function createCatalogModel(): CatalogModel {
       searchText: buildCatalogSearchText({
         name: seed.name,
         provider: seed.provider,
+        mechanics: mechanicNames,
         description,
       }),
     };
@@ -90,6 +94,7 @@ export function createCatalogModel(): CatalogModel {
 
   const facets = {
     total: items.length,
+    mechanicsKnown: items.filter((item) => item.mechanics.length > 0).length,
     providers: Array.from(new Set(items.map((item) => item.provider)))
       .map((name) => ({ name, slug: providerSlug(name), count: providerCountMap.get(name) || 0 }))
       .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name, "ru")),

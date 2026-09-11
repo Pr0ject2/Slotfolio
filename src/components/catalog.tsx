@@ -172,7 +172,7 @@ export function Catalog({
               <label>
                 <input type="radio" name="mechanic" checked={!mechanic} onChange={() => setMechanic("")} />
                 Все механики
-                <span>{model.facets.total}</span>
+                <span>{model.facets.mechanicsKnown}</span>
               </label>
               {model.facets.mechanics.map((item) => (
                 <label key={item.slug}>
@@ -186,6 +186,9 @@ export function Catalog({
                   <span>{item.count}</span>
                 </label>
               ))}
+              <p className="filter-note">
+                Механика подтверждена у {model.facets.mechanicsKnown} из {model.facets.total} игр.
+              </p>
             </fieldset>
 
             <div className="filter-select-group">
@@ -264,7 +267,7 @@ export function Catalog({
           </div>
           <p className="catalog-coverage-note">
             {dossierCount} с подробным досье · {results.length - dossierCount} базовых записей.
-            {results.length > dossierCount && " Фильтры по характеристикам учитывают только изученные игры."}
+            {results.length > dossierCount && " Фильтры по характеристикам учитывают только записи, где соответствующие данные подтверждены."}
           </p>
 
           {hasFilters && (
@@ -302,7 +305,11 @@ export function Catalog({
                           {item.provider}{item.year ? ` / ${item.year}` : ""}
                         </span>
                         <h2><Link href={href}>{item.name}</Link></h2>
-                        <span className="catalog-coverage">{item.coverage === "dossier" ? "Досье · механика и характеристики" : "Базовая запись · название и провайдер"}</span>
+                        <span className="catalog-coverage">
+                          {item.coverage === "dossier"
+                            ? "Досье · механика и характеристики"
+                            : `Базовая запись · название и провайдер${item.mechanics.length ? " · механика проверена" : ""}`}
+                        </span>
                         {item.coverage === "dossier" && <>
                           <p>{item.description}</p>
                           <div className="catalog-game-tags" aria-label="Особенности игры">
@@ -319,6 +326,7 @@ export function Catalog({
                             </>
                           ) : (
                             <>
+                              {item.mechanics.length ? <span>{item.mechanics.join(" · ")}</span> : null}
                               <Link href={href}>Открыть запись ↗</Link>
                             </>
                           )}

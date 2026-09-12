@@ -474,6 +474,23 @@ const hacksawVerifiedWave1Slugs = [
   "hacksaw-gaming-phoenix-duelreels",
 ];
 
+const hacksawVerifiedFinalSlugs = [
+  "hacksaw-gaming-pray-for-three",
+  "hacksaw-gaming-rise-of-fortuna",
+  "hacksaw-gaming-sixsixsix",
+  "hacksaw-gaming-spear-of-athena",
+  "hacksaw-gaming-spinman",
+  "hacksaw-gaming-stormborn",
+  "hacksaw-gaming-strength-of-hercules",
+  "hacksaw-gaming-the-count",
+  "hacksaw-gaming-the-wildwood-curse",
+  "hacksaw-gaming-tiger-legends",
+  "hacksaw-gaming-toshi-ways-club",
+  "hacksaw-gaming-ultimate-slot-of-america",
+  "hacksaw-gaming-wings-of-horus",
+  "hacksaw-gaming-zeus-ze-zecond",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -599,6 +616,23 @@ test("Hacksaw verified wave 1 records stay selected and keep exact official sour
   const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
 
   for (const slug of hacksawVerifiedWave1Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe("Slots");
+
+    const details = getVerifiedCatalogDetails(slug);
+    const research = getVerifiedCatalogResearch(slug);
+    if (details) expect(details.source, slug).toBe(seed!.source);
+    if (research) expect(research.source, slug).toBe(seed!.source);
+  }
+});
+
+test("Hacksaw final records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of hacksawVerifiedFinalSlugs) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();
     expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);

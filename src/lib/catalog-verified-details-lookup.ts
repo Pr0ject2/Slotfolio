@@ -28,6 +28,7 @@ import { getCatalogVerifiedDetailsHacksaw } from "./catalog-verified-details-hac
 import { getCatalogVerifiedDetailsNolimit } from "./catalog-verified-details-nolimit";
 import { getCatalogVerifiedDetailsWazdanWave1 } from "./catalog-verified-details-wazdan-wave1";
 import { getCatalogVerifiedDetailsWazdanWave2 } from "./catalog-verified-details-wazdan-wave2";
+import { getCatalogVerifiedDetailsWazdanWave3 } from "./catalog-verified-details-wazdan-wave3";
 
 export function getVerifiedCatalogDetails(slug: string) {
   return (
@@ -60,6 +61,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsHacksaw(slug) ??
     getCatalogVerifiedDetailsNolimit(slug) ??
     getCatalogVerifiedDetailsWazdanWave1(slug) ??
-    getCatalogVerifiedDetailsWazdanWave2(slug)
+    getCatalogVerifiedDetailsWazdanWave2(slug) ??
+    getCatalogVerifiedDetailsWazdanWave3(slug)
   );
 }

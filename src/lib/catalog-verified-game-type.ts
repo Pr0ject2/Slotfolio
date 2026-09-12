@@ -4,6 +4,7 @@ import { getVerifiedCatalogGameTypePlayngoIJ } from "./catalog-verified-game-typ
 import { getVerifiedCatalogGameTypePlayngoKL } from "./catalog-verified-game-type-playngo-kl";
 import { getVerifiedCatalogGameTypePlayngoMN } from "./catalog-verified-game-type-playngo-mn";
 import { getVerifiedCatalogGameTypePlayngoOP } from "./catalog-verified-game-type-playngo-op";
+import { getVerifiedCatalogGameTypePlayngoQR } from "./catalog-verified-game-type-playngo-qr";
 
 const verifiedAt = "2026-09-11";
 
@@ -76,5 +77,5 @@ const gameTypes: Record<string, CatalogVerifiedGameType> = {
 };
 
 export function getVerifiedCatalogGameType(slug: string) {
-  return gameTypes[slug] ?? getVerifiedCatalogGameTypePlayngoWave15To18(slug) ?? getVerifiedCatalogGameTypePlayngoGoldH(slug) ?? getVerifiedCatalogGameTypePlayngoIJ(slug) ?? getVerifiedCatalogGameTypePlayngoKL(slug) ?? getVerifiedCatalogGameTypePlayngoMN(slug) ?? getVerifiedCatalogGameTypePlayngoOP(slug);
+  return gameTypes[slug] ?? getVerifiedCatalogGameTypePlayngoWave15To18(slug) ?? getVerifiedCatalogGameTypePlayngoGoldH(slug) ?? getVerifiedCatalogGameTypePlayngoIJ(slug) ?? getVerifiedCatalogGameTypePlayngoKL(slug) ?? getVerifiedCatalogGameTypePlayngoMN(slug) ?? getVerifiedCatalogGameTypePlayngoOP(slug) ?? getVerifiedCatalogGameTypePlayngoQR(slug);
 }

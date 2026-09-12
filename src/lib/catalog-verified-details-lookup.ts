@@ -29,6 +29,7 @@ import { getCatalogVerifiedDetailsNolimit } from "./catalog-verified-details-nol
 import { getCatalogVerifiedDetailsWazdanWave1 } from "./catalog-verified-details-wazdan-wave1";
 import { getCatalogVerifiedDetailsWazdanWave2 } from "./catalog-verified-details-wazdan-wave2";
 import { getCatalogVerifiedDetailsWazdanWave3 } from "./catalog-verified-details-wazdan-wave3";
+import { getCatalogVerifiedDetailsWazdanWave4 } from "./catalog-verified-details-wazdan-wave4";
 
 export function getVerifiedCatalogDetails(slug: string) {
   return (
@@ -62,6 +63,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsNolimit(slug) ??
     getCatalogVerifiedDetailsWazdanWave1(slug) ??
     getCatalogVerifiedDetailsWazdanWave2(slug) ??
-    getCatalogVerifiedDetailsWazdanWave3(slug)
+    getCatalogVerifiedDetailsWazdanWave3(slug) ??
+    getCatalogVerifiedDetailsWazdanWave4(slug)
   );
 }

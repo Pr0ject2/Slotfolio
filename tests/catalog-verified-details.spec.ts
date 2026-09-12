@@ -323,6 +323,49 @@ const wazdanWave1Slugs = [
   "wazdan-butterfly-lovers",
 ];
 
+const wazdanWave2Slugs = [
+  "wazdan-cash-grotto",
+  "wazdan-double-tigers",
+  "wazdan-dwarfs-fortune",
+  "wazdan-easter-coins",
+  "wazdan-eggs-of-fortune",
+  "wazdan-fishermans-luck",
+  "wazdan-football-mania",
+  "wazdan-football-mania-deluxe",
+  "wazdan-fruit-mania",
+  "wazdan-fruit-mania-deluxe",
+  "wazdan-fruits-go-bananas",
+  "wazdan-gem-splitter",
+  "wazdan-golden-sphinx",
+  "wazdan-good-luck-40",
+  "wazdan-great-book-of-magic",
+  "wazdan-great-book-of-magic-deluxe",
+  "wazdan-haunted-coins-x1000",
+  "wazdan-haunted-hospital",
+  "wazdan-highschool-manga",
+  "wazdan-highway-to-hell",
+  "wazdan-highway-to-hell-deluxe",
+  "wazdan-hot-777-deluxe",
+  "wazdan-hot-party",
+  "wazdan-hot-party-deluxe",
+  "wazdan-hot-slot-777-crown-extremely-light",
+  "wazdan-hot-slot-diamond-coins",
+  "wazdan-hot-slot-magic-pearls",
+  "wazdan-hot-slot-mystery-jackpot-joker",
+  "wazdan-hot-slot-platinum-coins",
+  "wazdan-hungry-shark",
+  "wazdan-in-the-forest",
+  "wazdan-infinity-hero",
+  "wazdan-jacks-ride",
+  "wazdan-joker-explosion",
+  "wazdan-juicy-reels",
+  "wazdan-jumping-fruits",
+  "wazdan-kick-off",
+  "wazdan-larry-the-leprechaun",
+  "wazdan-los-muertos",
+  "wazdan-los-muertos-ii",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -388,6 +431,19 @@ test("new Wazdan technical records stay selected and keep exact official sources
   const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
 
   for (const slug of wazdanWave1Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe("Slots");
+  }
+});
+
+test("Wazdan wave 2 technical records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of wazdanWave2Slugs) {
     const seed = selected.get(slug);
     expect(seed, slug).toBeTruthy();
     expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);

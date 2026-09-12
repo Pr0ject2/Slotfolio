@@ -3,6 +3,7 @@ import { catalogSeeds } from "../src/lib/catalog-seeds";
 import { slots } from "../src/lib/data";
 import { getVerifiedCatalogDetails } from "../src/lib/catalog-verified-details-lookup";
 import { getVerifiedCatalogGameType } from "../src/lib/catalog-verified-game-type";
+import { getVerifiedCatalogResearch } from "../src/lib/catalog-research-lookup";
 
 const providers = ["Wazdan", "BGaming", "Endorphina", "Push Gaming", "3 Oaks Gaming", "Play’n GO", "Hacksaw Gaming", "Nolimit City"];
 const detailedSeeds = providers.map((provider) =>
@@ -430,6 +431,49 @@ const wazdanWave4Slugs = [
   "wazdan-wild-jack-81",
 ];
 
+const hacksawVerifiedWave1Slugs = [
+  "hacksaw-gaming-aiko-and-the-wind-spirit",
+  "hacksaw-gaming-army-of-ares",
+  "hacksaw-gaming-bash-bros",
+  "hacksaw-gaming-booze-bash",
+  "hacksaw-gaming-bouncy-bombs",
+  "hacksaw-gaming-chaos-crew-3",
+  "hacksaw-gaming-circle-of-life",
+  "hacksaw-gaming-dandy-diamonds",
+  "hacksaw-gaming-death-becomes-you",
+  "hacksaw-gaming-dorks-of-the-deep",
+  "hacksaw-gaming-duel-at-dawn",
+  "hacksaw-gaming-dynasty-of-death",
+  "hacksaw-gaming-epic-bullets-and-bounty",
+  "hacksaw-gaming-eternal-duel",
+  "hacksaw-gaming-freds-food-truck",
+  "hacksaw-gaming-get-the-cheese",
+  "hacksaw-gaming-hot-ross",
+  "hacksaw-gaming-hounds-of-hell",
+  "hacksaw-gaming-jaws-of-justice",
+  "hacksaw-gaming-le-digger",
+  "hacksaw-gaming-le-fisherman",
+  "hacksaw-gaming-le-football-fan",
+  "hacksaw-gaming-le-king",
+  "hacksaw-gaming-le-pharaoh",
+  "hacksaw-gaming-le-prechaun",
+  "hacksaw-gaming-le-santa",
+  "hacksaw-gaming-le-viking",
+  "hacksaw-gaming-le-zeus",
+  "hacksaw-gaming-magic-piggy-og",
+  "hacksaw-gaming-marlin-masters",
+  "hacksaw-gaming-marlin-masters-atlantis",
+  "hacksaw-gaming-marlin-masters-og",
+  "hacksaw-gaming-marlin-masters-the-big-haul",
+  "hacksaw-gaming-mayan-stackways",
+  "hacksaw-gaming-miami-mayhem",
+  "hacksaw-gaming-mighty-masks",
+  "hacksaw-gaming-munchy-milo",
+  "hacksaw-gaming-octo-attack",
+  "hacksaw-gaming-orb-of-destiny",
+  "hacksaw-gaming-phoenix-duelreels",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -549,4 +593,21 @@ test("Wazdan wave 4 technical records stay selected and keep exact official sour
 
   expect(getVerifiedCatalogDetails("wazdan-three-cards")).toBeUndefined();
   expect(getVerifiedCatalogGameType("wazdan-three-cards")).toBeUndefined();
+});
+
+test("Hacksaw verified wave 1 records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of hacksawVerifiedWave1Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe("Slots");
+
+    const details = getVerifiedCatalogDetails(slug);
+    const research = getVerifiedCatalogResearch(slug);
+    if (details) expect(details.source, slug).toBe(seed!.source);
+    if (research) expect(research.source, slug).toBe(seed!.source);
+  }
 });

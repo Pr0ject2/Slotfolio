@@ -25,6 +25,7 @@ import { getCatalogVerifiedDetailsPlayngoMN } from "./catalog-verified-details-p
 import { getCatalogVerifiedDetailsPlayngoOP } from "./catalog-verified-details-playngo-op";
 import { getCatalogVerifiedDetailsPlayngoQR } from "./catalog-verified-details-playngo-qr";
 import { getCatalogVerifiedDetailsHacksaw } from "./catalog-verified-details-hacksaw";
+import { getCatalogVerifiedDetailsHacksawWave1 } from "./catalog-verified-details-hacksaw-wave1";
 import { getCatalogVerifiedDetailsNolimit } from "./catalog-verified-details-nolimit";
 import { getCatalogVerifiedDetailsWazdanWave1 } from "./catalog-verified-details-wazdan-wave1";
 import { getCatalogVerifiedDetailsWazdanWave2 } from "./catalog-verified-details-wazdan-wave2";
@@ -60,6 +61,7 @@ export function getVerifiedCatalogDetails(slug: string) {
     getCatalogVerifiedDetailsPlayngoOP(slug) ??
     getCatalogVerifiedDetailsPlayngoQR(slug) ??
     getCatalogVerifiedDetailsHacksaw(slug) ??
+    getCatalogVerifiedDetailsHacksawWave1(slug) ??
     getCatalogVerifiedDetailsNolimit(slug) ??
     getCatalogVerifiedDetailsWazdanWave1(slug) ??
     getCatalogVerifiedDetailsWazdanWave2(slug) ??

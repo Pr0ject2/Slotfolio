@@ -9,6 +9,7 @@ import { getVerifiedCatalogGameTypeWazdanWave1 } from "./catalog-verified-game-t
 import { getVerifiedCatalogGameTypeWazdanWave2 } from "./catalog-verified-game-type-wazdan-wave2";
 import { getVerifiedCatalogGameTypeWazdanWave3 } from "./catalog-verified-game-type-wazdan-wave3";
 import { getVerifiedCatalogGameTypeWazdanWave4 } from "./catalog-verified-game-type-wazdan-wave4";
+import { getVerifiedCatalogGameTypeHacksawWave1 } from "./catalog-verified-game-type-hacksaw-wave1";
 
 const verifiedAt = "2026-09-11";
 
@@ -81,5 +82,5 @@ const gameTypes: Record<string, CatalogVerifiedGameType> = {
 };
 
 export function getVerifiedCatalogGameType(slug: string) {
-  return gameTypes[slug] ?? getVerifiedCatalogGameTypePlayngoWave15To18(slug) ?? getVerifiedCatalogGameTypePlayngoGoldH(slug) ?? getVerifiedCatalogGameTypePlayngoIJ(slug) ?? getVerifiedCatalogGameTypePlayngoKL(slug) ?? getVerifiedCatalogGameTypePlayngoMN(slug) ?? getVerifiedCatalogGameTypePlayngoOP(slug) ?? getVerifiedCatalogGameTypePlayngoQR(slug) ?? getVerifiedCatalogGameTypeWazdanWave1(slug) ?? getVerifiedCatalogGameTypeWazdanWave2(slug) ?? getVerifiedCatalogGameTypeWazdanWave3(slug) ?? getVerifiedCatalogGameTypeWazdanWave4(slug);
+  return gameTypes[slug] ?? getVerifiedCatalogGameTypePlayngoWave15To18(slug) ?? getVerifiedCatalogGameTypePlayngoGoldH(slug) ?? getVerifiedCatalogGameTypePlayngoIJ(slug) ?? getVerifiedCatalogGameTypePlayngoKL(slug) ?? getVerifiedCatalogGameTypePlayngoMN(slug) ?? getVerifiedCatalogGameTypePlayngoOP(slug) ?? getVerifiedCatalogGameTypePlayngoQR(slug) ?? getVerifiedCatalogGameTypeWazdanWave1(slug) ?? getVerifiedCatalogGameTypeWazdanWave2(slug) ?? getVerifiedCatalogGameTypeWazdanWave3(slug) ?? getVerifiedCatalogGameTypeWazdanWave4(slug) ?? getVerifiedCatalogGameTypeHacksawWave1(slug);
 }

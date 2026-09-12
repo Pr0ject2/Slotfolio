@@ -280,6 +280,49 @@ const playngoQRSlugs = [
   "playn-go-raging-rex-2",
 ];
 
+const wazdanWave1Slugs = [
+  "wazdan-12-coins",
+  "wazdan-12-coins-grand-diamond-edition",
+  "wazdan-12-coins-grand-gold-edition",
+  "wazdan-12-coins-grand-platinum-edition",
+  "wazdan-15-coins",
+  "wazdan-15-coins-grand-diamond-edition",
+  "wazdan-15-coins-grand-gold-edition",
+  "wazdan-15-coins-grand-platinum-edition",
+  "wazdan-16-coins",
+  "wazdan-16-coins-grand-gold-edition",
+  "wazdan-16-coins-grand-platinum-edition",
+  "wazdan-16-coins-x5000",
+  "wazdan-20-coins",
+  "wazdan-20-coins-grand-gold-edition",
+  "wazdan-24-coins",
+  "wazdan-25-coins",
+  "wazdan-25-coins-grand-gold-edition",
+  "wazdan-25-coins-x3000",
+  "wazdan-30-coins",
+  "wazdan-30-coins-grand-gold-edition",
+  "wazdan-36-coins",
+  "wazdan-36-coins-grand-gold-edition",
+  "wazdan-9-balls",
+  "wazdan-9-bells",
+  "wazdan-9-burning-dragons",
+  "wazdan-9-burning-stars",
+  "wazdan-9-coins",
+  "wazdan-9-coins-1000-edition",
+  "wazdan-9-coins-extremely-light",
+  "wazdan-9-coins-grand-diamond-edition",
+  "wazdan-9-coins-grand-gold-edition",
+  "wazdan-9-coins-grand-platinum-edition",
+  "wazdan-9-lions",
+  "wazdan-9-lions-hold-the-jackpot",
+  "wazdan-beauty-fruity",
+  "wazdan-bumba-meu-boi-coin",
+  "wazdan-burning-stars-3",
+  "wazdan-burning-sun",
+  "wazdan-burning-sun-extremely-light",
+  "wazdan-butterfly-lovers",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -338,5 +381,18 @@ test("new Play’n GO technical records stay selected and keep exact official so
         slug === "playn-go-queens-day-tilt" ? "Grid Slot" : "Video Slot",
       );
     }
+  }
+});
+
+test("new Wazdan technical records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of wazdanWave1Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe("Slots");
   }
 });

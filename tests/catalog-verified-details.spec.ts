@@ -409,6 +409,27 @@ const wazdanWave3Slugs = [
   "wazdan-sonic-reels",
 ];
 
+const wazdanWave4Slugs = [
+  "wazdan-space-gem",
+  "wazdan-space-spins",
+  "wazdan-spectrum",
+  "wazdan-sun-of-fortune",
+  "wazdan-super-hot",
+  "wazdan-throne-of-elements-platinum",
+  "wazdan-mighty-wild-panther-grand-diamond-edition",
+  "wazdan-triple-star",
+  "wazdan-unicorn-reels",
+  "wazdan-valentines-coins",
+  "wazdan-valhalla",
+  "wazdan-vegas-hot",
+  "wazdan-vegas-reels-ii",
+  "wazdan-welcome-to-hell-81",
+  "wazdan-wild-girls",
+  "wazdan-wild-guns",
+  "wazdan-wild-jack",
+  "wazdan-wild-jack-81",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -507,4 +528,25 @@ test("Wazdan wave 3 technical records stay selected and keep exact official sour
     expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
     expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe("Slots");
   }
+});
+
+test("Wazdan wave 4 technical records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of wazdanWave4Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
+
+    if (slug === "wazdan-valentines-coins") {
+      expect(getVerifiedCatalogGameType(slug), slug).toBeUndefined();
+    } else {
+      expect(getVerifiedCatalogGameType(slug)?.source, slug).toBe(seed!.source);
+      expect(getVerifiedCatalogGameType(slug)?.gameType, slug).toBe("Slots");
+    }
+  }
+
+  expect(getVerifiedCatalogDetails("wazdan-three-cards")).toBeUndefined();
+  expect(getVerifiedCatalogGameType("wazdan-three-cards")).toBeUndefined();
 });

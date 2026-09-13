@@ -534,6 +534,19 @@ const threeOaksVerifiedWave1Slugs = [
   "3-oaks-gaming-sunlight-princess",
 ];
 
+const threeOaksVerifiedFinalSlugs = [
+  "3-oaks-gaming-super-china-pots",
+  "3-oaks-gaming-super-hot-chilli",
+  "3-oaks-gaming-super-hot-teapots",
+  "3-oaks-gaming-super-hotfire-diamonds",
+  "3-oaks-gaming-super-sticky-piggy",
+  "3-oaks-gaming-supreme-diamond-xxl",
+  "3-oaks-gaming-thunder-tiger",
+  "3-oaks-gaming-tiger-gems",
+  "3-oaks-gaming-tiger-jungle",
+  "3-oaks-gaming-wolf-night",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -702,4 +715,29 @@ test("3 Oaks verified wave 1 records stay selected and keep exact official sourc
     const research = getVerifiedCatalogResearch(slug);
     if (research) expect(research.source, slug).toBe(seed!.source);
   }
+});
+
+test("3 Oaks final records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of threeOaksVerifiedFinalSlugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug), slug).toBeUndefined();
+
+    const research = getVerifiedCatalogResearch(slug);
+    if (research) expect(research.source, slug).toBe(seed!.source);
+  }
+
+  const unverifiedCatalogOnly = catalogSeeds.filter(
+    (seed) =>
+      seed.provider === "3 Oaks Gaming" &&
+      !slots.some((slot) => slot.provider === seed.provider && slot.name === seed.name) &&
+      !getVerifiedCatalogDetails(seed.slug) &&
+      !getVerifiedCatalogGameType(seed.slug) &&
+      !getVerifiedCatalogResearch(seed.slug),
+  );
+  expect(unverifiedCatalogOnly).toEqual([]);
 });

@@ -1,5 +1,6 @@
 import { getCatalogVerifiedDetails } from "./catalog-verified-details";
 import { getCatalogVerifiedDetails3Oaks } from "./catalog-verified-details-3oaks";
+import { getCatalogVerifiedDetails3OaksWave1 } from "./catalog-verified-details-3oaks-wave1";
 import { getCatalogVerifiedDetailsBgaming } from "./catalog-verified-details-bgaming";
 import { getCatalogVerifiedDetailsBgamingMore } from "./catalog-verified-details-bgaming-more";
 import { getCatalogVerifiedDetailsBgamingThird } from "./catalog-verified-details-bgaming-third";
@@ -37,6 +38,7 @@ export function getVerifiedCatalogDetails(slug: string) {
   return (
     getCatalogVerifiedDetails(slug) ??
     getCatalogVerifiedDetails3Oaks(slug) ??
+    getCatalogVerifiedDetails3OaksWave1(slug) ??
     getCatalogVerifiedDetailsBgaming(slug) ??
     getCatalogVerifiedDetailsBgamingMore(slug) ??
     getCatalogVerifiedDetailsBgamingThird(slug) ??

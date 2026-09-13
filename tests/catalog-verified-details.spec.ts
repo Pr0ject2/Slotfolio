@@ -491,6 +491,49 @@ const hacksawVerifiedFinalSlugs = [
   "hacksaw-gaming-zeus-ze-zecond",
 ];
 
+const threeOaksVerifiedWave1Slugs = [
+  "3-oaks-gaming-3-jewel-crowns",
+  "3-oaks-gaming-3-super-coin-volcanoes",
+  "3-oaks-gaming-3-super-hot-teapots",
+  "3-oaks-gaming-4-fortune-clovers",
+  "3-oaks-gaming-china-festival",
+  "3-oaks-gaming-coin-lamp",
+  "3-oaks-gaming-coin-up-volcano",
+  "3-oaks-gaming-coin-up-hot-fire",
+  "3-oaks-gaming-coin-volcano",
+  "3-oaks-gaming-coin-volcano-2",
+  "3-oaks-gaming-crystal-scarabs",
+  "3-oaks-gaming-dragon-pearls",
+  "3-oaks-gaming-gold-nuggets",
+  "3-oaks-gaming-lava-coins",
+  "3-oaks-gaming-lava-coins-2",
+  "3-oaks-gaming-little-farm",
+  "3-oaks-gaming-lord-of-thunder",
+  "3-oaks-gaming-lucky-apple-x1000",
+  "3-oaks-gaming-lucky-penny",
+  "3-oaks-gaming-lucky-penny-2",
+  "3-oaks-gaming-lucky-penny-3-pots-super-wheel",
+  "3-oaks-gaming-lucky-penny-power-scatter",
+  "3-oaks-gaming-magic-apple",
+  "3-oaks-gaming-magic-apple-2",
+  "3-oaks-gaming-magic-clovers",
+  "3-oaks-gaming-moon-sisters",
+  "3-oaks-gaming-more-magic-apple",
+  "3-oaks-gaming-power-sun",
+  "3-oaks-gaming-power-sun-xxl",
+  "3-oaks-gaming-purple-diamond",
+  "3-oaks-gaming-rio-gems",
+  "3-oaks-gaming-rush-for-gold",
+  "3-oaks-gaming-sky-pearls",
+  "3-oaks-gaming-space-coins",
+  "3-oaks-gaming-sun-of-egypt",
+  "3-oaks-gaming-sun-of-egypt-2",
+  "3-oaks-gaming-sun-of-egypt-3",
+  "3-oaks-gaming-sun-of-egypt-4",
+  "3-oaks-gaming-sun-of-egypt-5",
+  "3-oaks-gaming-sunlight-princess",
+];
+
 test("verified catalog details render without promoting records to dossiers", async ({ page }) => {
   expect(detailedSeeds.every(Boolean)).toBe(true);
 
@@ -642,6 +685,21 @@ test("Hacksaw final records stay selected and keep exact official sources", () =
     const details = getVerifiedCatalogDetails(slug);
     const research = getVerifiedCatalogResearch(slug);
     if (details) expect(details.source, slug).toBe(seed!.source);
+    if (research) expect(research.source, slug).toBe(seed!.source);
+  }
+});
+
+test("3 Oaks verified wave 1 records stay selected and keep exact official sources", () => {
+  const selected = new Map(catalogSeeds.map((seed) => [seed.slug, seed]));
+
+  for (const slug of threeOaksVerifiedWave1Slugs) {
+    const seed = selected.get(slug);
+    expect(seed, slug).toBeTruthy();
+    expect(slots.some((slot) => slot.provider === seed!.provider && slot.name === seed!.name), slug).toBe(false);
+    expect(getVerifiedCatalogDetails(slug)?.source, slug).toBe(seed!.source);
+    expect(getVerifiedCatalogGameType(slug), slug).toBeUndefined();
+
+    const research = getVerifiedCatalogResearch(slug);
     if (research) expect(research.source, slug).toBe(seed!.source);
   }
 });

@@ -1,6 +1,7 @@
 import { getCatalogResearch } from "./catalog-research";
 import { getCatalogResearchMore } from "./catalog-research-more";
 import { getCatalogResearch3OaksWave3 } from "./catalog-research-3oaks-wave3";
+import { getCatalogResearch3OaksVerifiedWave1 } from "./catalog-research-3oaks-verified-wave1";
 import { getCatalogResearchEndorphina } from "./catalog-research-endorphina";
 import { getCatalogResearchHacksaw } from "./catalog-research-hacksaw";
 import { getCatalogResearchHacksawMore } from "./catalog-research-hacksaw-more";
@@ -45,6 +46,7 @@ export function getVerifiedCatalogResearch(slug: string) {
     getCatalogResearch(slug) ??
     getCatalogResearchMore(slug) ??
     getCatalogResearch3OaksWave3(slug) ??
+    getCatalogResearch3OaksVerifiedWave1(slug) ??
     getCatalogResearchEndorphina(slug) ??
     getCatalogResearchHacksaw(slug) ??
     getCatalogResearchHacksawMore(slug) ??
